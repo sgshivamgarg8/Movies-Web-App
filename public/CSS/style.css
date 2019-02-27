@@ -9,6 +9,8 @@ input{
 
 .navbar{
 	background:rgb(55,90,127);
+	margin-bottom: 10px;
+
 }
 
 .navbar-dark .navbar-brand{
