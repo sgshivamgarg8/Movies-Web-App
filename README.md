@@ -1,4 +1,4 @@
-# Movies-We-App
+# Movies-Web-App
 The Ultimate Movie Search Engine to Search for Movies and TV Series
 
 1. Install Node in your machine
