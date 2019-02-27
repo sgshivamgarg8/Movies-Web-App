@@ -1,0 +1,64 @@
+<% include partials/header %> 
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand" href="#"><i class="fas fa-film"></i> MovieSSS</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/contact">Contact Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about">About Us</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search">
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="display-3">Movie Search Web App</h1>
+        <p class="lead">This is a Simple Movie Search Web App</p>
+        <hr class="my-4">
+        <!--Form for searching movie with movie name -->
+        <form class="form-group" action="/results" method="GET"> 
+            <input type="text" class="form-control" name="searchquery" placeholder="Search Movie">
+            <button type="submit" class="btn btn-primary"> <i class="fas fa-search"></i> Search</button>
+        </form>
+    </div>
+    
+    <!--Trending-->
+    <div class="row"> 
+        <!-- loop -->   
+        <% for ( var i = 0 ; i < trendingmovie["results"].length ; i++ ) { %>
+        <div class="col-lg-3 col-sm-6">
+            <div class="thumbnail">
+                <% var baseurl = "https://image.tmdb.org/t/p/w500" %>
+                <% var imgurl = trendingmovie["results"][i]["poster_path"] %>  
+                <% var imageurl = baseurl + imgurl %>
+                <div style="text-align: center">
+                    <img width=100% src = <%=imageurl%> alt="Image Not Available" onerror="this.onerror=null;this.src='Images/notfound.jpg';">
+                    <div>
+                        <span class="title"><%= trendingmovie["results"][i]["title"] %></span>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% } %>
+    </div>
+    <!-- /Trending -->
+</div>
+
+<% include partials/footer %> 

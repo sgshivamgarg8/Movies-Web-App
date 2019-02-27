@@ -1,0 +1,21 @@
+{
+  "name": "moviesproject",
+  "version": "1.0.0",
+  "description": "Movies Search Webapp like IMDb using OMDb & TMDb api and Web Scrapping",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "keywords": [
+    "movies"
+  ],
+  "author": "Shivam Garg",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "request": "^2.88.0"
+  }
+}
