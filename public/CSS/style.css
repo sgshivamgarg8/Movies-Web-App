@@ -38,7 +38,7 @@ input{
 	}
 }
 
-@media(max-width: 576px){
+@media(max-width: 575px){
 	.block img{
 		width: 300px;
 		height: 444px;
