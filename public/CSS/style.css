@@ -37,3 +37,10 @@ input{
 		height: 360px;
 	}
 }
+
+@media(max-width: 576px){
+	.block img{
+		width: 300px;
+		height: 444px;
+	}
+}
