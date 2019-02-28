@@ -6,10 +6,8 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 
 app.get("/",function(req, res){
-    url = "https://api.themoviedb.org/3/trending/movie/day?api_key=473523253ce1a6744f253c14043dec4f";
-    // axios.get(url)
-    //     .then(data=>console.log(data))
-    //     .catch(err=>console.log(err))
+    var url = "https://api.themoviedb.org/3/trending/movie/day?api_key=473523253ce1a6744f253c14043dec4f";
+
     request(url, function(error,response,body){
         if(!error && response.statusCode==200){
             var trendingmovie = JSON.parse(body);
@@ -36,8 +34,6 @@ app.get("/results",function(req, res){
         }
     });
 });
-
-
 
 app.get("*", function(req, res){
     res.send("Error!! Sorry, Page Not Found");
