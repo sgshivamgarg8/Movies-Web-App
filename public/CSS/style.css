@@ -1,3 +1,7 @@
+body{
+	margin-top: 100px;
+}
+
 input{
     width: 300px;
     height: 43px;
@@ -7,10 +11,9 @@ input{
     margin: 5px 0;
 }
 
-.navbar{
+.fixed-top{
 	background:rgb(55,90,127);
-	margin-bottom: 10px;
-
+	margin-bottom: 40px;
 }
 
 .navbar-dark .navbar-brand{
@@ -43,4 +46,12 @@ input{
 		width: 300px;
 		height: 444px;
 	}
+}
+
+.fa-facebook-square{
+	color: #3C5A99;
+}
+
+.fa-instagram{
+	color: #C13584;
 }

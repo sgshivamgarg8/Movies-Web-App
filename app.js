@@ -26,6 +26,7 @@ app.get("/",function(req, res){
         var imdbid = [];
         var titles = [];
         var posters = [];
+        var release_year = [];
         for(var i=0;i<id.length;i++){
             var url = "https://api.themoviedb.org/3/movie/" + id[i] + "?api_key=473523253ce1a6744f253c14043dec4f";
             urls.push(url);
@@ -38,13 +39,15 @@ app.get("/",function(req, res){
                 .then(function(data) {
                     imdbid.push(data.imdb_id);
                     titles.push(data.title);
+                    release_year.push(data.release_date.substring(0,4));
                     posters.push("https://image.tmdb.org/t/p/w780" + data.poster_path);
 
                     if(titles.length == 20){
                         res.render("home", {
                             titles: titles,
                             imdbid: imdbid,
-                            posters: posters
+                            posters: posters,
+                            release_year: release_year
                         });
                     }
                 })

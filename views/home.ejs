@@ -1,8 +1,8 @@
 <% include partials/header %> 
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="#"><i class="fas fa-film"></i> MovieSSS</a>
+        <a class="navbar-brand" href="/"><i class="fas fa-film"></i> MovieSSS</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -50,9 +50,9 @@
                     <a href="<%=imdblink%>">
                     	<img width=100% src = <%= posters[i] %> alt="Image Not Available" onerror="this.onerror=null;this.src='Images/notfound.jpg';">
                     	<div>
-                    	    <span class="title"><%= titles[i] %></span>                        
-                    	</div>
-                    </a>
+                            <span class="title"><%= titles[i] %></span></a>
+                            <span class="year">(<%= release_year[i] %>)</span>
+                        </div>
                 </div>
             </div>
         </div>
