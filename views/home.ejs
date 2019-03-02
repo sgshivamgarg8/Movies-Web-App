@@ -42,17 +42,17 @@
     <!--Trending-->
     <div class="row"> 
         <!-- loop -->   
-        <% for ( var i = 0 ; i < trendingmovie["results"].length ; i++ ) { %>
+        <% for (var i = 0; i < titles.length; i++) { %>
         <div class="col-lg-3 col-sm-6">
             <div class="thumbnail">
-                <% var baseurl = "https://image.tmdb.org/t/p/w500" %>
-                <% var imgurl = trendingmovie["results"][i]["poster_path"] %>  
-                <% var imageurl = baseurl + imgurl %>
                 <div style="text-align: center">
-                    <img width=100% src = <%=imageurl%> alt="Image Not Available" onerror="this.onerror=null;this.src='Images/notfound.jpg';">
-                    <div>
-                        <span class="title"><%= trendingmovie["results"][i]["title"] %></span>                        
-                    </div>
+                	<% var imdblink = "https://www.imdb.com/title/" + imdbid[i] %> 
+                    <a href="<%=imdblink%>">
+                    	<img width=100% src = <%= posters[i] %> alt="Image Not Available" onerror="this.onerror=null;this.src='Images/notfound.jpg';">
+                    	<div>
+                    	    <span class="title"><%= titles[i] %></span>                        
+                    	</div>
+                    </a>
                 </div>
             </div>
         </div>

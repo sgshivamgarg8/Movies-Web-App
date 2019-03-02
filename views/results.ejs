@@ -29,28 +29,29 @@
 
 <div class="container">
 
-    <% if(movies["Response"] == "False") { %>
+    <% if(movies.Response == "False") { %>
         <div class="card text-white bg-warning mb-3" style="max-width: 20rem;">
           <div class="card-header">ERROR!!</div>
           <div class="card-body">
             <h4 class="card-title">SORRY!!</h4>
-            <p class="card-text"><%= movies["Error"] %></p>
+            <p class="card-text"><%= movies.Error %></p>
           </div>
         </div>
     <% } else { %>
         <div class="row">
 
-           <% for ( var i = 0 ; i < movies["Search"].length ; i++ ) { %>
-                <% var imdbid = movies["Search"][i]["imdbID"] %> 
+           <% for (var i = 0; i < movies.Search.length; i++) { %>
+                <% var imdbid = movies.Search[i].imdbID %> 
 
-                <% if(movies["Search"][i]["Poster"]!="N/A"){ %> 
+                <% if(movies.Search[i].Poster != "N/A") { %> 
                     <div class="col-lg-3 col-md-4 col-sm-6">
                         <div class="thumbnail" >
                             <div class="block" style="text-align: center">
-                                <img src="<%= movies["Search"][i]["Poster"] %>" alt="Image Not Available" onerror="this.onerror=null;this.src='Images/notfound.jpg';">
+                                <a href="https://www.imdb.com/title/<%= imdbid %>">
+                                <img src="<%= movies.Search[i].Poster %>" alt="Image Not Available" onerror="this.onerror=null;this.src='Images/notfound.jpg';">
                                 <div>
-                                    <a href="https://www.imdb.com/title/<%= imdbid %>"><%= movies["Search"][i]["Title"] %></a>
-                                    <span class="year">(<%= movies["Search"][i]["Year"] %>)</span>
+                                    <%= movies.Search[i].Title %></a>
+                                    <span class="year">(<%= movies.Search[i].Year %>)</span>
                                 </div>
                             </div>
                         </div>
