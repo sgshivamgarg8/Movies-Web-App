@@ -38,7 +38,7 @@ app.get("/",function(req, res){
                 .then(function(data) {
                     imdbid.push(data.imdb_id);
                     titles.push(data.title);
-                    posters.push("https://image.tmdb.org/t/p/w300" + data.poster_path);
+                    posters.push("https://image.tmdb.org/t/p/w780" + data.poster_path);
 
                     if(titles.length == 20){
                         res.render("home", {
