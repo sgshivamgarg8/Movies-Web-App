@@ -19,7 +19,8 @@ app.get("/",function(req, res){
                 id.push(data.results[i].id);
             }
             getdetailsfromid(id);
-        });
+        })
+        .catch((err) => console.log(err));
     
     function getdetailsfromid(id){
         var urls = [];
@@ -38,7 +39,8 @@ app.get("/",function(req, res){
                         imdbid: data.imdb_id,
                         title: data.title,
                         year: data.release_date.substring(0,4),
-                        poster: "https://image.tmdb.org/t/p/w780" + data.poster_path
+                        poster: "https://image.tmdb.org/t/p/w780" + data.poster_path,
+                        overview: data.overview
                     });
 
                     if(movie.length == 20){
@@ -46,7 +48,7 @@ app.get("/",function(req, res){
                         res.render("home", {movie: movie});
                     }
                 })
-                .catch(function(err) {console.log(err);});
+                .catch((err) => console.log(err));
         }
     }
 });
