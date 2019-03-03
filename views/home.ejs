@@ -42,16 +42,16 @@
     <!--Trending-->
     <div class="row"> 
         <!-- loop -->   
-        <% for (var i = 0; i < titles.length; i++) { %>
+        <% for (var i = 0; i < movie.length; i++) { %>
         <div class="col-lg-3 col-sm-6">
             <div class="thumbnail">
                 <div style="text-align: center">
-                	<% var imdblink = "https://www.imdb.com/title/" + imdbid[i] %> 
+                	<% var imdblink = "https://www.imdb.com/title/" + movie[i].imdbid %> 
                     <a href="<%=imdblink%>">
-                    	<img width=100% src = <%= posters[i] %> alt="Image Not Available" onerror="this.onerror=null;this.src='Images/notfound.jpg';">
+                    	<img width=100% src = <%= movie[i].poster %> alt="Image Not Available" onerror="this.onerror=null;this.src='Images/notfound.jpg';">
                     	<div>
-                            <span class="title"><%= titles[i] %></span></a>
-                            <span class="year">(<%= release_year[i] %>)</span>
+                            <span class="title"><%= movie[i].title %></span></a>
+                            <span class="year">(<%= movie[i].year %>)</span>
                         </div>
                 </div>
             </div>
