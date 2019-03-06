@@ -101,15 +101,15 @@
             </span>
             <span style="padding: 10px"> <a href="https://www.metacritic.com/">Metascore</a></span>
 
-            <% if( movie.ratings[1].Value.substring(0,2) >= 60 ){ %>
-                <img src="https://img.icons8.com/color/48/000000/tomato.png">
-            <% } else { %>
-                <img src="https://img.icons8.com/color/48/000000/rotten-tomatoes.png">
+            <% if(movie.ratings.length > 1) { %>
+                <% if( movie.ratings[1].Value.substring(0,2) >= 60 ){ %>
+                    <img src="https://img.icons8.com/color/48/000000/tomato.png">
+                <% } else { %>
+                    <img src="https://img.icons8.com/color/48/000000/rotten-tomatoes.png">
+                <% } %>
+                <span> <%= movie.ratings[1].Value %> </span>
+                <span style="padding: 10px"><a href="https://www.rottentomatoes.com/">Rotten Tomatoes</a> </span>
             <% } %>
-            
-            
-            <span> <%= movie.ratings[1].Value %> </span>
-            <span style="padding: 10px"><a href="https://www.rottentomatoes.com/">Rotten Tomatoes</a> </span>
         </div>
     </div>
     <hr>
