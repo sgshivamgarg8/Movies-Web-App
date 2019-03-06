@@ -3,12 +3,12 @@ body{
 }
 
 input{
-    width: 300px;
-    height: 43px;
+	width: 300px;
+	height: 43px;
 }
 
 .btn{
-    margin: 5px 0;
+	margin: 5px 0;
 }
 
 .fixed-top{
@@ -17,11 +17,11 @@ input{
 }
 
 .navbar-dark .navbar-brand{
-    color: black;
+	color: black;
 }
 
 .year{
-    opacity: .7; 
+	opacity: .7; 
 }
 
 .col-lg-3{
@@ -54,4 +54,129 @@ input{
 
 .fa-instagram{
 	color: #C13584;
+}
+
+hr{
+	background: white;
+	opacity: .1;
+}
+
+.votes{
+	color: rgb(192, 192, 192);
+	font-size: 0.5em;
+}
+
+.fa-star{
+	color: rgb(228, 187, 36);
+}
+
+@media(min-width: 992px){
+	.rating{
+		font-size: 2em;
+		margin-bottom: 0;
+	}
+	.movietitle{
+		font-weight: 600;
+		font-size: 36px;
+	}
+	.fa-star{ 
+		font-size: 1.5em;
+		position: absolute;
+		top: 50%;
+		right: 0;
+		-webkit-transform: translate(-50%, -50%);
+		transform: translate(-50%, -50%);
+	}
+	.rating1{
+		position: absolute;
+		top: 50%;
+		-webkit-transform: translate(-50%, -50%);
+		transform: translate(-50%, -50%);	
+	}
+	.votes{
+		margin: 0;	
+	}
+}
+
+@media(min-width: 768px) and (max-width:991px){
+	.movietitle{
+		font-weight: 600;
+		font-size: 20px;
+	}
+	.rating{
+		font-size: 1.5em;
+		margin-bottom: 0;
+	}
+	.fa-star{ 
+		font-size: 1.5em;
+		position: absolute;
+		top: 50%;
+		right: 0;
+		-webkit-transform: translate(-50%, -50%);
+		transform: translate(-50%, -50%);
+	}
+	.rating1{
+		position: absolute;
+		top: 50%;
+		-webkit-transform: translate(-50%, -50%);
+		transform: translate(-50%, -50%);	
+	}
+	.votes{
+		margin: 0;	
+	}
+}
+
+@media(max-width: 767px){
+	.movietitle{
+		font-weight: 600;
+		font-size: 20px;
+	}
+	.rating{
+		font-size: 2em;
+		margin-bottom: 0;
+	}
+	.fa-star{
+		position: absolute;
+		top: 20%;
+	}
+	.rating1{
+		font-size: .7em;
+		margin-left: 10px;
+	}
+	.votes{
+		margin-left: 10px;
+	}
+}
+
+.max-rating{
+	font-size: .5em;
+	color: rgb(192, 192, 192);
+}
+
+@media(min-width:768px){
+	.row2{
+		margin-top: 30px;
+	}
+}
+
+.row2{
+	color: rgb(192, 192, 192);
+}
+
+.metacritic{
+	position: relative;
+}
+
+@media(max-width:575px){
+	.externalratings{
+		font-size: .8rem;
+	}
+}
+
+h2{
+	color: rgb(223, 210, 210);
+}
+
+.castinfo, .plot{
+	font-size: 1rem;
 }

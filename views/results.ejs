@@ -28,6 +28,13 @@
 </nav>
 
 <div class="container">
+        <form class="form-group" action="/results" method="GET"> 
+            <input type="text" class="form-control" name="searchquery" placeholder="Search Movie">
+            <button type="submit" class="btn btn-primary"> <i class="fas fa-search"></i> Search</button>
+        </form>
+</div>
+
+<div class="container">
 
     <% if(movies.Response == "False") { %>
         <div class="card text-white bg-warning mb-3" style="max-width: 20rem;">
@@ -47,7 +54,7 @@
                     <div class="col-lg-3 col-md-4 col-sm-6">
                         <div class="thumbnail" >
                             <div class="block" style="text-align: center">
-                                <a href="https://www.imdb.com/title/<%= imdbid %>">
+                                <a href="/moviedetails/<%= imdbid %>">
                                 <img src="<%= movies.Search[i].Poster %>" alt="Image Not Available" onerror="this.onerror=null;this.src='Images/notfound.jpg';">
                                 <div>
                                     <%= movies.Search[i].Title %></a>

@@ -40,17 +40,62 @@ app.get("/",function(req, res){
                         title: data.title,
                         year: data.release_date.substring(0,4),
                         poster: "https://image.tmdb.org/t/p/w780" + data.poster_path,
-                        overview: data.overview
+                        overview: data.overview,
+                        adult: data.adult 
                     });
 
                     if(movie.length == 20){
-                        console.log(movie);
+                        // console.log(movie);
                         res.render("home", {movie: movie});
                     }
+                    // exports.movie = movie;
+
                 })
                 .catch((err) => console.log(err));
         }
     }
+});
+
+app.get("/moviedetails/:clickedmovieimdbid", function(req, res){
+    var clickedmovieimdbid = req.params.clickedmovieimdbid;
+
+    var options = {
+        url: "http://www.omdbapi.com/?apikey=8b0b451&i=" + clickedmovieimdbid,
+        json: true
+    }
+
+    rp(options)
+        .then(function(data){
+            var clickedmovie = [];
+            // console.log(data)
+             clickedmovie.push({
+                title: data.Title,
+                year: data.Year,
+                rated: data.Rated,
+                released: data.Released,
+                runtime: data.Runtime,
+                genre: data.Genre,
+                director: data.Director,
+                writer: data.Writer,
+                actors: data.Actors,
+                plot: data.Plot,
+                language: data.Language,
+                country: data.Country,
+                awards: data.Awards,
+                poster: data.Poster,
+                ratings: data.Ratings,
+                metascore: data.Metascore,
+                imdbrating: data.imdbRating,
+                imdbvotes: data.imdbVotes,
+                imdbid: data.imdbID,
+                type: data.Type,
+                dvd: data.DVD,
+                boxoffice: data.BoxOffice,
+                production: data.Production,
+                website: data.Website,
+             })
+             res.render("moviedetails",{clickedmovie: clickedmovie})
+        });
 });
 
 app.get("/about",function(req, res){
