@@ -1,0 +1,151 @@
+<% include partials/header %> 
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="/"><i class="fas fa-film"></i> MovieSSS</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav mr-auto">
+                <li>
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/contact">Contact Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about">About Us</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search">
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </div>  
+</nav>
+
+<div class="container">
+        <form class="form-group" action="/results" method="GET"> 
+            <input type="text" class="form-control" name="searchquery" placeholder="Search Movie">
+            <button type="submit" class="btn btn-primary"> <i class="fas fa-search"></i> Search</button>
+        </form>
+</div>
+
+<% var movie = clickedmovie[0] %>
+
+<div class="container">
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 movietitle">
+                <span><%= movie.title %> </span>
+                <span class="year">(<%= movie.year %>)</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-1 rating">
+                <i class="fas fa-star"></i>
+            </div>
+            
+            <div class="col-lg-3 col-md-3 col-5 rating">
+                <span class="rating1">
+                    <%= movie.imdbrating %> <span class="max-rating">/10</span>
+                    <div class="votes"><%= movie.imdbvotes %></div>
+                </span>
+            </div>   
+        </div>
+
+        <div class="row row2">
+            <div class="col-lg-2 col-md-2">
+                <%= movie.rated %>
+            </div>
+            <div class="col-lg-2 col-md-2">
+                <%= movie.runtime %> 
+            </div>
+            <div class="col-lg-5 col-md-5">
+                <%= movie.genre %>
+            </div>
+            <div class="col-lg-3 col-md-3">
+                <%= movie.released %> (<%= movie.country %>)
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <img width=300px src = <%= movie.poster %> alt="Image Not Available" onerror="this.onerror=null;this.src='Images/notfound.jpg';">
+    <hr>
+
+    <div class="plot">
+        <h2>Plot</h2>
+        <%= movie.plot %>
+    </div>
+    <hr>
+    <div class="castinfo">
+        <div>
+            <strong>Directors:</strong> &nbsp; <span><%= movie.director %></span>
+        </div>
+        <div>
+            <strong>Writers:</strong> &nbsp; <span><%= movie.writer %></span>
+        </div>
+        <div>
+            <strong>Stars:</strong> &nbsp; <span><%= movie.actors %></span>
+        </div>
+    </div>
+    <hr>
+
+    <div class="row">
+        <div class="col-lg-12 externalratings">
+            <span style="background: rgb(102, 204, 51);padding: 10px;">
+                <%= movie.metascore %> 
+            </span>
+            <span style="padding: 10px"> <a href="https://www.metacritic.com/">Metascore</a></span>
+
+            <% if( movie.ratings[1].Value.substring(0,2) >= 60 ){ %>
+                <img src="https://img.icons8.com/color/48/000000/tomato.png">
+            <% } else { %>
+                <img src="https://img.icons8.com/color/48/000000/rotten-tomatoes.png">
+            <% } %>
+            
+            
+            <span> <%= movie.ratings[1].Value %> </span>
+            <span style="padding: 10px"><a href="https://www.rottentomatoes.com/">Rotten Tomatoes</a> </span>
+        </div>
+    </div>
+    <hr>
+
+    <div style="background: rgb(239, 227, 164);color: black;padding: 20px">
+        <%= movie.awards %>
+    </div>
+    <hr>
+
+    <h2>Details</h2>
+    <div><strong>Type: &nbsp; </strong> <span style="text-transform:capitalize"><%= movie.type %></span></div>
+    <div><strong>Genre: &nbsp; </strong> <%= movie.genre %></div>
+    <div><strong>Certification: &nbsp; </strong> <%= movie.rated %></div>
+    <div><strong>Official Sites: &nbsp; </strong> <a href="<%= movie.website %>">Official site</a></div>
+    <div><strong>Country: &nbsp; </strong> <%= movie.country %></div>
+    <div><strong>Language: &nbsp; </strong> <%= movie.language %></div>
+    <div><strong>Release Date: &nbsp; </strong> <%= movie.released %></div>
+    <hr>    
+
+    <h2>Box Office</h2>
+    <div><strong>Gross: &nbsp; </strong> <%= movie.boxoffice %></div>
+    <hr>
+
+    <h2>Company Credits</h2>
+    <div><strong>Production Co.: &nbsp; </strong> <%= movie.production %></div>
+    <hr>
+
+    <h2>Technical Details</h2>
+    <div><strong>Runtime: &nbsp; </strong> <%= movie.runtime %></div>
+    <div><strong>DVD Release: &nbsp; </strong> <%= movie.dvd %></div>
+    <hr>
+
+    <a href="https://www.imdb.com/title/<%=movie.imdbid%>" target="_blank">
+        <button type="button" class="btn btn-primary btn-lg">View On IMDb</button>
+    </a>
+    <hr>
+</div>
+
+<% include partials/footer %> 
