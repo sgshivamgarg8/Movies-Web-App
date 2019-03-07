@@ -96,10 +96,16 @@
 
     <div class="row">
         <div class="col-lg-12 externalratings">
-            <span style="background: rgb(102, 204, 51);padding: 10px;">
-                <%= movie.metascore %> 
-            </span>
-            <span style="padding: 10px"> <a href="https://www.metacritic.com/">Metascore</a></span>
+            <% if(movie.metascore >= 75 ) { %>
+                <span style="padding: 10px" class="universalacclaim"><%= movie.metascore %> </span>
+            <% } else if(movie.metascore >= 50 && movie.metascore <= 74 ) { %>
+                <span style="padding: 10px" class="mixed"><%= movie.metascore %> </span>
+            <% } else if(movie.metascore <= 49 ) { %>
+                <span style="padding: 10px" class="overwhelmingdislike"><%= movie.metascore %> </span>
+            <% } else { %>
+                <span style="padding: 10px"><%= movie.metascore %> </span>
+            <% } %>
+            <span style="padding: 10px"> <a href="https://www.metacritic.com/">Metascore</a></span>           
 
             <% if(movie.ratings.length > 1) { %>
                 <% if( movie.ratings[1].Value.substring(0,2) >= 60 ){ %>

@@ -180,3 +180,15 @@ h2{
 .castinfo, .plot{
 	font-size: 1rem;
 }
+
+.universalacclaim{
+	background: rgb(102, 204, 51);
+}
+
+.mixed{
+	background: rgb(255, 204, 51);
+}
+
+.overwhelmingdislike{
+	background: rgb(255, 0, 0);
+}
