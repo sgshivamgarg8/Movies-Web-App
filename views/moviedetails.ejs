@@ -79,14 +79,14 @@
             <div class="col-lg-2 col-md-2">
                 <% display(movie.runtime.substring(0,movie.runtime.indexOf(' '))); %> 
             </div>
-            <div class="col-lg-3 col-md-5">
+            <div class="col-lg-3 col-md-3" style="margin-bottom: 0">
                 <% if(genrearray.length > 3) { %>
                     <%= genrearray[0] + "," + genrearray[1] + "," + genrearray[2] %>
                 <% } else { %>
                     <%= movie.genre %>
                 <% } %>
             </div>
-            <div class="col-lg-3 col-md-3">
+            <div class="col-lg-5 col-md-5">
                 <%= movie.released %> (<%= countryarray[0] %>)
             </div>
         </div>
