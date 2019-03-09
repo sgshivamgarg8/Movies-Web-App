@@ -35,6 +35,23 @@
 </div>
 
 <% var movie = clickedmovie[0] %>
+<% var genrearray = movie.genre.split(","); %>
+<% var countryarray = movie.country.split(","); %>
+
+<!-- fix this -->
+<% function display(a) { %>
+    <% var hours = Math.trunc(a/60); %>
+    <% var minutes = a % 60; %>
+    <% if(hours != 0 && minutes != 0) { %>
+    <%    var time = hours + "h " + minutes + "min"; %>
+    <% } else if(hours == 0) { %>
+    <%    var time = minutes + "min"; %>
+    <% } else if(minutes == 0) { %>
+    <%    var time = hours + "h "; %>
+    <% } %>
+    <%= time %>
+<% } %>
+<!-- /fix this -->
 
 <div class="container">
     <div class="jumbotron">
@@ -60,13 +77,17 @@
                 <%= movie.rated %>
             </div>
             <div class="col-lg-2 col-md-2">
-                <%= movie.runtime %> 
+                <% display(movie.runtime.substring(0,movie.runtime.indexOf(' '))); %> 
             </div>
-            <div class="col-lg-5 col-md-5">
-                <%= movie.genre %>
+            <div class="col-lg-3 col-md-5">
+                <% if(genrearray.length > 3) { %>
+                    <%= genrearray[0] + "," + genrearray[1] + "," + genrearray[2] %>
+                <% } else { %>
+                    <%= movie.genre %>
+                <% } %>
             </div>
             <div class="col-lg-3 col-md-3">
-                <%= movie.released %> (<%= movie.country %>)
+                <%= movie.released %> (<%= countryarray[0] %>)
             </div>
         </div>
     </div>
@@ -96,11 +117,11 @@
 
     <div class="row">
         <div class="col-lg-12 externalratings">
-            <% if(movie.metascore >= 75 ) { %>
+            <% if(movie.metascore >= 61 ) { %>
                 <span style="padding: 10px" class="universalacclaim"><%= movie.metascore %> </span>
-            <% } else if(movie.metascore >= 50 && movie.metascore <= 74 ) { %>
+            <% } else if(movie.metascore >= 40 && movie.metascore <= 60 ) { %>
                 <span style="padding: 10px" class="mixed"><%= movie.metascore %> </span>
-            <% } else if(movie.metascore <= 49 ) { %>
+            <% } else if(movie.metascore <= 39 ) { %>
                 <span style="padding: 10px" class="overwhelmingdislike"><%= movie.metascore %> </span>
             <% } else { %>
                 <span style="padding: 10px"><%= movie.metascore %> </span>
