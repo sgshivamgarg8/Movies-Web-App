@@ -50,7 +50,15 @@
     <% } %>
     <%= time %>
 <% } %>
-    
+
+<% if(movie.type == "movie") { %>
+<% var movietype = "m" %>
+<% } else { %>
+<% var movietype = "tv" %>
+<% } %>
+
+<% var moviename = movie.title.toLowerCase().split(" ").join("_") %> 
+
 <%if(movie.website==undefined){%>
     <% movie.website = "https://www.facebook.com/"+movie.title.split(" ").join(""); %>
 <%}%>
@@ -128,7 +136,7 @@
             <% } else { %>
                 <span style="padding: 10px"><%= movie.metascore %> </span>
             <% } %>
-            <span style="padding: 10px"> <a href="https://www.metacritic.com/" target="_blank">Metascore</a></span>           
+            <span style="padding: 10px"> <a href="https://www.imdb.com/title/<%=movie.imdbid%>/criticreviews" target="_blank">Metascore</a></span>           
 
             <% if(movie.ratings.length > 1) { %>
                 <% if( movie.ratings[1].Value.substring(0,2) >= 60 ){ %>
@@ -137,8 +145,8 @@
                     <img src="https://img.icons8.com/color/48/000000/rotten-tomatoes.png">
                 <% } %>
                 <span> <%= movie.ratings[1].Value %> </span>
-                <span style="padding: 10px"><a href="https://www.rottentomatoes.com" target="_blank">Rotten Tomatoes</a> </span>
             <% } %>
+            <span style="padding: 10px"><a href="https://www.rottentomatoes.com/<%=movietype%>/<%=moviename%>" target="_blank">Rotten Tomatoes</a> </span>
         </div>
     </div>
     <hr>
