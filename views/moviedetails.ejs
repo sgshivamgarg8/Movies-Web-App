@@ -38,7 +38,6 @@
 <% var genrearray = movie.genre.split(","); %>
 <% var countryarray = movie.country.split(","); %>
 
-<!-- fix this -->
 <% function display(a) { %>
     <% var hours = Math.trunc(a/60); %>
     <% var minutes = a % 60; %>
@@ -51,7 +50,10 @@
     <% } %>
     <%= time %>
 <% } %>
-<!-- /fix this -->
+    
+<%if(movie.website==undefined){%>
+    <% movie.website = "https://www.facebook.com/"+movie.title.split(" ").join(""); %>
+<%}%>
 
 <div class="container">
     <div class="jumbotron">
@@ -126,7 +128,7 @@
             <% } else { %>
                 <span style="padding: 10px"><%= movie.metascore %> </span>
             <% } %>
-            <span style="padding: 10px"> <a href="https://www.metacritic.com/">Metascore</a></span>           
+            <span style="padding: 10px"> <a href="https://www.metacritic.com/" target="_blank">Metascore</a></span>           
 
             <% if(movie.ratings.length > 1) { %>
                 <% if( movie.ratings[1].Value.substring(0,2) >= 60 ){ %>
@@ -135,7 +137,7 @@
                     <img src="https://img.icons8.com/color/48/000000/rotten-tomatoes.png">
                 <% } %>
                 <span> <%= movie.ratings[1].Value %> </span>
-                <span style="padding: 10px"><a href="https://www.rottentomatoes.com/">Rotten Tomatoes</a> </span>
+                <span style="padding: 10px"><a href="https://www.rottentomatoes.com" target="_blank">Rotten Tomatoes</a> </span>
             <% } %>
         </div>
     </div>
@@ -150,7 +152,7 @@
     <div><strong>Type: &nbsp; </strong> <span style="text-transform:capitalize"><%= movie.type %></span></div>
     <div><strong>Genre: &nbsp; </strong> <%= movie.genre %></div>
     <div><strong>Certification: &nbsp; </strong> <%= movie.rated %></div>
-    <div><strong>Official Sites: &nbsp; </strong> <a href="<%= movie.website %>">Official site</a></div>
+    <div><strong>Official Sites: &nbsp; </strong> <a href="<%= movie.website %>" target="_blank">Official site</a></div>
     <div><strong>Country: &nbsp; </strong> <%= movie.country %></div>
     <div><strong>Language: &nbsp; </strong> <%= movie.language %></div>
     <div><strong>Release Date: &nbsp; </strong> <%= movie.released %></div>
