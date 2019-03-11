@@ -26,7 +26,7 @@
         </div>
     </div>  
 </nav>
-
+<!-- Search Bar -->
 <div class="container">
         <form class="form-group" action="/results" method="GET"> 
             <input type="text" class="form-control" name="searchquery" placeholder="Search Movie">
@@ -37,7 +37,7 @@
 <% var movie = clickedmovie[0] %>
 <% var genrearray = movie.genre.split(","); %>
 <% var countryarray = movie.country.split(","); %>
-
+<!--Function to Convert Runtime from Minutes to Hours -->
 <% function display(a) { %>
     <% var hours = Math.trunc(a/60); %>
     <% var minutes = a % 60; %>
@@ -65,6 +65,7 @@
 
 <div class="container">
     <div class="jumbotron">
+        <!-- Row 1 of Jumbotron -->
         <div class="row">
             <div class="col-lg-6 col-md-6 movietitle">
                 <span><%= movie.title %> </span>
@@ -81,7 +82,7 @@
                 </span>
             </div>   
         </div>
-
+        <!-- Row 2 of Jumbotron -->
         <div class="row row2">
             <div class="col-lg-2 col-md-2">
                 <%= movie.rated %>
@@ -104,14 +105,16 @@
 </div>
 
 <div class="container">
+    <!-- Poster -->
     <img width=300px src = <%= movie.poster %> alt="Image Not Available" onerror="this.onerror=null;this.src='Images/notfound.jpg';">
     <hr>
-
+    <!-- Plot -->
     <div class="plot">
         <h2>Plot</h2>
         <%= movie.plot %>
     </div>
     <hr>
+    <!-- Cast Information -->
     <div class="castinfo">
         <div>
             <strong>Directors:</strong> &nbsp; <span><%= movie.director %></span>
@@ -124,9 +127,10 @@
         </div>
     </div>
     <hr>
-
+    <!-- External Ratings -->
     <div class="row">
         <div class="col-lg-12 externalratings">
+            <!-- MetaScore -->
             <% if(movie.metascore >= 61 ) { %>
                 <span style="padding: 10px" class="universalacclaim"><%= movie.metascore %> </span>
             <% } else if(movie.metascore >= 40 && movie.metascore <= 60 ) { %>
@@ -138,6 +142,7 @@
             <% } %>
             <span style="padding: 10px"> <a href="https://www.imdb.com/title/<%=movie.imdbid%>/criticreviews" target="_blank">Metascore</a></span>           
 
+            <!-- Rotten Tomatoes -->
             <% if(movie.ratings.length > 1) { %>
                 <% if( movie.ratings[1].Value.substring(0,2) >= 60 ){ %>
                     <img src="https://img.icons8.com/color/48/000000/tomato.png">
@@ -150,12 +155,12 @@
         </div>
     </div>
     <hr>
-
+    <!-- Awards -->
     <div style="background: rgb(239, 227, 164);color: black;padding: 20px">
         <%= movie.awards %>
     </div>
     <hr>
-
+    <!-- Details -->
     <h2>Details</h2>
     <div><strong>Type: &nbsp; </strong> <span style="text-transform:capitalize"><%= movie.type %></span></div>
     <div><strong>Genre: &nbsp; </strong> <%= movie.genre %></div>
@@ -179,6 +184,7 @@
     <div><strong>DVD Release: &nbsp; </strong> <%= movie.dvd %></div>
     <hr>
 
+    <!-- Imdb Button -->
     <a href="https://www.imdb.com/title/<%=movie.imdbid%>" target="_blank">
         <button type="button" class="btn btn-primary btn-lg">View On IMDb</button>
     </a>
