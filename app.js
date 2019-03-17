@@ -2,6 +2,8 @@ var express = require("express");
 var app = express();
 var request = require("request");
 var rp = require("request-promise");
+var fs = require('fs'); 
+var csv = require('csv-parser');
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
@@ -14,13 +16,13 @@ var options = {
 app.get("/",function(req, res){
     var id = [];
     rp(options)
-        .then(function(data) {
-            for(var i=0;i<data.results.length;i++){
-                id.push(data.results[i].id);
-            }
-            getdetailsfromid(id);
-        })
-        .catch((err) => console.log(err));
+    .then(function(data) {
+        for(var i=0;i<data.results.length;i++){
+            id.push(data.results[i].id);
+        }
+        getdetailsfromid(id);
+    })
+    .catch((err) => console.log(err));
     
     function getdetailsfromid(id){
         var urls = [];
@@ -33,25 +35,25 @@ app.get("/",function(req, res){
             };
             var movie = [];
             rp(options)
-                .then(function(data) {
+            .then(function(data) {
 
-                    movie.push({
-                        imdbid: data.imdb_id,
-                        title: data.title,
-                        year: data.release_date.substring(0,4),
-                        poster: "https://image.tmdb.org/t/p/w780" + data.poster_path,
-                        overview: data.overview,
-                        adult: data.adult 
-                    });
+                movie.push({
+                    imdbid: data.imdb_id,
+                    title: data.title,
+                    year: data.release_date.substring(0,4),
+                    poster: "https://image.tmdb.org/t/p/w780" + data.poster_path,
+                    overview: data.overview,
+                    adult: data.adult 
+                });
 
-                    if(movie.length == 20){
+                if(movie.length == 20){
                         // console.log(movie);
                         res.render("home", {movie: movie});
                     }
                     // exports.movie = movie;
 
                 })
-                .catch((err) => console.log(err));
+            .catch((err) => console.log(err));
         }
     }
 });
@@ -65,10 +67,10 @@ app.get("/moviedetails/:clickedmovieimdbid", function(req, res){
     }
 
     rp(options)
-        .then(function(data){
-            var clickedmovie = [];
+    .then(function(data){
+        var clickedmovie = [];
             // console.log(data)
-             clickedmovie.push({
+            clickedmovie.push({
                 title: data.Title,
                 year: data.Year,
                 rated: data.Rated,
@@ -93,8 +95,28 @@ app.get("/moviedetails/:clickedmovieimdbid", function(req, res){
                 boxoffice: data.BoxOffice,
                 production: data.Production,
                 website: data.Website,
-             })
-             res.render("moviedetails",{clickedmovie: clickedmovie})
+            })
+
+            var dict = {};
+            var csvdata = [];
+            fs.createReadStream("joined.csv")
+            .pipe(csv())
+            .on('data', function(data){
+                try {
+                    csvdata.push(data);
+                }
+                catch(err) {
+                    console.log(err);
+                }
+            })
+            .on('end',function(){
+                    // console.log(csvdata);
+                    for (var i=0;i<csvdata.length;i++){
+                        dict[csvdata[i].imdbId] = csvdata[i].youtubeId;
+                    } 
+                    var trailerlink = dict[clickedmovie[0].imdbid.substring(2,).replace(/^0+/, '')];
+                    res.render("moviedetails",{clickedmovie: clickedmovie, trailerlink: trailerlink}) 
+                });
         });
 });
 

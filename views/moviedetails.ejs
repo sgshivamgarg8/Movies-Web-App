@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Clicked Movie title on browser title with app name -->
 <title><%= clickedmovie[0].title %> (<%= clickedmovie[0].year %>) - MovieSSS</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -116,7 +117,21 @@
 
 <div class="container">
     <!-- Poster -->
-    <img width=300px src = <%= movie.poster %> alt="Image Not Available" onerror="this.onerror=null;this.src='Images/notfound.jpg';">
+    <div class="row">
+        <div class="col-lg-4 col-md-4">
+            <img width=300px src = <%= movie.poster %> alt="Image Not Available" onerror="this.onerror=null;this.src='Images/notfound.jpg';">            
+        </div>
+        <div class="col-lg-8 col-md-8">
+            <%var youtubebaseurl = "https://www.youtube.com/embed/"%>
+            <%var trailer = youtubebaseurl + trailerlink%>
+            <% if(trailerlink != undefined){ %>
+                <iframe
+                src= <%= trailer%> >
+                </iframe>
+            <%}%>
+        </div>
+    </div>
+
     <hr>
     <!-- Plot -->
     <div class="plot">

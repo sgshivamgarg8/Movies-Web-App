@@ -46,6 +46,11 @@ input{
 		width: 300px;
 		height: 444px;
 	}
+	iframe{
+		margin-top: 5px;
+		width: 300px;
+		height: 168px;
+	}
 }
 
 .fa-facebook-square{
@@ -96,6 +101,14 @@ hr{
 	.votes{
 		margin: 0;	
 	}
+	iframe{
+		width: 610px;
+		height: 343px;
+		position: absolute;
+		right: 10;
+		top: 50%;
+		transform: translate(0%, -50%);
+	}
 }
 
 @media(min-width: 768px) and (max-width:991px){
@@ -123,6 +136,22 @@ hr{
 	}
 	.votes{
 		margin: 0;	
+	}
+	iframe{
+		position: absolute;
+		right: 20px;
+		top: 50%;
+		transform: translate(0%, -50%);
+		width: 380px;
+		height: 225px;
+	}
+}
+
+@media(min-width: 576px) and (max-width:767px){
+	iframe{
+		margin-top: 10px;
+		width: 510px;
+		height: 287px;
 	}
 }
 
