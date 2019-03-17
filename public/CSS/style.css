@@ -75,6 +75,28 @@ hr{
 	color: rgb(228, 187, 36);
 }
 
+@media(min-width: 1201px){
+	iframe{
+		width: 720px;
+		height: 405px;
+		position: absolute;
+		right: 10;
+		top: 50%;
+		transform: translate(0%, -50%);
+	}
+}
+
+@media(min-width: 992px) and (max-width:1200px){
+	iframe{
+		width: 610px;
+		height: 343px;
+		position: absolute;
+		right: 10;
+		top: 50%;
+		transform: translate(0%, -50%);
+	}
+}
+
 @media(min-width: 992px){
 	.rating{
 		font-size: 2em;
@@ -100,14 +122,6 @@ hr{
 	}
 	.votes{
 		margin: 0;	
-	}
-	iframe{
-		width: 610px;
-		height: 343px;
-		position: absolute;
-		right: 10;
-		top: 50%;
-		transform: translate(0%, -50%);
 	}
 }
 
