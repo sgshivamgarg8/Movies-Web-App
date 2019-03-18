@@ -50,8 +50,6 @@ app.get("/",function(req, res){
                         // console.log(movie);
                         res.render("home", {movie: movie});
                     }
-                    // exports.movie = movie;
-
                 })
             .catch((err) => console.log(err));
         }
@@ -99,7 +97,7 @@ app.get("/moviedetails/:clickedmovieimdbid", function(req, res){
 
             var dict = {};
             var csvdata = [];
-            fs.createReadStream("joined.csv")
+            fs.createReadStream("public/assets/Files/joined.csv")
             .pipe(csv())
             .on('data', function(data){
                 try {
