@@ -182,7 +182,11 @@
     <hr>
     <!-- Awards -->
     <div style="background: rgb(239, 227, 164);color: black;padding: 20px">
+        <% if(movie.awards === "N/A") { %>
+            <div>No Awards</div>
+        <% } else { %>    
         <%= movie.awards %>
+        <% } %>
     </div>
     <hr>
     <!-- Details -->
