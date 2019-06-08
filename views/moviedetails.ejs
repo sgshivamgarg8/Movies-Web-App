@@ -156,7 +156,9 @@
     <div class="row">
         <div class="col-lg-12 externalratings">
             <!-- MetaScore -->
-            <% if(movie.metascore >= 61 ) { %>
+            <% if(movie.metascore == 'N/A' ) { %>
+                <span></span>
+            <% } else if(movie.metascore >= 61 ) { %>
                 <span style="padding: 10px" class="universalacclaim"><%= movie.metascore %> </span>
             <% } else if(movie.metascore >= 40 && movie.metascore <= 60 ) { %>
                 <span style="padding: 10px" class="mixed"><%= movie.metascore %> </span>
