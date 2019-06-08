@@ -235,3 +235,13 @@ h2{
 .overwhelmingdislike{
 	background: rgb(255, 0, 0);
 }
+
+.moviecard {
+	box-shadow: 7px 12px 20px -5px rgba(0,0,0,0.56);
+	transition: all ease 500ms;
+}
+
+.moviecard:hover{
+	transform: scale(1.1);
+	opacity: .8;
+}

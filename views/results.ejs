@@ -52,7 +52,7 @@
 
                 <% if(movies.Search[i].Poster != "N/A") { %> 
                     <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="thumbnail" >
+                        <div class="thumbnail moviecard" >
                             <div class="block" style="text-align: center">
                                 <a href="/moviedetails/<%= imdbid %>">
                                 <img src="<%= movies.Search[i].Poster %>" alt="Image Not Available" onerror="this.onerror=null;this.src='Images/notfound.jpg';">
