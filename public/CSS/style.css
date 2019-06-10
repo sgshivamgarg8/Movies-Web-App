@@ -244,4 +244,5 @@ h2{
 .moviecard:hover{
 	transform: scale(1.1);
 	opacity: .8;
+	cursor: pointer;
 }
