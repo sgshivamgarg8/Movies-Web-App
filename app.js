@@ -1,12 +1,50 @@
-var express = require("express");
-var app = express();
-var request = require("request");
-var rp = require("request-promise");
-var fs = require('fs'); 
-var csv = require('csv-parser');
+var express = require("express"),
+    app = express(),
+    request = require("request"),
+    bodyParser = require("body-parser"),
+    rp = require("request-promise"),
+    fs = require('fs'),
+    csv = require('csv-parser')
+// ========================================
+var mongoose = require("mongoose"),
+    passport = require("passport"),
+    LocalStrategy = require("passport-local"),
+    session = require("express-session"),
+    User = require("./models/user")
+// ========================================
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
+app.use(bodyParser.urlencoded({extended: true}));
+
+// ==================================================================================
+
+// const url = "mongodb://localhost:27017/moviesapp";
+const url = "mongodb+srv://shivam:shivam@cluster0-bfppm.mongodb.net/moviesapp?retryWrites=true&w=majority";
+
+
+mongoose.connect(url, {useNewUrlParser: true});
+
+app.use(session({
+	secret: "Hello, This is my Secret Line",
+	resave: false,
+	saveUninitialized: false,
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+app.use((req, res, next) => {
+    res.locals.currentUser = req.user;
+    next();
+})
+
+// =================================================================================
+
 
 var options = {
     url: "https://api.themoviedb.org/3/trending/movie/day?api_key=473523253ce1a6744f253c14043dec4f",
@@ -136,6 +174,54 @@ app.get("/results",function(req, res){
         }
     });
 });
+
+// ========================================================================
+// AUTH ROUTES
+
+app.get("/register", function(req,res){
+	res.render("register");
+});
+
+app.post("/register", function(req,res){
+	User.register(new User({username:req.body.username}), req.body.password, function(err, user){
+		if(err){
+			console.error(err);
+			return res.render("register");
+		}
+		passport.authenticate("local")(req,res,function(){
+			res.redirect("/");
+		});
+	});
+});
+
+
+app.get("/login", function(req,res){
+	res.render("login");
+});
+
+app.post("/login", passport.authenticate("local", {
+	successRedirect: "/",
+	failureRedirect: "/login"
+}), function(req,res){	
+});
+
+
+app.get("/logout", isLoggedIn, function(req,res){
+	req.logout();
+	res.redirect("/");
+});
+
+
+//Middleware to check if user is logged in
+function isLoggedIn(req,res,next){
+	if(req.isAuthenticated()){
+		return next();
+	}
+	res.redirect("/login");
+}
+
+
+// ========================================================================
 
 app.get("*", function(req, res){
     res.send("Error!! Sorry, Page Not Found");
