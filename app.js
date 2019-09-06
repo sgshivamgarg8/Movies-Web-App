@@ -19,11 +19,11 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 // ==================================================================================
 
-// const url = "mongodb://localhost:27017/moviesapp";
-const url = "mongodb+srv://shivam:shivam@cluster0-bfppm.mongodb.net/moviesapp?retryWrites=true&w=majority";
+// const dbUrl = "mongodb://localhost:27017/moviesapp";
+const dbUrl = "mongodb+srv://shivam:shivam@cluster0-bfppm.mongodb.net/moviesapp?retryWrites=true&w=majority";
 
 
-mongoose.connect(url, {useNewUrlParser: true});
+mongoose.connect(dbUrl, {useNewUrlParser: true});
 
 app.use(session({
 	secret: "Hello, This is my Secret Line",
