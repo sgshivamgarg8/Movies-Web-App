@@ -51,17 +51,32 @@ var options = {
     json: true
 };
 
-app.get("/",function(req, res){
+var movie = [];
+var time = {}; //request optimization, will make new request after 1 hour
+app.get("/", function(req, res){
+    var t2 = new Date();
     var id = [];
-    rp(options)
-    .then(function(data) {
-        for(var i=0;i<data.results.length;i++){
-            id.push(data.results[i].id);
-        }
-        getdetailsfromid(id);
-    })
-    .catch((err) => console.log(err));
-    
+    // console.log("movie length: ", movie.length);
+    var timeTaken = (t2 - time.timeT1) / 1000;
+    // console.log("timeTaken ", timeTaken);
+
+    if(movie.length === 20 && timeTaken < 3600){
+        res.render("home", {movie: movie}); // directly rendering movie data if data is requested recently
+    }
+    if(movie.length === 20 && timeTaken > 3600){
+        movie = [];
+    }
+    if(movie.length === 0){
+        rp(options)
+        .then(function(data) {
+            for(var i=0;i<data.results.length;i++){
+                id.push(data.results[i].id);
+            }
+            getdetailsfromid(id);
+        })
+        .catch((err) => console.log(err));
+    }
+        
     function getdetailsfromid(id){
         var urls = [];
         for(var i=0;i<id.length;i++){
@@ -71,10 +86,10 @@ app.get("/",function(req, res){
                 url: urls[i],
                 json: true
             };
-            var movie = [];
+
             rp(options)
             .then(function(data) {
-
+                // console.log("requesting data");
                 movie.push({
                     imdbid: data.imdb_id,
                     title: data.title,
@@ -85,10 +100,12 @@ app.get("/",function(req, res){
                 });
 
                 if(movie.length == 20){
-                        // console.log(movie);
-                        res.render("home", {movie: movie});
-                    }
-                })
+                    // console.log(time);
+                    time = {timeT1: new Date()}  // for request optimization
+                    // console.log(time);
+                    res.render("home", {movie: movie});
+                }
+            })
             .catch((err) => console.log(err));
         }
     }
