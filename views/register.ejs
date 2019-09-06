@@ -1,11 +1,104 @@
-<h1>Sign Up Form</h1>
+<!DOCTYPE html>
+<html lang="en">
 
-<form action="/register" method="POST">
-	<input type="text" name="username" placeholder="username">
-	<input type="password" name="password" placeholder="password">
-	<button>Submit</button>
-</form>
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Colorlib Templates">
+    <meta name="author" content="Colorlib">
+    <meta name="keywords" content="Colorlib Templates">
 
-<a href="/register">Sign Up</a>
-<a href="/login">Login</a>
-<a href="/logout">Logout</a>
+    <!-- Title Page-->
+    <title>Registration Form</title>
+
+    <!-- Icons font CSS-->
+    <link href="/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+    <link href="/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <!-- Font special for pages-->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!-- Vendor CSS-->
+    <link href="/vendor/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="/vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
+		
+		<!-- My links -->
+		<link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.min.css">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+		<link rel="stylesheet" href="/CSS/style.css">
+
+		<!-- Main CSS-->
+		<link href="/CSS/registration.css" rel="stylesheet" media="all">
+
+</head>
+
+<body>
+	<!-- navbar -->
+
+	<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+			<div class="container">
+					<a class="navbar-brand" href="/"><i class="fas fa-film"></i> MovieSSS</a>
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+							<span class="navbar-toggler-icon"></span>
+					</button>
+					
+					<div class="collapse navbar-collapse" id="navbarColor01">
+							<ul class="navbar-nav mr-auto">
+									<li>
+											<a class="nav-link" href="/">Home</a>
+									</li>
+									<li class="nav-item">
+											<a class="nav-link" href="/contact">Contact Us</a>
+									</li>
+									<li class="nav-item">
+											<a class="nav-link" href="/about">About Us</a>
+									</li>
+							</ul>
+							<% include partials/authheader %> 
+					</div>
+			</div>  
+	</nav>
+
+	<!-- /navbar -->
+    <div class="page-wrapper bg-gra-01 p-t-10 m-t-auto p-b-100 font-poppins">
+        <div class="wrapper wrapper--w780 mt-0">
+            <div class="card card-3">
+                <div class="card-heading"></div>
+                <div class="card-body">
+                    <h2 class="title">Registration Info</h2>
+                    <form action="/register" method="POST">
+                        <div class="input-group">
+                            <input class="input--style-3" type="text" placeholder="First Name" name="firstname">
+												</div>
+												<div class="input-group">
+													<input class="input--style-3" type="text" placeholder="Last Name" name="lastname">
+												</div>
+												<div class="input-group">
+													<input class="input--style-3" type="text" placeholder="Username" name="username">
+												</div>
+												<div class="input-group">
+													<input class="input--style-3" type="password" placeholder="Password" name="password">
+												</div>
+                        <div class="p-t-10">
+                            <button class="btn btn--pill btn--green" type="submit">Register</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Jquery JS-->
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <!-- Vendor JS-->
+    <script src="/vendor/select2/select2.min.js"></script>
+    <script src="/vendor/datepicker/moment.min.js"></script>
+    <script src="/vendor/datepicker/daterangepicker.js"></script>
+
+    <!-- Main JS-->
+    <script src="/js/global.js"></script>
+
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+
+</html>
+<!-- end document-->

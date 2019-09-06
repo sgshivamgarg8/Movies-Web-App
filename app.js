@@ -187,10 +187,19 @@ app.post("/register", function(req,res){
 		if(err){
 			console.error(err);
 			return res.render("register");
-		}
-		passport.authenticate("local")(req,res,function(){
-			res.redirect("/");
-		});
+        }
+        if(req.body.firstname)
+            user.firstname = req.body.firstname;
+        if(req.body.lastname)
+            user.lastname = req.body.lastname;
+        user.save((err, user) => {
+            if(err) console.log(err)
+            else {
+                passport.authenticate("local")(req,res,function(){
+                    res.redirect("/");
+                });
+            }
+        });
 	});
 });
 
