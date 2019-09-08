@@ -23,7 +23,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 const dbUrl = "mongodb://localhost:27017/moviesapp";
 // const dbUrl = "mongodb+srv://shivam:shivam@cluster0-bfppm.mongodb.net/moviesapp?retryWrites=true&w=majority";
 
-
 mongoose.connect(dbUrl, {useNewUrlParser: true});
 
 app.use(session({
@@ -70,7 +69,7 @@ app.get("/", function(req, res){
     if(movie.length === 0){
         rp(options)
         .then(function(data) {
-            for(var i=0;i<data.results.length;i++){
+            for(var i=0; i<data.results.length; i++){
                 id.push(data.results[i].id);
             }
             getdetailsfromid(id);
@@ -80,7 +79,7 @@ app.get("/", function(req, res){
         
     function getdetailsfromid(id){
         var urls = [];
-        for(var i=0;i<id.length;i++){
+        for(var i=0; i<id.length; i++){
             var url = "https://api.themoviedb.org/3/movie/" + id[i] + "?api_key=473523253ce1a6744f253c14043dec4f";
             urls.push(url);
             var options = {
@@ -94,7 +93,7 @@ app.get("/", function(req, res){
                 movie.push({
                     imdbid: data.imdb_id,
                     title: data.title,
-                    year: data.release_date.substring(0,4),
+                    year: data.release_date.substring(0, 4),
                     poster: "https://image.tmdb.org/t/p/w780" + data.poster_path,
                     overview: data.overview,
                     adult: data.adult 
@@ -165,7 +164,7 @@ app.get("/moviedetails/:clickedmovieimdbid", function(req, res){
             })
             .on('end',function(){
                     // console.log(csvdata);
-                    for (var i=0;i<csvdata.length;i++){
+                    for (var i=0; i<csvdata.length; i++){
                         dict[csvdata[i].imdbId] = csvdata[i].youtubeId;
                     } 
                     var trailerlink = dict[clickedmovie[0].imdbid.substring(2,).replace(/^0+/, '')];
@@ -174,19 +173,19 @@ app.get("/moviedetails/:clickedmovieimdbid", function(req, res){
         });
 });
 
-app.get("/about",function(req, res){
+app.get("/about", function(req, res){
     res.render("about");
 });
 
-app.get("/contact",function(req, res){
+app.get("/contact", function(req, res){
     res.render("contact");
 });
 
-app.get("/results",function(req, res){
+app.get("/results", function(req, res){
     var searchquery = req.query.searchquery;
     url = "http://www.omdbapi.com/?apikey=8b0b451&s=" + searchquery;
-    request(url, function(error,response,body){
-        if(!error && response.statusCode==200){
+    request(url, function(error, response, body){
+        if(!error && response.statusCode == 200){
             var movies = JSON.parse(body);
             res.render("results", {movies: movies});
         }
@@ -196,12 +195,12 @@ app.get("/results",function(req, res){
 // ========================================================================
 // AUTH ROUTES
 
-app.get("/register", function(req,res){
+app.get("/register", function(req, res){
 	res.render("register");
 });
 
-app.post("/register", function(req,res){
-	User.register(new User({username:req.body.username}), req.body.password, function(err, user){
+app.post("/register", function(req, res){
+	User.register(new User({username: req.body.username}), req.body.password, function(err, user){
 		if(err){
 			console.error(err);
 			return res.render("register");
@@ -213,7 +212,7 @@ app.post("/register", function(req,res){
         user.save((err, user) => {
             if(err) console.log(err)
             else {
-                passport.authenticate("local")(req,res,function(){
+                passport.authenticate("local")(req, res, function(){
                     res.redirect("/");
                 });
             }
@@ -221,28 +220,24 @@ app.post("/register", function(req,res){
 	});
 });
 
-
-app.get("/login", function(req,res){
+app.get("/login", function(req, res){
 	res.render("login");
 });
 
 app.post("/login", passport.authenticate("local", {
 	successRedirect: "/",
 	failureRedirect: "/login"
-}), function(req,res){	
-});
+}));
 
-
-app.get("/logout", middleware.isLoggedIn, function(req,res){
+app.get("/logout", middleware.isLoggedIn, function(req, res){
 	req.logout();
 	res.redirect("/");
 });
 
-
 // ========================================================================
 
 app.get("*", function(req, res){
-    res.send("Error!! Sorry, Page Not Found");
+    res.send("<h1>Error 404!! Sorry, Page Not Found</h1>");
 });
 
 var port = process.env.PORT || 3000;
