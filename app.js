@@ -10,7 +10,8 @@ var mongoose = require("mongoose"),
     passport = require("passport"),
     LocalStrategy = require("passport-local"),
     session = require("express-session"),
-    User = require("./models/user")
+    User = require("./models/user"),
+    middleware = require("./middleware");
 // ========================================
 
 app.set("view engine", "ejs");
@@ -19,8 +20,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 // ==================================================================================
 
-// const dbUrl = "mongodb://localhost:27017/moviesapp";
-const dbUrl = "mongodb+srv://shivam:shivam@cluster0-bfppm.mongodb.net/moviesapp?retryWrites=true&w=majority";
+const dbUrl = "mongodb://localhost:27017/moviesapp";
+// const dbUrl = "mongodb+srv://shivam:shivam@cluster0-bfppm.mongodb.net/moviesapp?retryWrites=true&w=majority";
 
 
 mongoose.connect(dbUrl, {useNewUrlParser: true});
@@ -232,19 +233,10 @@ app.post("/login", passport.authenticate("local", {
 });
 
 
-app.get("/logout", isLoggedIn, function(req,res){
+app.get("/logout", middleware.isLoggedIn, function(req,res){
 	req.logout();
 	res.redirect("/");
 });
-
-
-//Middleware to check if user is logged in
-function isLoggedIn(req,res,next){
-	if(req.isAuthenticated()){
-		return next();
-	}
-	res.redirect("/login");
-}
 
 
 // ========================================================================

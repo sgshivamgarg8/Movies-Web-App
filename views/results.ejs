@@ -1,35 +1,16 @@
 <% include partials/header %> 
 
-        <div class="collapse navbar-collapse" id="navbarColor01">
-            <ul class="navbar-nav mr-auto">
-                <li>
-                    <a class="nav-link" href="/">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/contact">Contact Us</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/about">About Us</a>
-                </li>
-            </ul>
-            <% include partials/authheader %> 
-
-            <!-- <form class="form-inline my-2 my-lg-0"action="/results" method="GET">
-                <input class="form-control mr-sm-2" type="text" name="searchquery" placeholder="Search">
-                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-            </form> -->
-        </div>
-    </div>  
-</nav> 
+<!-- navbar -->
+<% include partials/navbar %> 
+<!-- /navbar -->
 
 <div class="container">
-        <form class="form-group" action="/results" method="GET"> 
-            <input type="text" class="form-control" name="searchquery" placeholder="Search Movie">
-            <button type="submit" class="btn btn-primary"> <i class="fas fa-search"></i> Search</button>
-        </form>
-</div>
-
-<div class="container">
+    <!-- search form -->
+    <form class="form-group" action="/results" method="GET"> 
+        <input type="text" class="form-control" name="searchquery" placeholder="Search Movie">
+        <button type="submit" class="btn btn-primary"> <i class="fas fa-search"></i> Search</button>
+    </form>
+    <!-- /search form -->
 
     <% if(movies.Response == "False") { %>
         <div class="card text-white bg-warning mb-3" style="max-width: 20rem;">
