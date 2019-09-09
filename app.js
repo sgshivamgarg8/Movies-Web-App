@@ -22,10 +22,10 @@ app.use(flash());
 
 // ==================================================================================
 
-const dbUrl = "mongodb://localhost:27017/moviesapp";
-// const dbUrl = "mongodb+srv://shivam:shivam@cluster0-bfppm.mongodb.net/moviesapp?retryWrites=true&w=majority";
+// const DBURL = "mongodb://localhost:27017/moviesapp";
+// const DBURL = "mongodb+srv://shivam:shivam@cluster0-bfppm.mongodb.net/moviesapp?retryWrites=true&w=majority";
 
-mongoose.connect(dbUrl, {useNewUrlParser: true});
+mongoose.connect(process.env.DBURL, {useNewUrlParser: true});
 
 app.use(session({
 	secret: "Hello, This is my Secret Line",
