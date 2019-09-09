@@ -2,6 +2,7 @@ var express = require("express"),
     app = express(),
     request = require("request"),
     bodyParser = require("body-parser"),
+    flash = require("connect-flash");
     rp = require("request-promise"),
     fs = require('fs'),
     csv = require('csv-parser')
@@ -17,6 +18,7 @@ var mongoose = require("mongoose"),
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(flash());
 
 // ==================================================================================
 
@@ -40,8 +42,10 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use((req, res, next) => {
     res.locals.currentUser = req.user;
+    res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success");
     next();
-})
+});
 
 // =================================================================================
 
@@ -202,8 +206,9 @@ app.get("/register", function(req, res){
 app.post("/register", function(req, res){
 	User.register(new User({username: req.body.username}), req.body.password, function(err, user){
 		if(err){
-			console.error(err);
-			return res.render("register");
+            // console.log(err);
+            req.flash("error", err.message);
+			return res.redirect("/register");
         }
         if(req.body.firstname)
             user.firstname = req.body.firstname;
@@ -213,6 +218,7 @@ app.post("/register", function(req, res){
             if(err) console.log(err)
             else {
                 passport.authenticate("local")(req, res, function(){
+                    req.flash("success", "Successfully Signed Up as " + user.firstname + " " + user.lastname);
                     res.redirect("/");
                 });
             }
@@ -230,7 +236,8 @@ app.post("/login", passport.authenticate("local", {
 }));
 
 app.get("/logout", middleware.isLoggedIn, function(req, res){
-	req.logout();
+    req.logout();
+    req.flash("success", "Successfully Logged Out");
 	res.redirect("/");
 });
 

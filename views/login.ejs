@@ -32,24 +32,36 @@
 </head>
 
 <body>
-    
     <!-- navbar -->
     <% include partials/navbar %> 
     <!-- /navbar -->
 
-    <div class="page-wrapper bg-gra-01 p-t-10 m-t-auto p-b-100 font-poppins">
+    <div class="page-wrapper bg-gra-01 p-t-10 m-t-auto p-b-100 font-poppins">        
+        <!-- flash -->
+        <div class="container">
+            <% if(error && error.length > 0) { %>
+                <div style="margin-top: 75px; margin-bottom: -75px" class="alert alert-danger">
+                    <%= error %>
+                </div>
+            <% } if(success && success.length > 0) { %>
+                <div style="margin-top: 75px; margin-bottom: -75px" class="alert alert-success">
+                    <%= success %>
+                </div>
+            <% } %>
+        </div>
+        <!-- /flash -->
         <div class="wrapper wrapper--w780 mt-0">
             <div class="card card-3">
                 <div class="card-heading"></div>
                 <div class="card-body">
                     <h2 class="title">Login Info</h2>
                     <form action="/login" method="POST">
-												<div class="input-group">
-													<input id="p-10" class="input--style-3" type="text" placeholder="Username" name="username">
-												</div>
-												<div class="input-group">
-													<input id="p-10" class="input--style-3" type="password" placeholder="Password" name="password">
-												</div>
+                        <div class="input-group">
+                            <input id="p-10" class="input--style-3" type="text" placeholder="Username" name="username">
+                        </div>
+                        <div class="input-group">
+                            <input id="p-10" class="input--style-3" type="password" placeholder="Password" name="password">
+                        </div>
                         <div class="p-t-10">
                             <button class="btn btn--pill btn--green" type="submit">Login</button>
                         </div>

@@ -33,12 +33,24 @@
 </head>
 
 <body>
-
     <!-- navbar -->
     <% include partials/navbar %> 
     <!-- /navbar -->
 
     <div class="page-wrapper bg-gra-01 p-t-10 m-t-auto p-b-100 font-poppins">
+        <!-- flash -->
+        <div class="container">
+            <% if(error && error.length > 0) { %>
+                <div style="margin-top: 75px; margin-bottom: -75px" class="alert alert-danger">
+                    <%= error %>
+                </div>
+            <% } if(success && success.length > 0) { %>
+                <div style="margin-top: 75px; margin-bottom: -75px" class="alert alert-success">
+                    <%= success %>
+                </div>
+            <% } %>
+        </div>
+        <!-- /flash -->
         <div class="wrapper wrapper--w780 mt-0">
             <div class="card card-3">
                 <div class="card-heading"></div>

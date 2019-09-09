@@ -13,6 +13,7 @@
   "author": "Shivam Garg",
   "license": "ISC",
   "dependencies": {
+    "connect-flash": "^0.1.1",
     "csv-parser": "^2.2.0",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
