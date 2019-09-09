@@ -1,18 +1,18 @@
 var express = require("express"),
-    app = express(),
-    request = require("request"),
-    bodyParser = require("body-parser"),
-    flash = require("connect-flash");
-    rp = require("request-promise"),
-    fs = require('fs'),
-    csv = require('csv-parser')
+app = express(),
+request = require("request"),
+bodyParser = require("body-parser"),
+flash = require("connect-flash");
+rp = require("request-promise"),
+fs = require('fs'),
+csv = require('csv-parser')
 // ========================================
 var mongoose = require("mongoose"),
-    passport = require("passport"),
-    LocalStrategy = require("passport-local"),
-    session = require("express-session"),
-    User = require("./models/user"),
-    middleware = require("./middleware");
+passport = require("passport"),
+LocalStrategy = require("passport-local"),
+session = require("express-session"),
+User = require("./models/user"),
+middleware = require("./middleware");
 // ========================================
 
 app.set("view engine", "ejs");
@@ -22,12 +22,14 @@ app.use(flash()); //for flash messages
 
 // ==================================================================================
 
-mongoose.connect(process.env.DBURL, {useNewUrlParser: true});
+const dbUrl = process.env.DBURL || "mongodb://localhost:27017/moviesapp";
+
+mongoose.connect(dbUrl, {useNewUrlParser: true});
 
 app.use(session({
-	secret: "Hello, This is my Secret Line",
-	resave: false,
-	saveUninitialized: false,
+    secret: "Hello, This is my Secret Line",
+    resave: false,
+    saveUninitialized: false,
 }));
 
 app.use(passport.initialize());
@@ -46,8 +48,11 @@ app.use((req, res, next) => {
 
 // =================================================================================
 
+const tmdbApiKey = process.env.TMDBAPIKEY;
+const omdbApiKey = process.env.OMDBAPIKEY;
+
 var options = {
-    url: `https://api.themoviedb.org/3/trending/movie/day?api_key=${process.env.TMDBAPIKEY}`,
+    url: `https://api.themoviedb.org/3/trending/movie/day?api_key=${tmdbApiKey}`,
     json: true
 };
 
@@ -59,7 +64,7 @@ app.get("/", function(req, res){
     // console.log("movie length: ", movie.length);
     var timeTaken = (t2 - time.timeT1) / 1000;
     // console.log("timeTaken ", timeTaken);
-
+    
     if(movie.length === 20 && timeTaken < 3600){
         res.render("home", {movie: movie}); // directly rendering movie data if data is requested recently
     }
@@ -76,17 +81,17 @@ app.get("/", function(req, res){
         })
         .catch((err) => console.log(err));
     }
-        
+    
     function getdetailsfromid(id){
         var urls = [];
         for(var i=0; i<id.length; i++){
-            var url = `https://api.themoviedb.org/3/movie/${id[i]}?api_key=${process.env.TMDBAPIKEY}`;
+            var url = `https://api.themoviedb.org/3/movie/${id[i]}?api_key=${tmdbApiKey}`;
             urls.push(url);
             var options = {
                 url: urls[i],
                 json: true
             };
-
+            
             rp(options)
             .then(function(data) {
                 // console.log("requesting data");
@@ -98,7 +103,7 @@ app.get("/", function(req, res){
                     overview: data.overview,
                     adult: data.adult 
                 });
-
+                
                 if(movie.length == 20){
                     // console.log(time);
                     time = {timeT1: new Date()}  // for request optimization
@@ -113,64 +118,64 @@ app.get("/", function(req, res){
 
 app.get("/moviedetails/:clickedmovieimdbid", function(req, res){
     var clickedmovieimdbid = req.params.clickedmovieimdbid;
-
+    
     var options = {
-        url: `http://www.omdbapi.com/?apikey=${process.env.OMDBAPIKEY}&i=${clickedmovieimdbid}`,
+        url: `http://www.omdbapi.com/?apikey=${omdbApiKey}&i=${clickedmovieimdbid}`,
         json: true
     }
-
+    
     rp(options)
     .then(function(data){
         var clickedmovie = [];
-            // console.log(data)
-            clickedmovie.push({
-                title: data.Title,
-                year: data.Year,
-                rated: data.Rated,
-                released: data.Released,
-                runtime: data.Runtime,
-                genre: data.Genre,
-                director: data.Director,
-                writer: data.Writer,
-                actors: data.Actors,
-                plot: data.Plot,
-                language: data.Language,
-                country: data.Country,
-                awards: data.Awards,
-                poster: data.Poster,
-                ratings: data.Ratings,
-                metascore: data.Metascore,
-                imdbrating: data.imdbRating,
-                imdbvotes: data.imdbVotes,
-                imdbid: data.imdbID,
-                type: data.Type,
-                dvd: data.DVD,
-                boxoffice: data.BoxOffice,
-                production: data.Production,
-                website: data.Website,
-            })
-
-            var dict = {};
-            var csvdata = [];
-            fs.createReadStream("public/assets/Files/joined.csv")
-            .pipe(csv())
-            .on('data', function(data){
-                try {
-                    csvdata.push(data);
-                }
-                catch(err) {
-                    console.log(err);
-                }
-            })
-            .on('end',function(){
-                    // console.log(csvdata);
-                    for (var i=0; i<csvdata.length; i++){
-                        dict[csvdata[i].imdbId] = csvdata[i].youtubeId;
-                    } 
-                    var trailerlink = dict[clickedmovie[0].imdbid.substring(2,).replace(/^0+/, '')];
-                    res.render("moviedetails",{clickedmovie: clickedmovie, trailerlink: trailerlink}) 
-                });
+        // console.log(data)
+        clickedmovie.push({
+            title: data.Title,
+            year: data.Year,
+            rated: data.Rated,
+            released: data.Released,
+            runtime: data.Runtime,
+            genre: data.Genre,
+            director: data.Director,
+            writer: data.Writer,
+            actors: data.Actors,
+            plot: data.Plot,
+            language: data.Language,
+            country: data.Country,
+            awards: data.Awards,
+            poster: data.Poster,
+            ratings: data.Ratings,
+            metascore: data.Metascore,
+            imdbrating: data.imdbRating,
+            imdbvotes: data.imdbVotes,
+            imdbid: data.imdbID,
+            type: data.Type,
+            dvd: data.DVD,
+            boxoffice: data.BoxOffice,
+            production: data.Production,
+            website: data.Website,
+        })
+        
+        var dict = {};
+        var csvdata = [];
+        fs.createReadStream("public/assets/Files/joined.csv")
+        .pipe(csv())
+        .on('data', function(data){
+            try {
+                csvdata.push(data);
+            }
+            catch(err) {
+                console.log(err);
+            }
+        })
+        .on('end',function(){
+            // console.log(csvdata);
+            for (var i=0; i<csvdata.length; i++){
+                dict[csvdata[i].imdbId] = csvdata[i].youtubeId;
+            } 
+            var trailerlink = dict[clickedmovie[0].imdbid.substring(2,).replace(/^0+/, '')];
+            res.render("moviedetails",{clickedmovie: clickedmovie, trailerlink: trailerlink}) 
         });
+    });
 });
 
 app.get("/about", function(req, res){
@@ -183,7 +188,7 @@ app.get("/contact", function(req, res){
 
 app.get("/results", function(req, res){
     var searchquery = req.query.searchquery;
-    url = `http://www.omdbapi.com/?apikey=${process.env.OMDBAPIKEY}&s=${searchquery}`;
+    url = `http://www.omdbapi.com/?apikey=${omdbApiKey}&s=${searchquery}`;
     request(url, function(error, response, body){
         if(!error && response.statusCode == 200){
             var movies = JSON.parse(body);
@@ -196,20 +201,20 @@ app.get("/results", function(req, res){
 // AUTH ROUTES
 
 app.get("/register", function(req, res){
-	res.render("register");
+    res.render("register");
 });
 
 app.post("/register", function(req, res){
-	User.register(new User({username: req.body.username}), req.body.password, function(err, user){
-		if(err){
+    User.register(new User({username: req.body.username}), req.body.password, function(err, user){
+        if(err){
             // console.log(err);
             req.flash("error", err.message);
-			return res.redirect("/register");
+            return res.redirect("/register");
         }
         if(req.body.firstname)
-            user.firstname = req.body.firstname;
+        user.firstname = req.body.firstname;
         if(req.body.lastname)
-            user.lastname = req.body.lastname;
+        user.lastname = req.body.lastname;
         user.save((err, user) => {
             if(err) console.log(err);
             else {
@@ -219,22 +224,42 @@ app.post("/register", function(req, res){
                 });
             }
         });
-	});
+    });
 });
 
 app.get("/login", function(req, res){
-	res.render("login");
+    res.render("login");
 });
 
-app.post("/login", passport.authenticate("local", {
-	successRedirect: "/",
-	failureRedirect: "/login"
-}));
+// app.post("/login", passport.authenticate("local", {
+// 	successRedirect: "/",
+// 	failureRedirect: "/login"
+// }));
+
+app.post("/login", function(req, res, next) {
+    passport.authenticate('local', function(err, user, info) {
+        if (err) { 
+            req.flash("error", err);
+            return res.redirect('/login');
+        } if (!user) { 
+            req.flash("error", info.message);
+            return res.redirect('/login');
+        }
+        req.logIn(user, function(err) {
+            if (err) {
+                req.flash("error", err);                 
+                return res.redirect('/login');
+            }
+            req.flash("success", "Successfully Signed In as " + user.firstname + " " + user.lastname);
+            return res.redirect("/");
+        });
+    })(req, res, next);
+});
 
 app.get("/logout", middleware.isLoggedIn, function(req, res){
     req.logout();
     req.flash("success", "Successfully Logged Out");
-	res.redirect("/");
+    res.redirect("/");
 });
 
 // ========================================================================
