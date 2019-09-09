@@ -94,7 +94,6 @@ app.get("/", function(req, res){
             
             rp(options)
             .then(function(data) {
-                // console.log("requesting data");
                 movie.push({
                     imdbid: data.imdb_id,
                     title: data.title,
@@ -105,9 +104,7 @@ app.get("/", function(req, res){
                 });
                 
                 if(movie.length == 20){
-                    // console.log(time);
                     time = {timeT1: new Date()}  // for request optimization
-                    // console.log(time);
                     res.render("home", {movie: movie});
                 }
             })
@@ -175,7 +172,8 @@ app.get("/moviedetails/:clickedmovieimdbid", function(req, res){
             var trailerlink = dict[clickedmovie[0].imdbid.substring(2,).replace(/^0+/, '')];
             res.render("moviedetails",{clickedmovie: clickedmovie, trailerlink: trailerlink}) 
         });
-    });
+    })
+    .catch((err) => console.log(err));
 });
 
 app.get("/about", function(req, res){
@@ -233,7 +231,9 @@ app.get("/login", function(req, res){
 
 // app.post("/login", passport.authenticate("local", {
 // 	successRedirect: "/",
-// 	failureRedirect: "/login"
+//     failureRedirect: "/login",
+//     failureFlash: true,
+//     successFlash: "Welcome"
 // }));
 
 app.post("/login", function(req, res, next) {
