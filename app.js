@@ -18,12 +18,9 @@ var mongoose = require("mongoose"),
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(flash());
+app.use(flash()); //for flash messages
 
 // ==================================================================================
-
-// const DBURL = "mongodb://localhost:27017/moviesapp";
-// const DBURL = "mongodb+srv://shivam:shivam@cluster0-bfppm.mongodb.net/moviesapp?retryWrites=true&w=majority";
 
 mongoose.connect(process.env.DBURL, {useNewUrlParser: true});
 
@@ -49,9 +46,8 @@ app.use((req, res, next) => {
 
 // =================================================================================
 
-
 var options = {
-    url: "https://api.themoviedb.org/3/trending/movie/day?api_key=473523253ce1a6744f253c14043dec4f",
+    url: `https://api.themoviedb.org/3/trending/movie/day?api_key=${process.env.TMDBAPIKEY}`,
     json: true
 };
 
@@ -84,7 +80,7 @@ app.get("/", function(req, res){
     function getdetailsfromid(id){
         var urls = [];
         for(var i=0; i<id.length; i++){
-            var url = "https://api.themoviedb.org/3/movie/" + id[i] + "?api_key=473523253ce1a6744f253c14043dec4f";
+            var url = `https://api.themoviedb.org/3/movie/${id[i]}?api_key=${process.env.TMDBAPIKEY}`;
             urls.push(url);
             var options = {
                 url: urls[i],
@@ -119,7 +115,7 @@ app.get("/moviedetails/:clickedmovieimdbid", function(req, res){
     var clickedmovieimdbid = req.params.clickedmovieimdbid;
 
     var options = {
-        url: "http://www.omdbapi.com/?apikey=8b0b451&i=" + clickedmovieimdbid,
+        url: `http://www.omdbapi.com/?apikey=${process.env.OMDBAPIKEY}&i=${clickedmovieimdbid}`,
         json: true
     }
 
@@ -187,7 +183,7 @@ app.get("/contact", function(req, res){
 
 app.get("/results", function(req, res){
     var searchquery = req.query.searchquery;
-    url = "http://www.omdbapi.com/?apikey=8b0b451&s=" + searchquery;
+    url = `http://www.omdbapi.com/?apikey=${process.env.OMDBAPIKEY}&s=${searchquery}`;
     request(url, function(error, response, body){
         if(!error && response.statusCode == 200){
             var movies = JSON.parse(body);
@@ -215,7 +211,7 @@ app.post("/register", function(req, res){
         if(req.body.lastname)
             user.lastname = req.body.lastname;
         user.save((err, user) => {
-            if(err) console.log(err)
+            if(err) console.log(err);
             else {
                 passport.authenticate("local")(req, res, function(){
                     req.flash("success", "Successfully Signed Up as " + user.firstname + " " + user.lastname);
@@ -248,6 +244,4 @@ app.get("*", function(req, res){
 });
 
 var port = process.env.PORT || 3000;
-app.listen(port, function(){
-    console.log("Movie App has started on port: " + port);
-});
+app.listen(port, () => console.log(`Movie App has started on port: ${port}`));
