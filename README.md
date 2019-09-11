@@ -19,3 +19,7 @@
   ```
   node app.js
   ```
+  or
+  ```
+  npm start
+  ```
