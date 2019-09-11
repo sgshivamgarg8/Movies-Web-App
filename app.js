@@ -252,26 +252,29 @@ app.get("/removeFromWatchlist/:imdbId", middleware.isLoggedIn, (req, res) => {
 app.get("/mywatchlist", middleware.isLoggedIn, (req, res) => {
     User.findById(req.user._id, (err, user) => {
         // console.log(user.watchlist);
-        movies = [];
-        for (let i=0; i<user.watchlist.length; i++) {
-            imdbId = user.watchlist[i];
-            // console.log(imdbId);
-            var watchlistUrl = `http://www.omdbapi.com/?apikey=${omdbApiKey}&i=${imdbId}`;
-            var options = {
-                url: watchlistUrl,
-                json: true
-            };
+        let movies = [];
+        if(user.watchlist.length) {
+            for (let i=0; i<user.watchlist.length; i++) {
+                imdbId = user.watchlist[i];
+                // console.log(imdbId);
+                var watchlistUrl = `http://www.omdbapi.com/?apikey=${omdbApiKey}&i=${imdbId}`;
+                var options = {
+                    url: watchlistUrl,
+                    json: true
+                };
 
-            rp(options)
-            .then((data) => {
-                // console.log(data);
-                movies.push({imdbId: data.imdbID , title: data.Title, year: data.Year, poster: data.Poster});
-                if(movies.length === user.watchlist.length) {
-                    res.render("watchlist", {movies: movies});           
-                }
-            });
+                rp(options)
+                .then((data) => {
+                    // console.log(data);
+                    movies.push({imdbId: data.imdbID , title: data.Title, year: data.Year, poster: data.Poster});
+                    if(movies.length === user.watchlist.length) {
+                        res.render("watchlist", {movies: movies});           
+                    }
+                });
+            }
+        } else {
+            res.render("watchlist", {movies: movies});
         }
-        res.render("watchlist", {movies: movies});
     });
 });
 
