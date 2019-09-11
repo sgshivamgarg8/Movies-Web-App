@@ -1,17 +1,21 @@
 <ul class="navbar-nav">
-    <% if(!currentUser) { %>
-      <li class="nav-item">
-          <a class="nav-link" href="/login">Login</a>
-      </li>
-      <li class="nav-item">
-          <a class="nav-link" href="/register">Register</a>
-      </li>
-    <% } else { %>
-      <li class="nav-item">
-          <a class="nav-link" href="#">Hello!! <%= currentUser.firstname %> <%= currentUser.lastname %></a>
-      </li>
-      <li class="nav-item">
-          <a class="nav-link" href="/logout">Logout</a>
-      </li>
-    <% } %>
+  <% if(!currentUser) { %> 
+    <li class="nav-item">
+        <a class="nav-link" href="/login">Login</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/register">Register</a>
+    </li>
+  <% } else { %>
+    <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= currentUser.firstname %> <%= currentUser.lastname %>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/mywatchlist">My Watchlist</a>
+        </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/logout">Logout</a>
+    </li>
+  <% } %>
 </ul>

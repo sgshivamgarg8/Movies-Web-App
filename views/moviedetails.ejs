@@ -19,30 +19,10 @@
 <% include partials/flash %> 
 <!-- /flash -->
 
-<!-- Search Bar -->
-<div class="container">
-    <form class="form-group" action="/results" method="GET"> 
-            <input type="text" class="form-control" name="searchquery" placeholder="Search Movie">
-            <button type="submit" class="btn btn-primary"> <i class="fas fa-search"></i> Search</button>
-        </form>
-</div>
-
 <% var movie = clickedmovie[0] %>
 <% var genrearray = movie.genre.split(","); %>
 <% var countryarray = movie.country.split(","); %>
-<!--Function to Convert Runtime from Minutes to Hours -->
-<% function display(a) { %>
-    <% var hours = Math.trunc(a/60); %>
-    <% var minutes = a % 60; %>
-    <% if(hours != 0 && minutes != 0) { %>
-    <%    var time = hours + "h " + minutes + "min"; %>
-    <% } else if(hours == 0) { %>
-    <%    var time = minutes + "min"; %>
-    <% } else if(minutes == 0) { %>
-    <%    var time = hours + "h "; %>
-    <% } %>
-    <%= time %>
-<% } %>
+
 
 <% if(movie.type == "movie") { %>
 <% var movietype = "m" %>
@@ -56,12 +36,24 @@
     <% movie.website = "https://www.facebook.com/"+movie.title.split(" ").join(""); %>
 <%}%>
 
-
+<!-- Search Bar -->
 <div class="container">
+    <form class="form-group" action="/results" method="GET"> 
+        <input type="text" class="form-control" name="searchquery" placeholder="Search Movie">
+        <button type="submit" class="btn btn-primary"> <i class="fas fa-search"></i> Search</button>
+    </form>
+
     <div class="jumbotron">
         <!-- Row 1 of Jumbotron -->
         <div class="row">
             <div class="col-lg-6 col-md-6 movietitle">
+                <% if(currentUser) { %>    
+                    <% if(!found) { %> 
+                        <a href = "<%="/addToWatchlist/" + movie.imdbid%>" data-toggle="tooltip" title="Add To Watchlist"><i class="far fa-plus-square"></i></a>
+                    <% } else { %>
+                        <a href = "<%="/removeFromWatchlist/" + movie.imdbid%>" data-toggle="tooltip" title="Remove From Watchlist"><i class="fas fa-plus-square"></i></a>
+                    <% } %>
+                <% } %>
                 <span><%= movie.title %> </span>
                 <span class="year">(<%= movie.year %>)</span>
             </div>
@@ -82,7 +74,7 @@
                 <%= movie.rated %>
             </div>
             <div class="col-lg-2 col-md-2">
-                <% display(movie.runtime.substring(0,movie.runtime.indexOf(' '))); %> 
+                <%= display(movie.runtime.substring(0, movie.runtime.indexOf(' '))); %> 
             </div>
             <div class="col-lg-3 col-md-3" style="margin-bottom: 0">
                 <% if(genrearray.length > 3) { %>
@@ -102,16 +94,16 @@
     <!-- Poster -->
     <div class="row">
         <div class="col-lg-4 col-md-4">
-            <img width=300px src = <%= movie.poster %> alt="Image Not Available" onerror="this.onerror=null;this.src='Images/notfound.jpg';">            
+            <img width = "300px" src = "<%= movie.poster %>" alt="Image Not Available" onerror="this.onerror=null;this.src='Images/notfound.jpg';">            
         </div>
         <div class="col-lg-8 col-md-8">
-            <%var youtubebaseurl = "https://www.youtube.com/embed/"%>
-            <%var trailer = youtubebaseurl + trailerlink%>
+            <% var youtubebaseurl = "https://www.youtube.com/embed/" %>
+            <% var trailer = youtubebaseurl + trailerlink %>
             <% if(trailerlink != undefined){ %>
                 <iframe
-                src= <%= trailer%> >
+                src = "<%= trailer %>" >
                 </iframe>
-            <%}%>
+            <% } %>
         </div>
     </div>
 

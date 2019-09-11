@@ -24,7 +24,7 @@ app.use(flash()); //for flash messages
 
 const dbUrl = process.env.DBURL || "mongodb://localhost:27017/moviesapp";
 
-mongoose.connect(dbUrl, {useNewUrlParser: true});
+mongoose.connect(dbUrl, {useNewUrlParser: true, useFindAndModify: false});
 
 app.use(session({
     secret: "Hello, This is my Secret Line",
@@ -48,8 +48,8 @@ app.use((req, res, next) => {
 
 // =================================================================================
 
-const tmdbApiKey = process.env.TMDBAPIKEY;
-const omdbApiKey = process.env.OMDBAPIKEY;
+const tmdbApiKey = process.env.TMDBAPIKEY || "473523253ce1a6744f253c14043dec4f";
+const omdbApiKey = process.env.OMDBAPIKEY || "8b0b451";
 
 var options = {
     url: `https://api.themoviedb.org/3/trending/movie/day?api_key=${tmdbApiKey}`,
@@ -59,6 +59,7 @@ var options = {
 var movie = [];
 var time = {}; //request optimization, will make new request after 1 hour
 app.get("/", function(req, res){
+    
     var t2 = new Date();
     var id = [];
     // console.log("movie length: ", movie.length);
@@ -113,8 +114,47 @@ app.get("/", function(req, res){
     }
 });
 
+app.get("/results", function(req, res){
+    var searchquery = req.query.searchquery;
+    url = `http://www.omdbapi.com/?apikey=${omdbApiKey}&s=${searchquery}`;
+    request(url, function(error, response, body){
+        if(!error && response.statusCode == 200){
+            var movies = JSON.parse(body);
+            res.render("results", {movies: movies});
+        }
+    });
+});
+
 app.get("/moviedetails/:clickedmovieimdbid", function(req, res){
     var clickedmovieimdbid = req.params.clickedmovieimdbid;
+    
+    if(req.user) {
+        var watchlist = req.user.watchlist;
+        var found = false;
+        // console.log(watchlist);
+        for (let i=0; i<watchlist.length; i++){
+            imdbId = watchlist[i];
+            if(imdbId === clickedmovieimdbid) {
+                found = true;
+                break;
+            }
+        }
+        // console.log(found); 
+    }
+
+    // Function to Convert Runtime from Minutes to Hours:Minutes
+    function display(a) {
+        var hours = Math.trunc(a/60);
+        var minutes = a % 60;
+        if(hours != 0 && minutes != 0) {
+            var time = hours + "h " + minutes + "min";
+        } else if(hours == 0) {
+            var time = minutes + "min";
+        } else if(minutes == 0) {
+            var time = hours + "h ";
+        }
+        return time;
+    }
     
     var options = {
         url: `http://www.omdbapi.com/?apikey=${omdbApiKey}&i=${clickedmovieimdbid}`,
@@ -170,11 +210,72 @@ app.get("/moviedetails/:clickedmovieimdbid", function(req, res){
                 dict[csvdata[i].imdbId] = csvdata[i].youtubeId;
             } 
             var trailerlink = dict[clickedmovie[0].imdbid.substring(2,).replace(/^0+/, '')];
-            res.render("moviedetails",{clickedmovie: clickedmovie, trailerlink: trailerlink}) 
+            res.render("moviedetails", {
+                clickedmovie: clickedmovie, 
+                trailerlink: trailerlink,
+                display: display,
+                found: found
+            });
         });
     })
     .catch((err) => console.log(err));
 });
+
+// Watchlist Routes ====================================================================
+
+app.get("/addToWatchlist/:imdbId", middleware.isLoggedIn, (req, res) => {
+    var user = req.user;
+    var imdbId = req.params.imdbId;
+    User.findByIdAndUpdate(user._id,
+        {$push: {watchlist: imdbId}},
+        {safe: true, upsert: true},
+        function(err, doc) {
+
+        }
+    );
+    res.redirect("/moviedetails/" + req.params.imdbId);
+});
+
+app.get("/removeFromWatchlist/:imdbId", middleware.isLoggedIn, (req, res) => {
+    var user = req.user;
+    var imdbId = req.params.imdbId;
+    User.findByIdAndUpdate(user._id,
+        {$pull: {watchlist: imdbId}},
+        {safe: true, upsert: true},
+        function(err, doc) {
+
+        }
+    );
+    res.redirect("/moviedetails/"+req.params.imdbId);
+});
+
+app.get("/mywatchlist", middleware.isLoggedIn, (req, res) => {
+    User.findById(req.user._id, (err, user) => {
+        // console.log(user.watchlist);
+        movies = [];
+        for (let i=0; i<user.watchlist.length; i++) {
+            imdbId = user.watchlist[i];
+            // console.log(imdbId);
+            var watchlistUrl = `http://www.omdbapi.com/?apikey=${omdbApiKey}&i=${imdbId}`;
+            var options = {
+                url: watchlistUrl,
+                json: true
+            };
+
+            rp(options)
+            .then((data) => {
+                // console.log(data);
+                movies.push({imdbId: data.imdbID , title: data.Title, year: data.Year, poster: data.Poster});
+                if(movies.length === user.watchlist.length) {
+                    res.render("watchlist", {movies: movies});           
+                }
+            });
+        }
+    });
+});
+
+// /Watchlist Routes ====================================================================
+
 
 app.get("/about", function(req, res){
     res.render("about");
@@ -182,17 +283,6 @@ app.get("/about", function(req, res){
 
 app.get("/contact", function(req, res){
     res.render("contact");
-});
-
-app.get("/results", function(req, res){
-    var searchquery = req.query.searchquery;
-    url = `http://www.omdbapi.com/?apikey=${omdbApiKey}&s=${searchquery}`;
-    request(url, function(error, response, body){
-        if(!error && response.statusCode == 200){
-            var movies = JSON.parse(body);
-            res.render("results", {movies: movies});
-        }
-    });
 });
 
 // ========================================================================
@@ -251,7 +341,7 @@ app.post("/login", function(req, res, next) {
                 return res.redirect('/login');
             }
             req.flash("success", "Successfully Signed In as " + user.firstname + " " + user.lastname);
-            return res.redirect("/");
+            return res.redirect("/");  //temporarily changed
         });
     })(req, res, next);
 });
