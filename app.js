@@ -271,6 +271,7 @@ app.get("/mywatchlist", middleware.isLoggedIn, (req, res) => {
                 }
             });
         }
+        res.render("watchlist", {movies: movies});
     });
 });
 
