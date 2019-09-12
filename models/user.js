@@ -1,5 +1,11 @@
-var mongoose = require("mongoose"),
-		passportLocalMongoose = require("passport-local-mongoose")
+const mongoose = require("mongoose"),
+passportLocalMongoose = require("passport-local-mongoose")
+
+var watchlistSchema = new mongoose.Schema({
+	imdbId: String,
+}, {
+	timestamps: true
+});
 
 var UserSchema = new mongoose.Schema({
 	firstname: {
@@ -16,7 +22,9 @@ var UserSchema = new mongoose.Schema({
 	password: {
 		type: String,
 	},
-	watchlist: []
+	watchlist: [watchlistSchema]
+}, {
+	timestamps: true
 });
 
 UserSchema.plugin(passportLocalMongoose);

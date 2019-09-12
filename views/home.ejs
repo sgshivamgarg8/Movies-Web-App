@@ -54,7 +54,7 @@
                 <div style="text-align: center">
                 	<% var imdblink = "https://www.imdb.com/title/" + movie[i].imdbid %> 
                     <a href="/moviedetails/<%= movie[i].imdbid %>">
-                    	<img width=100% src = <%= movie[i].poster %> alt="Image Not Available" onerror="this.onerror=null;this.src='Images/notfound.jpg';">
+                    	<img width="100%" src = "<%= movie[i].poster %>" alt="Image Not Available" onerror="this.onerror=null;this.src='Images/notfound.jpg';">
                     	<div>
                             <span class="title"><%= movie[i].title %></span></a>
                             <span class="year">(<%= movie[i].year %>)</span>

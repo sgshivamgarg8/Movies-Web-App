@@ -1,4 +1,4 @@
-var express = require("express"),
+const express = require("express"),
 app = express(),
 request = require("request"),
 bodyParser = require("body-parser"),
@@ -7,7 +7,7 @@ rp = require("request-promise"),
 fs = require('fs'),
 csv = require('csv-parser')
 // ========================================
-var mongoose = require("mongoose"),
+const mongoose = require("mongoose"),
 passport = require("passport"),
 LocalStrategy = require("passport-local"),
 session = require("express-session"),
@@ -61,7 +61,7 @@ var time = {}; //request optimization, will make new request after 1 hour
 app.get("/", function(req, res){
     
     var t2 = new Date();
-    var id = [];
+    let id = [];
     // console.log("movie length: ", movie.length);
     var timeTaken = (t2 - time.timeT1) / 1000;
     // console.log("timeTaken ", timeTaken);
@@ -75,7 +75,7 @@ app.get("/", function(req, res){
     if(movie.length === 0){
         rp(options)
         .then(function(data) {
-            for(var i=0; i<data.results.length; i++){
+            for(let i=0; i<data.results.length; i++){
                 id.push(data.results[i].id);
             }
             getdetailsfromid(id);
@@ -84,11 +84,11 @@ app.get("/", function(req, res){
     }
     
     function getdetailsfromid(id){
-        var urls = [];
-        for(var i=0; i<id.length; i++){
-            var url = `https://api.themoviedb.org/3/movie/${id[i]}?api_key=${tmdbApiKey}`;
+        let urls = [];
+        for(let i=0; i<id.length; i++){
+            let url = `https://api.themoviedb.org/3/movie/${id[i]}?api_key=${tmdbApiKey}`;
             urls.push(url);
-            var options = {
+            let options = {
                 url: urls[i],
                 json: true
             };
@@ -115,55 +115,56 @@ app.get("/", function(req, res){
 });
 
 app.get("/results", function(req, res){
-    var searchquery = req.query.searchquery;
-    url = `http://www.omdbapi.com/?apikey=${omdbApiKey}&s=${searchquery}`;
+    let searchquery = req.query.searchquery;
+    let url = `http://www.omdbapi.com/?apikey=${omdbApiKey}&s=${searchquery}`;
     request(url, function(error, response, body){
         if(!error && response.statusCode == 200){
-            var movies = JSON.parse(body);
+            let movies = JSON.parse(body);
             res.render("results", {movies: movies});
         }
     });
 });
 
 app.get("/moviedetails/:clickedmovieimdbid", function(req, res){
-    var clickedmovieimdbid = req.params.clickedmovieimdbid;
+    let clickedmovieimdbid = req.params.clickedmovieimdbid;
     
     if(req.user) {
-        var watchlist = req.user.watchlist;
-        var found = false;
-        // console.log(watchlist);
+        let watchlist = req.user.watchlist;
+        var foundInWatchlist = false;
+        // console.log("watchlist", watchlist);
         for (let i=0; i<watchlist.length; i++){
-            imdbId = watchlist[i];
+            let imdbId = watchlist[i].imdbId;
             if(imdbId === clickedmovieimdbid) {
-                found = true;
+                foundInWatchlist = true;
                 break;
             }
         }
-        // console.log(found); 
+        // console.log(foundInWatchlist); 
     }
 
     // Function to Convert Runtime from Minutes to Hours:Minutes
-    function display(a) {
-        var hours = Math.trunc(a/60);
-        var minutes = a % 60;
+    function convertRuntime(a) {
+        let hours = Math.trunc(a/60);
+        let minutes = a % 60;
+        let time;
         if(hours != 0 && minutes != 0) {
-            var time = hours + "h " + minutes + "min";
+            time = hours + "h " + minutes + "min";
         } else if(hours == 0) {
-            var time = minutes + "min";
+            time = minutes + "min";
         } else if(minutes == 0) {
-            var time = hours + "h ";
+            time = hours + "h ";
         }
         return time;
     }
     
-    var options = {
+    let options = {
         url: `http://www.omdbapi.com/?apikey=${omdbApiKey}&i=${clickedmovieimdbid}`,
         json: true
     }
     
     rp(options)
-    .then(function(data){
-        var clickedmovie = [];
+    .then((data) => {
+        let clickedmovie = [];
         // console.log(data)
         clickedmovie.push({
             title: data.Title,
@@ -192,8 +193,8 @@ app.get("/moviedetails/:clickedmovieimdbid", function(req, res){
             website: data.Website,
         })
         
-        var dict = {};
-        var csvdata = [];
+        let dict = {};
+        let csvdata = [];
         fs.createReadStream("public/assets/Files/joined.csv")
         .pipe(csv())
         .on('data', function(data){
@@ -206,15 +207,15 @@ app.get("/moviedetails/:clickedmovieimdbid", function(req, res){
         })
         .on('end',function(){
             // console.log(csvdata);
-            for (var i=0; i<csvdata.length; i++){
+            for (let i=0; i<csvdata.length; i++){
                 dict[csvdata[i].imdbId] = csvdata[i].youtubeId;
             } 
-            var trailerlink = dict[clickedmovie[0].imdbid.substring(2,).replace(/^0+/, '')];
+            let trailerlink = dict[clickedmovie[0].imdbid.substring(2,).replace(/^0+/, '')];
             res.render("moviedetails", {
                 clickedmovie: clickedmovie, 
                 trailerlink: trailerlink,
-                display: display,
-                found: found
+                display: convertRuntime,
+                found: foundInWatchlist
             });
         });
     })
@@ -224,58 +225,55 @@ app.get("/moviedetails/:clickedmovieimdbid", function(req, res){
 // Watchlist Routes ====================================================================
 
 app.get("/addToWatchlist/:imdbId", middleware.isLoggedIn, (req, res) => {
-    var user = req.user;
-    var imdbId = req.params.imdbId;
-    User.findByIdAndUpdate(user._id,
-        {$push: {watchlist: imdbId}},
-        {safe: true, upsert: true},
-        function(err, doc) {
-
-        }
-    );
+    let user = req.user;
+    let obtainedImdbId = req.params.imdbId;
+    user.watchlist.push({imdbId: obtainedImdbId});
+    user.save();
     res.redirect("/moviedetails/" + req.params.imdbId);
 });
 
 app.get("/removeFromWatchlist/:imdbId", middleware.isLoggedIn, (req, res) => {
-    var user = req.user;
-    var imdbId = req.params.imdbId;
+    let user = req.user;
+    let obtainedImdbId = req.params.imdbId;
     User.findByIdAndUpdate(user._id,
-        {$pull: {watchlist: imdbId}},
+        {$pull: {watchlist: {imdbId: obtainedImdbId}}},
         {safe: true, upsert: true},
         function(err, doc) {
-
+            if(err) console.log(err);
         }
     );
     res.redirect("/moviedetails/"+req.params.imdbId);
 });
 
 app.get("/mywatchlist", middleware.isLoggedIn, (req, res) => {
-    User.findById(req.user._id, (err, user) => {
-        // console.log(user.watchlist);
-        let movies = [];
-        if(user.watchlist.length) {
-            for (let i=0; i<user.watchlist.length; i++) {
-                imdbId = user.watchlist[i];
-                // console.log(imdbId);
-                var watchlistUrl = `http://www.omdbapi.com/?apikey=${omdbApiKey}&i=${imdbId}`;
-                var options = {
-                    url: watchlistUrl,
-                    json: true
-                };
+    let user = req.user;
+    // console.log(user.watchlist);
+    
+    let movies = [];
+    if(user.watchlist.length) {
+        for (let i=0; i<user.watchlist.length; i++) {
+            let imdbId = user.watchlist[i].imdbId;
+            // console.log(imdbId);
+            let watchlistUrl = `http://www.omdbapi.com/?apikey=${omdbApiKey}&i=${imdbId}`;
+            let options = {
+                url: watchlistUrl,
+                json: true
+            };
 
-                rp(options)
-                .then((data) => {
-                    // console.log(data);
-                    movies.push({imdbId: data.imdbID , title: data.Title, year: data.Year, poster: data.Poster});
-                    if(movies.length === user.watchlist.length) {
-                        res.render("watchlist", {movies: movies});           
-                    }
-                });
-            }
-        } else {
-            res.render("watchlist", {movies: movies});
+            rp(options)
+            .then((data) => {
+                movies.push({imdbId: data.imdbID , title: data.Title, year: data.Year, poster: data.Poster, date: user.watchlist[i].createdAt});
+                if(movies.length === user.watchlist.length) {
+                    movies.sort((movie1, movie2) => {
+                        return (movie1.date > movie2.date ? -1 : 1);
+                    });
+                    res.render("watchlist", {movies: movies});           
+                }
+            });
         }
-    });
+    } else {
+        res.render("watchlist", {movies: movies});
+    }
 });
 
 // /Watchlist Routes ====================================================================
@@ -304,9 +302,9 @@ app.post("/register", function(req, res){
             return res.redirect("/register");
         }
         if(req.body.firstname)
-        user.firstname = req.body.firstname;
+            user.firstname = req.body.firstname;
         if(req.body.lastname)
-        user.lastname = req.body.lastname;
+            user.lastname = req.body.lastname;
         user.save((err, user) => {
             if(err) console.log(err);
             else {
@@ -322,13 +320,6 @@ app.post("/register", function(req, res){
 app.get("/login", function(req, res){
     res.render("login");
 });
-
-// app.post("/login", passport.authenticate("local", {
-// 	successRedirect: "/",
-//     failureRedirect: "/login",
-//     failureFlash: true,
-//     successFlash: "Welcome"
-// }));
 
 app.post("/login", function(req, res, next) {
     passport.authenticate('local', function(err, user, info) {
@@ -362,5 +353,5 @@ app.get("*", function(req, res){
     res.send("<h1>Error 404!! Sorry, Page Not Found</h1>");
 });
 
-var port = process.env.PORT || 3000;
+let port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Movie App has started on port: ${port}`));
