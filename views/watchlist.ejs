@@ -25,11 +25,13 @@
                     <div class="thumbnail moviecard" >
                         <div class="block" style="text-align: center">
                             <a href="/moviedetails/<%= movie.imdbId %>">
-                            <img src="<%= movie.poster %>" alt="Image Not Available" onerror="this.onerror=null;this.src='Images/notfound.jpg';">
+                                <img src="<%= movie.poster %>" alt="Image Not Available" onerror="this.onerror=null;this.src='Images/notfound.jpg';">
+                            </a>
                             <div>
+                            <a href="/moviedetails/<%= movie.imdbId %>">
                                 <%= movie.title %>
                             </a>
-                                <span class="year">(<%= movie.year %>)</span>
+                            <span class="year">(<%= movie.year %>)</span>
                             </div>
                         </div>
                     </div>
