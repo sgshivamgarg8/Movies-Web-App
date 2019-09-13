@@ -6,12 +6,12 @@
   ```
   npm install
   ```
-* Set Environment Variables for API keys using 
+* Set Environment Variables for API keys using (optional)
   ```
   set TMDBAPIKEY="Your tmdb api key without quotes"
   set OMDBAPIKEY="Your omdb api key without quotes"
   ```
-* Set Environemnt Variable for Database using
+* Set Environemnt Variable for Database using (optional)
   ```
   set DATABASEURL="Your database url without quotes"
   ```
