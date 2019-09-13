@@ -38,10 +38,7 @@
 
 <!-- Search Bar -->
 <div class="container">
-    <form class="form-group" action="/results" method="GET"> 
-        <input type="text" class="form-control" name="searchquery" placeholder="Search Movie">
-        <button type="submit" class="btn btn-primary"> <i class="fas fa-search"></i> Search</button>
-    </form>
+    <% include partials/searchform %>     
 
     <div class="jumbotron">
         <!-- Row 1 of Jumbotron -->
@@ -49,9 +46,9 @@
             <div class="col-lg-6 col-md-6 movietitle">
                 <% if(currentUser) { %>    
                     <% if(!found) { %> 
-                        <a href = "<%="/addToWatchlist/" + movie.imdbid%>" data-toggle="tooltip" title="Add To Watchlist"><i class="far fa-plus-square"></i></a>
+                        <a href = "<%="/user/mywatchlist/addToWatchlist/" + movie.imdbid%>" data-toggle="tooltip" title="Add To Watchlist"><i class="far fa-plus-square"></i></a>
                     <% } else { %>
-                        <a href = "<%="/removeFromWatchlist/" + movie.imdbid%>" data-toggle="tooltip" title="Remove From Watchlist"><i class="fas fa-plus-square"></i></a>
+                        <a href = "<%="/user/mywatchlist/removeFromWatchlist/" + movie.imdbid%>" data-toggle="tooltip" title="Remove From Watchlist"><i class="fas fa-plus-square"></i></a>
                     <% } %>
                 <% } %>
                 <span><%= movie.title %> </span>

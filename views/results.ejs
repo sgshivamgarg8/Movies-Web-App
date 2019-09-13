@@ -10,10 +10,7 @@
 
 <div class="container">
     <!-- search form -->
-    <form class="form-group" action="/results" method="GET"> 
-        <input type="text" class="form-control" name="searchquery" placeholder="Search Movie">
-        <button type="submit" class="btn btn-primary"> <i class="fas fa-search"></i> Search</button>
-    </form>
+    <% include partials/searchform %> 
     <!-- /search form -->
 
     <% if(movies.Response == "False") { %>
@@ -34,7 +31,7 @@
                     <div class="col-lg-3 col-md-4 col-sm-6">
                         <div class="thumbnail moviecard" >
                             <div class="block" style="text-align: center">
-                                <a href="/moviedetails/<%= imdbid %>">
+                                <a href="/search/moviedetails/<%= imdbid %>">
                                 <img src="<%= movies.Search[i].Poster %>" alt="Image Not Available" onerror="this.onerror=null;this.src='Images/notfound.jpg';">
                                 <div>
                                     <%= movies.Search[i].Title %></a>

@@ -39,10 +39,8 @@
         <p class="lead">This is a Simple Movie Search Web App</p>
         <hr class="my-4">
         <!--Form for searching movie with movie name -->
-        <form class="form-group" action="/results" method="GET"> 
-            <input type="text" class="form-control" name="searchquery" placeholder="Search Movie">
-            <button type="submit" class="btn btn-primary"> <i class="fas fa-search"></i> Search</button>
-        </form>
+        <% include partials/searchform %> 
+        
     </div>
     
     <!--Trending-->
@@ -53,7 +51,7 @@
             <div class="thumbnail moviecard">
                 <div style="text-align: center">
                 	<% var imdblink = "https://www.imdb.com/title/" + movie[i].imdbid %> 
-                    <a href="/moviedetails/<%= movie[i].imdbid %>">
+                    <a href="/search/moviedetails/<%= movie[i].imdbid %>">
                     	<img width="100%" src = "<%= movie[i].poster %>" alt="Image Not Available" onerror="this.onerror=null;this.src='Images/notfound.jpg';">
                     	<div>
                             <span class="title"><%= movie[i].title %></span></a>

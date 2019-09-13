@@ -1,10 +1,10 @@
 <ul class="navbar-nav">
   <% if(!currentUser) { %> 
     <li class="nav-item">
-        <a class="nav-link" href="/login">Login</a>
+        <a class="nav-link" href="/user/login">Login</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="/register">Register</a>
+        <a class="nav-link" href="/user/register">Register</a>
     </li>
   <% } else { %>
     <li class="nav-item dropdown">
@@ -12,10 +12,10 @@
             <%= currentUser.firstname %> <%= currentUser.lastname %>
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="/mywatchlist">My Watchlist</a>
+            <a class="dropdown-item" href="/user/mywatchlist">My Watchlist</a>
         </li>
     <li class="nav-item">
-        <a class="nav-link" href="/logout">Logout</a>
+        <a class="nav-link" href="/user/logout">Logout</a>
     </li>
   <% } %>
 </ul>

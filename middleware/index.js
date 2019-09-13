@@ -4,7 +4,7 @@ var middlewareObj = {
       return next();
     }
     req.flash("error", "Please Login First");
-    res.redirect("/login");
+    res.redirect("/user/login");
   }
 }
 
