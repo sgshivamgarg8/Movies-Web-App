@@ -3,18 +3,20 @@ app           = express(),
 bodyParser    = require("body-parser"),
 flash         = require("connect-flash");
 rp            = require("request-promise"),
-fs            = require('fs'),
-csv           = require('csv-parser'),
-config        = require('./config')
+fs            = require("fs"),
+csv           = require("csv-parser"),
+config        = require("./config")
 // ================================================================================
 const mongoose = require("mongoose"),
 passport       = require("passport"),
 LocalStrategy  = require("passport-local"),
 session        = require("express-session"),
+FileStore      = require("session-file-store")(session);
+cookieParser   = require("cookie-parser");
 User           = require("./models/user"),
 middleware     = require("./middleware")
 // ================================================================================
-const indexRouter     = require('./routes/indexRouter'),
+const indexRouter     = require("./routes/indexRouter"),
       userRouter      = require("./routes/userRouter"),
       watchlistRouter = require("./routes/watchlistRoutes"),
       searchRouter    = require("./routes/searchRouter")
@@ -23,17 +25,24 @@ const indexRouter     = require('./routes/indexRouter'),
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(cookieParser("Hello, This is my Secret Line"));
+
 app.use(flash()); //for flash messages
 
 // Mongoose connect ===============================================================
 
-mongoose.connect(config.dbUrl, {useNewUrlParser: true, useFindAndModify: false});
+mongoose.connect(config.dbUrl, {useNewUrlParser: true, useFindAndModify: false})
+.then(() => {
+    console.log("DB Connected Successfully");
+})
+.catch((err) => console.log(err));
 
 // Express Session Setup ==========================================================
 app.use(session({
     secret: "Hello, This is my Secret Line",
     resave: false,
     saveUninitialized: false,
+    store: new FileStore()
 }));
 
 // Passport Setup =================================================================

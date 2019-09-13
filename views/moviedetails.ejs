@@ -32,9 +32,9 @@
 
 <% var moviename = movie.title.toLowerCase().split(" ").join("_") %> 
 
-<%if(movie.website==undefined){%>
+<% if(movie.website == undefined) { %>
     <% movie.website = "https://www.facebook.com/"+movie.title.split(" ").join(""); %>
-<%}%>
+<% } %>
 
 <!-- Search Bar -->
 <div class="container">
