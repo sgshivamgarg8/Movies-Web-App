@@ -42,7 +42,8 @@ app.use(session({
     secret: "Hello, This is my Secret Line",
     resave: false,
     saveUninitialized: false,
-    store: new FileStore()
+    store: new FileStore(),
+    cookie: { maxAge: 3600000, secure: false, httpOnly: true }
 }));
 
 // Passport Setup =================================================================
