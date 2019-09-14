@@ -8,7 +8,8 @@ omdbApiKey = config.omdbApiKey;
 
 router.get("/results", (req, res) => {
   let searchquery = req.query.searchquery;
-  let url = `http://www.omdbapi.com/?apikey=${omdbApiKey}&s=${searchquery}`;
+  let type = req.query.type;
+  let url = `http://www.omdbapi.com/?apikey=${omdbApiKey}&s=${searchquery}&type=${type}`;
   request(url, (error, response, body) => {
       if(!error && response.statusCode == 200){
           let movies = JSON.parse(body);

@@ -5,15 +5,9 @@ const express = require("express"),
 const tmdbApiKey = config.tmdbApiKey,
       omdbApiKey = config.omdbApiKey;
 
-let options = {
-  url: `https://api.themoviedb.org/3/trending/movie/day?api_key=${tmdbApiKey}`,
-  json: true
-};
-
 var movie = [];
-var time = {}; //request optimization, will make new request after 1 hour
+var time = {}; //request optimization, will make new request after 1 hour (3600 seconds)
 router.get("/", (req, res) => {
-  
   var t2 = new Date();
   let id = [];
   // console.log("movie length: ", movie.length);
@@ -27,6 +21,11 @@ router.get("/", (req, res) => {
     movie = [];
   }
   if(movie.length === 0){
+    let options = {
+      url: `https://api.themoviedb.org/3/trending/movie/day?api_key=${tmdbApiKey}`,
+      json: true
+    };
+
     rp(options)
     .then((data) => {
       for(let i=0; i<data.results.length; i++){
