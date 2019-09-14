@@ -1,4 +1,16 @@
 <form class="form-group" action="/search/results" method="GET"> 
-  <input type="text" class="form-control" name="searchquery" placeholder="Search Movie">
+  <div class="row">
+    <div class="col-lg-10 col-sm-9 col-8">
+      <input type="text" class="form-control" name="searchquery" placeholder="Search Movie">
+    </div>
+    
+    <div class="col-lg-2 col-sm-3 col-4">
+      <select class="custom-select" name="type">
+        <option value="">All</option>
+        <option value="movie">Movies</option>
+        <option value="series">TV</option>
+      </select>
+    </div>
+  </div>
   <button type="submit" class="btn btn-primary"> <i class="fas fa-search"></i> Search</button>
 </form>
