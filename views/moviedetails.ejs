@@ -144,9 +144,9 @@
             <!-- Rotten Tomatoes -->
             <% if(movie.ratings.length > 1) { %>
                 <% if( movie.ratings[1].Value.substring(0,2) >= 60 ){ %>
-                    <img src="https://img.icons8.com/color/48/000000/tomato.png">
+                    <img src="/Images/tomato.png">
                 <% } else { %>
-                    <img src="https://img.icons8.com/color/48/000000/rotten-tomatoes.png">
+                    <img src="/Images/rotten-tomato.png">
                 <% } %>
                 <span> <%= movie.ratings[1].Value %> </span>
             <% } %>
