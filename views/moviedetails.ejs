@@ -34,6 +34,10 @@
     <% movie.website = "https://www.facebook.com/"+movie.title.split(" ").join(""); %>
 <% } %>
 
+<!-- Runtime fix -->
+<% runtime = (movie.runtime) ? movie.runtime : movie.runtime1 %>
+<% runtime = runtime.split(" ")[0] %>
+
 <!-- Search Bar -->
 <div class="container">
     <% include partials/searchform %>     
@@ -69,7 +73,7 @@
                 <%= movie.rated %>
             </div>
             <div class="col-lg-2 col-md-2">
-                <%= display(movie.runtime); %> 
+                <%= display(runtime); %> 
             </div>
             <div class="col-lg-3 col-md-3" style="margin-bottom: 0">
                 <% if(genrearray.length > 3) { %>
@@ -172,18 +176,23 @@
     <hr>   
     
     <!-- Tagline -->
-    <div class="tagline">
-        <h2>Tagline</h2>
-        <%= movie.tagline %>
-    </div>
-    <hr>
+    <% if(movie.tagline){ %>
+        <div class="tagline">
+            <h2>Tagline</h2>
+            <%= movie.tagline %>
+        </div>
+        <hr>
+    <% } %>
 
-    <h2>Box Office</h2>
-    <div>
-        <strong>Worldwide Gross: &nbsp; </strong> 
-        $<%= (movie.boxoffice).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'); %>
-    </div>
-    <hr>
+    <!-- Box Office Collection -->
+    <% if(movie.boxoffice){ %>
+        <h2>Box Office</h2>
+        <div>
+            <strong>Worldwide Gross: &nbsp; </strong> 
+            $<%= (movie.boxoffice).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'); %>
+        </div>
+        <hr>
+    <% } %>
 
     <h2>Company Credits</h2>
     <div>
@@ -200,7 +209,7 @@
     <hr>
 
     <h2>Technical Details</h2>
-    <div><strong>Runtime: &nbsp; </strong> <%= movie.runtime %> minutes</div>
+    <div><strong>Runtime: &nbsp; </strong> <%= runtime %> minutes</div>
     <div><strong>DVD Release: &nbsp; </strong> <%= movie.dvd %></div>
     <hr>
 

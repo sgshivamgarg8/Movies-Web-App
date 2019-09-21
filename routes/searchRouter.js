@@ -80,20 +80,27 @@ router.get("/moviedetails/:clickedmovieimdbid", (req, res) => {
 			imdbid: data.imdbID,
 			type: data.Type,
 			dvd: data.DVD,
+			// boxoffice1: data.BoxOffice,
+			runtime1: data.Runtime,
 			website: data.Website,
 		};
 		
 		let findTmdbIdUrl = `https://api.themoviedb.org/3/find/${clickedmovieimdbid}?api_key=${tmdbApiKey}&language=en-US&external_source=imdb_id`;
 		request(findTmdbIdUrl, (err, resp, body) => {
 			data = JSON.parse(body);
-			let tmdbId;
-			if(data.movie_results.length > 0)
-			tmdbId = data.movie_results[0].id;
-			else if(data.tv_results.length > 0)
-			tmdbId = data.tv_results[0].id;
+			let tmdbId, flagMovie;
+			if(data.movie_results.length > 0){
+				flagMovie = true;
+				tmdbId = data.movie_results[0].id;
+				searchTrailerLinkUrl = `http://api.themoviedb.org/3/movie/${tmdbId}?api_key=${tmdbApiKey}&append_to_response=videos`;
+			}
+			else if(data.tv_results.length > 0){
+				flagMovie = false;
+				tmdbId = data.tv_results[0].id;
+				searchTrailerLinkUrl = `http://api.themoviedb.org/3/tv/${tmdbId}?api_key=${tmdbApiKey}&append_to_response=videos`;
+			}
 			// console.log(tmdbId);
 			
-			searchTrailerLinkUrl = `http://api.themoviedb.org/3/movie/${tmdbId}?api_key=${tmdbApiKey}&append_to_response=videos`;
 			request(searchTrailerLinkUrl, (err, resp, body) => {
 				full_data = JSON.parse(body);
 				// console.log(full_data);
@@ -106,12 +113,14 @@ router.get("/moviedetails/:clickedmovieimdbid", (req, res) => {
 				else
 					trailerlink = '';
 				
-				clickedmovie.production = full_data.production_companies;
-				clickedmovie.boxoffice = full_data.revenue;
+				if(flagMovie){
+					clickedmovie.boxoffice = full_data.revenue;
+					clickedmovie.runtime = full_data.runtime.toString();
+				}
 				clickedmovie.tagline = full_data.tagline;
+				clickedmovie.production = full_data.production_companies;
 				clickedmovie.status = full_data.status;
-				clickedmovie.runtime = full_data.runtime;
-				// console.log(youtubeId);
+				// console.log(clickedmovie);
 				res.render("moviedetails", {
 					movie: clickedmovie, 
 					trailerlink: youtubeId,
