@@ -210,7 +210,9 @@
 
     <h2>Technical Details</h2>
     <div><strong>Runtime: &nbsp; </strong> <%= runtime %> minutes</div>
-    <div><strong>DVD Release: &nbsp; </strong> <%= movie.dvd %></div>
+    <% if(flagMovie){ %>
+        <div><strong>DVD Release: &nbsp; </strong> <%= movie.dvd %></div>
+    <% } %>
     <hr>
 
     <!-- Imdb Button -->

@@ -104,9 +104,16 @@ router.get("/moviedetails/:clickedmovieimdbid", (req, res) => {
 			request(searchTrailerLinkUrl, (err, resp, body) => {
 				full_data = JSON.parse(body);
 				// console.log(full_data);
+				// console.log(full_data.videos.results);
 				let youtubeId = null;
-				if(full_data.videos.results.length)
+				if(full_data.videos.results.length){
 					youtubeId = full_data.videos.results[0].key;
+				}
+
+				youtubeTrailerObject = full_data.videos.results.find(x => x.type === "Trailer");
+				if(youtubeTrailerObject){
+					youtubeId = youtubeTrailerObject.key;
+				}
 				
 				if(youtubeId)
 					trailerlink = `https://www.youtube.com/watch?v=${youtubeId}`;
@@ -115,7 +122,8 @@ router.get("/moviedetails/:clickedmovieimdbid", (req, res) => {
 				
 				if(flagMovie){
 					clickedmovie.boxoffice = full_data.revenue;
-					clickedmovie.runtime = full_data.runtime.toString();
+					runtime = (full_data.runtime) ? full_data.runtime.toString() : full_data.runtime;
+					clickedmovie.runtime = runtime;
 				}
 				clickedmovie.tagline = full_data.tagline;
 				clickedmovie.production = full_data.production_companies;
@@ -125,7 +133,8 @@ router.get("/moviedetails/:clickedmovieimdbid", (req, res) => {
 					movie: clickedmovie, 
 					trailerlink: youtubeId,
 					display: convertRuntime,
-					found: foundInWatchlist
+					found: foundInWatchlist,
+					flagMovie: flagMovie
 				});
 			});
 		});	
