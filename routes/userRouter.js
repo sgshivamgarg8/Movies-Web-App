@@ -56,6 +56,18 @@ router.post("/login", (req, res, next) => {
   })(req, res, next);
 });
 
+router.get("/edit", middleware.isLoggedIn, (req, res) => {
+  res.render("edit");
+  // console.log(req.user);
+});
+
+router.post("/edit", middleware.isLoggedIn, (req, res) => {
+  req.user.firstname = req.body.firstname || req.user.firstname;
+  req.user.lastname = req.body.lastname || req.user.lastname;
+  req.user.save((err, user) => console.log(err));
+  res.redirect('/');
+});
+
 router.get("/logout", middleware.isLoggedIn, (req, res) => {
   req.logout();
   req.flash("success", "Successfully Logged Out");

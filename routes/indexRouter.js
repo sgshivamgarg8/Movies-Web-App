@@ -31,12 +31,12 @@ router.get("/", (req, res) => {
       for(let i=0; i<data.results.length; i++){
         id.push(data.results[i].id);
       }
-      getdetailsfromid(id);
+      getDetailsFromId(id);
     })
     .catch((err) => console.log(err));
   }
   
-  function getdetailsfromid(id){
+  function getDetailsFromId(id){
     let urls = [];
     for(let i=0; i<id.length; i++){
       let url = `https://api.themoviedb.org/3/movie/${id[i]}?api_key=${tmdbApiKey}`;

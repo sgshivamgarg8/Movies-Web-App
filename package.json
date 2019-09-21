@@ -11,7 +11,9 @@
     "movies"
   ],
   "nodemonConfig": {
-    "ignore": ["sessions/"]
+    "ignore": [
+      "sessions/"
+    ]
   },
   "author": "Shivam Garg",
   "license": "ISC",
