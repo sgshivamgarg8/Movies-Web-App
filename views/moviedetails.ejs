@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <!-- Clicked Movie title on browser title with app name -->
-    <title><%= clickedmovie[0].title %> (<%= clickedmovie[0].year %>) - MovieSSS</title>
+    <title><%= movie.title %> (<%= movie.year %>) - MovieSSS</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.min.css">
@@ -19,10 +19,8 @@
 <% include partials/flash %> 
 <!-- /flash -->
 
-<% var movie = clickedmovie[0] %>
 <% var genrearray = movie.genre.split(","); %>
 <% var countryarray = movie.country.split(","); %>
-
 
 <% if(movie.type == "movie") { %>
 <% var movietype = "m" %>
@@ -71,7 +69,7 @@
                 <%= movie.rated %>
             </div>
             <div class="col-lg-2 col-md-2">
-                <%= display(movie.runtime.substring(0, movie.runtime.indexOf(' '))); %> 
+                <%= display(movie.runtime); %> 
             </div>
             <div class="col-lg-3 col-md-3" style="margin-bottom: 0">
                 <% if(genrearray.length > 3) { %>
@@ -96,10 +94,8 @@
         <div class="col-lg-8 col-md-8">
             <% var youtubebaseurl = "https://www.youtube.com/embed/" %>
             <% var trailer = youtubebaseurl + trailerlink %>
-            <% if(trailerlink != undefined){ %>
-                <iframe
-                src = "<%= trailer %>" >
-                </iframe>
+            <% if(trailerlink != null){ %>
+                <iframe src = "<%= trailer %>" ></iframe>
             <% } %>
         </div>
     </div>
@@ -171,19 +167,40 @@
     <div><strong>Official Sites: &nbsp; </strong> <a href="<%= movie.website %>" target="_blank">Official site</a></div>
     <div><strong>Country: &nbsp; </strong> <%= movie.country %></div>
     <div><strong>Language: &nbsp; </strong> <%= movie.language %></div>
+    <div><strong>Status: &nbsp; </strong> <%= movie.status %></div>
     <div><strong>Release Date: &nbsp; </strong> <%= movie.released %></div>
-    <hr>    
+    <hr>   
+    
+    <!-- Tagline -->
+    <div class="tagline">
+        <h2>Tagline</h2>
+        <%= movie.tagline %>
+    </div>
+    <hr>
 
     <h2>Box Office</h2>
-    <div><strong>Gross: &nbsp; </strong> <%= movie.boxoffice %></div>
+    <div>
+        <strong>Worldwide Gross: &nbsp; </strong> 
+        $<%= (movie.boxoffice).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'); %>
+    </div>
     <hr>
 
     <h2>Company Credits</h2>
-    <div><strong>Production Co.: &nbsp; </strong> <%= movie.production %></div>
+    <div>
+        <% for (i in movie.production) { %>
+          <div style="margin-top: 15px; margin-bottom: 15px">
+            <% productionImageUrl = `https://image.tmdb.org/t/p/w154${movie.production[i].logo_path}` %>
+            <span style="margin-right: 10px">
+                <img src="<%= productionImageUrl %>" alt="N/A">
+            </span>
+            <%= movie.production[i].name %>
+          </div>  
+        <% } %>
+    </div>
     <hr>
 
     <h2>Technical Details</h2>
-    <div><strong>Runtime: &nbsp; </strong> <%= movie.runtime %></div>
+    <div><strong>Runtime: &nbsp; </strong> <%= movie.runtime %> minutes</div>
     <div><strong>DVD Release: &nbsp; </strong> <%= movie.dvd %></div>
     <hr>
 
