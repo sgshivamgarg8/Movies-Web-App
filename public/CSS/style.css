@@ -192,7 +192,7 @@ h2{
 	}
 }
 
-/* Desktops */
+/* Laptops and Desktops */
 @media(min-width: 992px){
 	.movietitle{
 		font-weight: 600;
@@ -200,7 +200,6 @@ h2{
 	}
 	.rating{
 		font-size: 2em;
-		margin-bottom: 0;
 	}
 }
 
@@ -208,11 +207,10 @@ h2{
 @media(min-width: 768px) and (max-width:991px){
 	.movietitle{
 		font-weight: 600;
-		font-size: 20px;
+		font-size: 32px;
 	}
 	.rating{
-		font-size: 1.5em;
-		margin-bottom: 0;
+		font-size: 1.8em;
 	}
 	iframe{
 		position: absolute;
@@ -226,6 +224,13 @@ h2{
 
 /* Phones in Landscape mode */
 @media(min-width: 576px) and (max-width:767px){
+	.movietitle{
+		font-weight: 600;
+		font-size: 26px;
+	}
+	.rating{
+		font-size: 1.5em;
+	}
 	iframe{
 		margin-top: 10px;
 		width: 510px;
@@ -233,17 +238,31 @@ h2{
 	}
 }
 
-/* Smaller than Tablets */
-@media(max-width: 767px){
+/* Phones */
+@media(max-width:575px){
 	.movietitle{
 		font-weight: 600;
-		font-size: 20px;
+		font-size: 26px;
+	}
+	.rating{
+		font-size: 1.5em;
+	}
+	.externalratings{
+		font-size: .8rem;
+	}
+}
+
+/* Smaller than Tablets */
+/* @media(max-width: 767px){
+	.movietitle{
+		font-weight: 600;
+		font-size: 26px;
 	}
 	.rating{
 		font-size: 2em;
 		margin-bottom: 0;
 	}
-}
+} */
 
 /* IMDb Rating Styling */
 .votes{
@@ -274,13 +293,6 @@ h2{
 
 .metacritic{
 	position: relative;
-}
-
-/* Phones */
-@media(max-width:575px){
-	.externalratings{
-		font-size: .8rem;
-	}
 }
 
 .castinfo, .plot{
