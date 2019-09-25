@@ -22,6 +22,10 @@ var UserSchema = new mongoose.Schema({
 	password: {
 		type: String,
 	},
+	admin: {
+		type: Boolean,
+		default: false
+	},
 	watchlist: [watchlistSchema]
 }, {
 	timestamps: true

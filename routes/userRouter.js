@@ -74,4 +74,11 @@ router.get("/logout", middleware.isLoggedIn, (req, res) => {
   res.redirect("/");
 });
 
+router.get('/allusers', middleware.isAdmin, (req, res) => {
+  User.find().then((data) => {
+    res.send(data);
+    // res.render('allusers', {data: data})
+  });
+});
+
 module.exports = router;
