@@ -1,3 +1,5 @@
 node_modules/
 sessions/*
 config_vars.md
+extra*
+*copy*
