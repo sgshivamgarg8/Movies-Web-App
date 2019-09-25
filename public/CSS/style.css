@@ -7,6 +7,114 @@ input{
 	height: 43px;
 }
 
+hr{
+	background: white;
+	opacity: .1;
+}
+
+h2{
+	color: rgb(223, 210, 210);
+}
+
+/* Custom Margins */
+.m-30{
+	margin: 30px;
+}
+.m-20{
+	margin: 20px;
+}
+.m-15{
+	margin: 15px;
+}
+.m-10{
+	margin: 10px;
+}
+.m-0{
+	margin: 0;
+}
+.m-l-30{
+	margin-left: 30px;
+}
+.m-l-20{
+	margin-left: 20px;
+}
+.m-l-10{
+	margin-left: 10px;
+}
+.m-l-5{
+	margin-left: 5px;
+}
+.m-t-30{
+	margin-top: 30px;
+}
+.m-t-20{
+	margin-top: 20px;
+}
+.m-t-10{
+	margin-top: 10px;
+}
+.m-t-5{
+	margin-top: 5px;
+}
+.m-r-30{
+	margin-right: 30px;
+}
+.m-r-20{
+	margin-right: 20px;
+}
+.m-r-10{
+	margin-right: 10px;
+}
+.m-r-5{
+	margin-right: 5px;
+}
+.m-b-30{
+	margin-bottom: 30px;
+}
+.m-b-20{
+	margin-bottom: 20px;
+}
+.m-b-10{
+	margin-bottom: 10px;
+}
+.m-b-5{
+	margin-bottom: 5px;
+}
+/* ====================== */
+
+/* Custom Paddings */
+.p-30{
+	padding: 30px;
+}
+.p-20{
+	padding: 20px;
+}
+.p-10{
+	padding: 10px;
+}
+.p-0{
+	padding: 0;
+}
+.p-t-30{
+	padding-top: 30px;
+}
+.p-t-20{
+	padding-top: 20px;
+}
+.p-t-10{
+	padding-top: 10px;
+}
+.p-b-30{
+	padding-bottom: 30px;
+}
+.p-b-20{
+	padding-bottom: 20px;
+}
+.p-b-10{
+	padding-bottom: 10px;
+}
+/* ====================== */
+
 .btn{
 	margin: 5px 0;
 }
@@ -20,12 +128,9 @@ input{
 	color: black;
 }
 
+/* Movie title year */
 .year{
 	opacity: .7; 
-}
-
-.col-lg-3{
-	margin-bottom: 20px;
 }
 
 .card{
@@ -34,6 +139,15 @@ input{
 	margin-top: 100px ;
 }
 
+.fa-facebook-square{
+	color: #3C5A99;
+}
+
+.fa-instagram{
+	color: #C13584;
+}
+
+/* Phones in Lanscape mode */
 @media(min-width: 576px){
 	.block img{
 		width: 100%;
@@ -41,6 +155,7 @@ input{
 	}
 }
 
+/* Phones in Portrait mode */
 @media(max-width: 575px){
 	.block img{
 		width: 300px;
@@ -53,28 +168,7 @@ input{
 	}
 }
 
-.fa-facebook-square{
-	color: #3C5A99;
-}
-
-.fa-instagram{
-	color: #C13584;
-}
-
-hr{
-	background: white;
-	opacity: .1;
-}
-
-.votes{
-	color: rgb(192, 192, 192);
-	font-size: 0.5em;
-}
-
-.fa-star{
-	color: rgb(228, 187, 36);
-}
-
+/* Extra Large Devices */
 @media(min-width: 1201px){
 	iframe{
 		width: 720px;
@@ -86,6 +180,7 @@ hr{
 	}
 }
 
+/* Laptops */
 @media(min-width: 992px) and (max-width:1200px){
 	iframe{
 		width: 610px;
@@ -97,34 +192,19 @@ hr{
 	}
 }
 
+/* Desktops */
 @media(min-width: 992px){
-	.rating{
-		font-size: 2em;
-		margin-bottom: 0;
-	}
 	.movietitle{
 		font-weight: 600;
 		font-size: 36px;
 	}
-	.fa-star{ 
-		font-size: 1.5em;
-		position: absolute;
-		top: 50%;
-		right: 0;
-		-webkit-transform: translate(-50%, -50%);
-		transform: translate(-50%, -50%);
-	}
-	.rating1{
-		position: absolute;
-		top: 50%;
-		-webkit-transform: translate(-50%, -50%);
-		transform: translate(-50%, -50%);	
-	}
-	.votes{
-		margin: 0;	
+	.rating{
+		font-size: 2em;
+		margin-bottom: 0;
 	}
 }
 
+/* Tablets */
 @media(min-width: 768px) and (max-width:991px){
 	.movietitle{
 		font-weight: 600;
@@ -133,23 +213,6 @@ hr{
 	.rating{
 		font-size: 1.5em;
 		margin-bottom: 0;
-	}
-	.fa-star{ 
-		font-size: 1.5em;
-		position: absolute;
-		top: 50%;
-		right: 0;
-		-webkit-transform: translate(-50%, -50%);
-		transform: translate(-50%, -50%);
-	}
-	.rating1{
-		position: absolute;
-		top: 50%;
-		-webkit-transform: translate(-50%, -50%);
-		transform: translate(-50%, -50%);	
-	}
-	.votes{
-		margin: 0;	
 	}
 	iframe{
 		position: absolute;
@@ -161,6 +224,7 @@ hr{
 	}
 }
 
+/* Phones in Landscape mode */
 @media(min-width: 576px) and (max-width:767px){
 	iframe{
 		margin-top: 10px;
@@ -169,6 +233,7 @@ hr{
 	}
 }
 
+/* Smaller than Tablets */
 @media(max-width: 767px){
 	.movietitle{
 		font-weight: 600;
@@ -178,24 +243,25 @@ hr{
 		font-size: 2em;
 		margin-bottom: 0;
 	}
-	.fa-star{
-		position: absolute;
-		top: 20%;
-	}
-	.rating1{
-		font-size: .7em;
-		margin-left: 10px;
-	}
-	.votes{
-		margin-left: 10px;
-	}
+}
+
+/* IMDb Rating Styling */
+.votes{
+	color: rgb(192, 192, 192);
+	font-size: 0.5em;
+}
+
+.fa-star{
+	color: rgb(228, 187, 36);
 }
 
 .max-rating{
 	font-size: .5em;
 	color: rgb(192, 192, 192);
 }
+/* ================================ */
 
+/* Row 2 of Jumbotron */
 @media(min-width:768px){
 	.row2{
 		margin-top: 30px;
@@ -210,20 +276,18 @@ hr{
 	position: relative;
 }
 
+/* Phones */
 @media(max-width:575px){
 	.externalratings{
 		font-size: .8rem;
 	}
 }
 
-h2{
-	color: rgb(223, 210, 210);
-}
-
 .castinfo, .plot{
 	font-size: 1rem;
 }
 
+/* MetaScore Style */
 .universalacclaim{
 	background: rgb(102, 204, 51);
 }
@@ -235,7 +299,9 @@ h2{
 .overwhelmingdislike{
 	background: rgb(255, 0, 0);
 }
+/* ====================================== */
 
+/* MovieCard */
 .moviecard {
 	box-shadow: 7px 12px 20px -5px rgba(0,0,0,0.56);
 	transition: all ease 500ms;
@@ -245,4 +311,13 @@ h2{
 	transform: scale(1.1);
 	opacity: .8;
 	cursor: pointer;
+}
+/* ====================================================== */
+
+/* Vertical HR */
+.vhr{ 
+	border:         none;
+	border-left:    1px solid hsla(200, 10%, 50%,100);
+	width:          1px;       
+	opacity: .5;
 }
