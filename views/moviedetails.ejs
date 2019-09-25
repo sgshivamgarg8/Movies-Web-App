@@ -44,8 +44,8 @@
 
     <div class="jumbotron">
         <!-- Row 1 of Jumbotron -->
-        <div class="row">
-            <div class="col-lg-6 col-md-6 movietitle">
+        <div class="d-flex align-items-center justify-content-around">
+            <div class="movietitle">
                 <% if(currentUser) { %>    
                     <% if(!found) { %> 
                         <a href = "<%="/user/mywatchlist/addToWatchlist/" + movie.imdbid%>" data-toggle="tooltip" title="Add To Watchlist"><i class="far fa-plus-square"></i></a>
@@ -56,33 +56,35 @@
                 <span><%= movie.title %> </span>
                 <span class="year">(<%= movie.year %>)</span>
             </div>
-            <div class="col-lg-3 col-md-3 col-1 rating">
-                <i class="fas fa-star"></i>
-            </div>
-            
-            <div class="col-lg-3 col-md-3 col-5 rating">
-                <span class="rating1">
-                    <%= movie.imdbrating %> <span class="max-rating">/10</span>
-                    <div class="votes"><%= movie.imdbvotes %></div>
-                </span>
+            <div class="rating d-flex align-items-center">
+                <div class="m-r-5">
+                    <i class="fas fa-star" style="font-size: 2rem"></i>
+                </div>
+                <div>
+                    <%= movie.imdbrating %><span class="max-rating">/10</span>
+                    <div class="m-0" style="font-size:0.8rem; opacity:0.8"><%= movie.imdbvotes %></div>
+                </div>
             </div>   
         </div>
         <!-- Row 2 of Jumbotron -->
-        <div class="row row2">
-            <div class="col-lg-2 col-md-2">
+        <div class="row2 d-flex flex-column flex-md-row justify-content-around">
+            <div>
                 <%= movie.rated %>
             </div>
-            <div class="col-lg-2 col-md-2">
-                <%= display(runtime); %> 
-            </div>
-            <div class="col-lg-3 col-md-3" style="margin-bottom: 0">
+            <div class="vhr"></div>
+            <div>
+                <%= display(runtime); %>
+            </div> 
+            <div class="vhr"></div>
+            <div>
                 <% if(genrearray.length > 3) { %>
                     <%= genrearray[0] + "," + genrearray[1] + "," + genrearray[2] %>
                 <% } else { %>
                     <%= movie.genre %>
                 <% } %>
-            </div>
-            <div class="col-lg-5 col-md-5">
+            </div> 
+            <div class="vhr"></div>
+            <div>
                 <%= movie.released %> (<%= countryarray[0] %>)
             </div>
         </div>
@@ -93,7 +95,7 @@
     <!-- Poster -->
     <div class="row">
         <div class="col-lg-4 col-md-4">
-            <img width = "300px" src = "<%= movie.poster %>" alt="Image Not Available" onerror="this.onerror=null;this.src='Images/notfound.jpg';">            
+            <img width = "300px" height="450px" src = "<%= movie.poster %>" alt="Image Not Available" onerror="this.onerror=null;this.src='Images/notfound.jpg';">            
         </div>
         <div class="col-lg-8 col-md-8">
             <% var youtubebaseurl = "https://www.youtube.com/embed/" %>
@@ -131,15 +133,15 @@
             <% if(movie.metascore == 'N/A' ) { %>
                 <span></span>
             <% } else if(movie.metascore >= 61 ) { %>
-                <span style="padding: 10px" class="universalacclaim"><%= movie.metascore %> </span>
+                <span class="p-10 universalacclaim"><%= movie.metascore %> </span>
             <% } else if(movie.metascore >= 40 && movie.metascore <= 60 ) { %>
-                <span style="padding: 10px" class="mixed"><%= movie.metascore %> </span>
+                <span class="p-10 mixed"><%= movie.metascore %> </span>
             <% } else if(movie.metascore <= 39 ) { %>
-                <span style="padding: 10px" class="overwhelmingdislike"><%= movie.metascore %> </span>
+                <span class="p-10 overwhelmingdislike"><%= movie.metascore %> </span>
             <% } else { %>
-                <span style="padding: 10px"><%= movie.metascore %> </span>
+                <span class="p-10"><%= movie.metascore %> </span>
             <% } %>
-            <span style="padding: 10px"> <a href="https://www.imdb.com/title/<%=movie.imdbid%>/criticreviews" target="_blank">Metascore</a></span>           
+            <span class="p-10"> <a href="https://www.imdb.com/title/<%=movie.imdbid%>/criticreviews" target="_blank">Metascore</a></span>           
 
             <!-- Rotten Tomatoes -->
             <% if(movie.ratings.length > 1) { %>
@@ -150,7 +152,7 @@
                 <% } %>
                 <span> <%= movie.ratings[1].Value %> </span>
             <% } %>
-            <span style="padding: 10px"><a href="https://www.rottentomatoes.com/<%=movietype%>/<%=moviename%>" target="_blank">Rotten Tomatoes</a> </span>
+            <span class="p-10"><a href="https://www.rottentomatoes.com/<%=movietype%>/<%=moviename%>" target="_blank">Rotten Tomatoes</a> </span>
         </div>
     </div>
     <hr>
