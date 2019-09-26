@@ -315,6 +315,7 @@ h2{
 
 /* MovieCard */
 .moviecard {
+	margin-bottom: 20px;
 	box-shadow: 7px 12px 20px -5px rgba(0,0,0,0.56);
 	transition: all ease 500ms;
 }
