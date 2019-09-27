@@ -33,6 +33,28 @@ router.get("/moviedetails/:clickedmovieimdbid", (req, res) => {
 			}
 		}
 		// console.log(foundInWatchlist); 
+		let likeMovielist = req.user.likeMovielist;
+		var foundInLikeMovielist = false;
+		// console.log("likeMovielist", likeMovielist);
+		for (let i=0; i<likeMovielist.length; i++){
+			let imdbId = likeMovielist[i].imdbId;
+			if(imdbId === clickedmovieimdbid) {
+				foundInLikeMovielist = true;
+				break;
+			}
+		}
+		// console.log(foundInLikeMovielist); 
+		let dislikeMovielist = req.user.dislikeMovielist;
+		var foundInDislikeMovielist = false;
+		// console.log("dislikeMovielist", dislikeMovielist);
+		for (let i=0; i<dislikeMovielist.length; i++){
+			let imdbId = dislikeMovielist[i].imdbId;
+			if(imdbId === clickedmovieimdbid) {
+				foundInDislikeMovielist = true;
+				break;
+			}
+		}
+		// console.log(foundInDislikeMovielist); 
 	}
 	
 	// Function to Convert Runtime from Minutes to Hours:Minutes
@@ -133,7 +155,9 @@ router.get("/moviedetails/:clickedmovieimdbid", (req, res) => {
 					movie: clickedmovie, 
 					trailerlink: youtubeId,
 					display: convertRuntime,
-					found: foundInWatchlist,
+					foundInWatchlist: foundInWatchlist,
+					foundInLikeMovielist: foundInLikeMovielist,
+					foundInDislikeMovielist: foundInDislikeMovielist,
 					flagMovie: flagMovie
 				});
 			});

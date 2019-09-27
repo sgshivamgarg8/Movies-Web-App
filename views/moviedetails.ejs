@@ -46,11 +46,23 @@
         <!-- Row 1 of Jumbotron -->
         <div class="d-flex align-items-center justify-content-around">
             <div class="movietitle">
-                <% if(currentUser) { %>    
-                    <% if(!found) { %> 
-                        <a href = "<%="/user/mywatchlist/addToWatchlist/" + movie.imdbid%>" data-toggle="tooltip" title="Add To Watchlist"><i class="far fa-plus-square"></i></a>
+                <% if(currentUser) { %>
+                    <% if(!foundInLikeMovielist && !foundInDislikeMovielist) { %> 
+                        <a href = "<%="/user/likemovielist/addToLikeMovielist/" + movie.imdbid%>" data-toggle="tooltip" title="Add To Like List"><i class="far fa-thumbs-up"></i></a>
+                    <% } else if(foundInLikeMovielist) { %>
+                        <a href = "<%="/user/likemovielist/removeFromLikeMovielist/" + movie.imdbid%>" data-toggle="tooltip" title="Remove From Like List"><i class="fas fa-thumbs-up"></i></a>
+                    <% } %>
+
+                    <% if(!foundInDislikeMovielist && !foundInLikeMovielist) { %> 
+                        <a href = "<%="/user/dislikemovielist/addToDislikeMovielist/" + movie.imdbid%>" data-toggle="tooltip" title="Add To Dislike List"><i class="far fa-thumbs-down"></i></a>
+                    <% } else if(foundInDislikeMovielist) { %>
+                        <a href = "<%="/user/dislikemovielist/removeFromDislikeMovielist/" + movie.imdbid%>" data-toggle="tooltip" title="Remove From Dislike List"><i class="fas fa-thumbs-down"></i></a>
+                    <% } %>
+
+                    <% if(!foundInWatchlist) { %> 
+                        <a href = "<%="/user/mywatchlist/addToWatchlist/" + movie.imdbid%>" data-toggle="tooltip" title="Add To Watchlist"><i style="color: lightcoral" class="far fa-plus-square"></i></a>
                     <% } else { %>
-                        <a href = "<%="/user/mywatchlist/removeFromWatchlist/" + movie.imdbid%>" data-toggle="tooltip" title="Remove From Watchlist"><i class="fas fa-plus-square"></i></a>
+                        <a href = "<%="/user/mywatchlist/removeFromWatchlist/" + movie.imdbid%>" data-toggle="tooltip" title="Remove From Watchlist"><i style="color:lightcoral" class="fas fa-plus-square"></i></a>
                     <% } %>
                 <% } %>
                 <span><%= movie.title %> </span>
