@@ -8,22 +8,22 @@ const tmdbApiKey = config.tmdbApiKey,
 
 router.get("/", (req, res) => {
   let user = req.user;
-  // console.log(user.dislikeMovielist);
+  // console.log(user.dislikedMovielist);
   
   let movies = [];
-  if(user.dislikeMovielist.length) {
-    for (let i=0; i<user.dislikeMovielist.length; i++) {
-      let imdbId = user.dislikeMovielist[i].imdbId;
-      let dislikeMovielistUrl = `http://www.omdbapi.com/?apikey=${omdbApiKey}&i=${imdbId}`;
+  if(user.dislikedMovielist.length) {
+    for (let i=0; i<user.dislikedMovielist.length; i++) {
+      let imdbId = user.dislikedMovielist[i].imdbId;
+      let dislikedMovielistUrl = `http://www.omdbapi.com/?apikey=${omdbApiKey}&i=${imdbId}`;
       let options = {
-        url: dislikeMovielistUrl,
+        url: dislikedMovielistUrl,
         json: true
       };
       
       rp(options)
       .then((data) => {
-        movies.push({imdbId: data.imdbID , title: data.Title, year: data.Year, poster: data.Poster, date: user.likeMovielist[i].createdAt});
-        if(movies.length === user.dislikeMovielist.length) {
+        movies.push({imdbId: data.imdbID , title: data.Title, year: data.Year, poster: data.Poster, date: user.likedMovielist[i].createdAt});
+        if(movies.length === user.dislikedMovielist.length) {
           movies.sort((movie1, movie2) => {
             return (movie1.date > movie2.date ? -1 : 1);
           });
@@ -36,20 +36,20 @@ router.get("/", (req, res) => {
   }
 });
 
-router.get("/addToDislikeMovielist/:imdbId", (req, res) => {
+router.get("/addToDislikedMovielist/:imdbId", (req, res) => {
   let user = req.user;
   // console.log(user);
   let obtainedImdbId = req.params.imdbId;
-  user.dislikeMovielist.push({imdbId: obtainedImdbId});
+  user.dislikedMovielist.push({imdbId: obtainedImdbId});
   user.save();
   res.redirect("/search/moviedetails/" + req.params.imdbId);
 });
 
-router.get("/removeFromDislikeMovielist/:imdbId", (req, res) => {
+router.get("/removeFromDislikedMovielist/:imdbId", (req, res) => {
   let user = req.user;
   let obtainedImdbId = req.params.imdbId;
   User.findByIdAndUpdate(user._id,
-    {$pull: {dislikeMovielist: {imdbId: obtainedImdbId}}},
+    {$pull: {dislikedMovielist: {imdbId: obtainedImdbId}}},
     {safe: true, upsert: true},
     (err, doc) => {
       if(err) console.log(err);

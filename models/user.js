@@ -7,13 +7,13 @@ var watchlistSchema = new mongoose.Schema({
 	timestamps: true
 });
 
-var likeMovieListSchema = new mongoose.Schema({
+var likedMovieListSchema = new mongoose.Schema({
 	imdbId: String,
 }, {
 	timestamps: true
 });
 
-var dislikeMovieListSchema = new mongoose.Schema({
+var dislikedMovieListSchema = new mongoose.Schema({
 	imdbId: String,
 }, {
 	timestamps: true
@@ -39,8 +39,8 @@ var UserSchema = new mongoose.Schema({
 		default: false
 	},
 	watchlist: [watchlistSchema],
-	likeMovielist: [likeMovieListSchema],
-	dislikeMovielist: [dislikeMovieListSchema]
+	likedMovielist: [likedMovieListSchema],
+	dislikedMovielist: [dislikedMovieListSchema]
 }, {
 	timestamps: true
 });

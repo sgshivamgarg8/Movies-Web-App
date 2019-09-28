@@ -33,28 +33,28 @@ router.get("/moviedetails/:clickedmovieimdbid", (req, res) => {
 			}
 		}
 		// console.log(foundInWatchlist); 
-		let likeMovielist = req.user.likeMovielist;
-		var foundInLikeMovielist = false;
-		// console.log("likeMovielist", likeMovielist);
-		for (let i=0; i<likeMovielist.length; i++){
-			let imdbId = likeMovielist[i].imdbId;
+		let likedMovielist = req.user.likedMovielist;
+		var foundInLikedMovielist = false;
+		// console.log("likedMovielist", likedMovielist);
+		for (let i=0; i<likedMovielist.length; i++){
+			let imdbId = likedMovielist[i].imdbId;
 			if(imdbId === clickedmovieimdbid) {
-				foundInLikeMovielist = true;
+				foundInLikedMovielist = true;
 				break;
 			}
 		}
-		// console.log(foundInLikeMovielist); 
-		let dislikeMovielist = req.user.dislikeMovielist;
-		var foundInDislikeMovielist = false;
-		// console.log("dislikeMovielist", dislikeMovielist);
-		for (let i=0; i<dislikeMovielist.length; i++){
-			let imdbId = dislikeMovielist[i].imdbId;
+		// console.log(foundInLikedMovielist); 
+		let dislikedMovielist = req.user.dislikedMovielist;
+		var foundInDislikedMovielist = false;
+		// console.log("dislikedMovielist", dislikedMovielist);
+		for (let i=0; i<dislikedMovielist.length; i++){
+			let imdbId = dislikedMovielist[i].imdbId;
 			if(imdbId === clickedmovieimdbid) {
-				foundInDislikeMovielist = true;
+				foundInDislikedMovielist = true;
 				break;
 			}
 		}
-		// console.log(foundInDislikeMovielist); 
+		// console.log(foundInDislikedMovielist); 
 	}
 	
 	// Function to Convert Runtime from Minutes to Hours:Minutes
@@ -156,8 +156,8 @@ router.get("/moviedetails/:clickedmovieimdbid", (req, res) => {
 					trailerlink: youtubeId,
 					display: convertRuntime,
 					foundInWatchlist: foundInWatchlist,
-					foundInLikeMovielist: foundInLikeMovielist,
-					foundInDislikeMovielist: foundInDislikeMovielist,
+					foundInLikedMovielist: foundInLikedMovielist,
+					foundInDislikedMovielist: foundInDislikedMovielist,
 					flagMovie: flagMovie
 				});
 			});

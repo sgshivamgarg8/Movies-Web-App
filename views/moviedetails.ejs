@@ -44,19 +44,19 @@
 
     <div class="jumbotron">
         <!-- Row 1 of Jumbotron -->
-        <div class="d-flex align-items-center justify-content-around">
+        <div class="d-flex flex-column justify-content-start flex-md-row align-items-md-center justify-content-md-around">
             <div class="movietitle">
                 <% if(currentUser) { %>
-                    <% if(!foundInLikeMovielist && !foundInDislikeMovielist) { %> 
-                        <a href = "<%="/user/likemovielist/addToLikeMovielist/" + movie.imdbid%>" data-toggle="tooltip" title="Add To Like List"><i class="far fa-thumbs-up"></i></a>
-                    <% } else if(foundInLikeMovielist) { %>
-                        <a href = "<%="/user/likemovielist/removeFromLikeMovielist/" + movie.imdbid%>" data-toggle="tooltip" title="Remove From Like List"><i class="fas fa-thumbs-up"></i></a>
+                    <% if(!foundInLikedMovielist && !foundInDislikedMovielist) { %> 
+                        <a href = "<%="/user/likedmovielist/addToLikedMovielist/" + movie.imdbid%>" data-toggle="tooltip" title="Add To Liked List"><i class="far fa-thumbs-up"></i></a>
+                    <% } else if(foundInLikedMovielist) { %>
+                        <a href = "<%="/user/likedmovielist/removeFromLikedMovielist/" + movie.imdbid%>" data-toggle="tooltip" title="Remove From Liked List"><i class="fas fa-thumbs-up"></i></a>
                     <% } %>
 
-                    <% if(!foundInDislikeMovielist && !foundInLikeMovielist) { %> 
-                        <a href = "<%="/user/dislikemovielist/addToDislikeMovielist/" + movie.imdbid%>" data-toggle="tooltip" title="Add To Dislike List"><i class="far fa-thumbs-down"></i></a>
-                    <% } else if(foundInDislikeMovielist) { %>
-                        <a href = "<%="/user/dislikemovielist/removeFromDislikeMovielist/" + movie.imdbid%>" data-toggle="tooltip" title="Remove From Dislike List"><i class="fas fa-thumbs-down"></i></a>
+                    <% if(!foundInDislikedMovielist && !foundInLikedMovielist) { %> 
+                        <a href = "<%="/user/dislikedmovielist/addToDislikedMovielist/" + movie.imdbid%>" data-toggle="tooltip" title="Add To Disliked List"><i class="far fa-thumbs-down"></i></a>
+                    <% } else if(foundInDislikedMovielist) { %>
+                        <a href = "<%="/user/dislikedmovielist/removeFromDislikedMovielist/" + movie.imdbid%>" data-toggle="tooltip" title="Remove From Disliked List"><i class="fas fa-thumbs-down"></i></a>
                     <% } %>
 
                     <% if(!foundInWatchlist) { %> 
@@ -149,7 +149,7 @@
             <% } else if(movie.metascore >= 40 && movie.metascore <= 60 ) { %>
                 <span class="p-10 mixed"><%= movie.metascore %> </span>
             <% } else if(movie.metascore <= 39 ) { %>
-                <span class="p-10 overwhelmingdislike"><%= movie.metascore %> </span>
+                <span class="p-10 overwhelmingdisliked"><%= movie.metascore %> </span>
             <% } else { %>
                 <span class="p-10"><%= movie.metascore %> </span>
             <% } %>

@@ -19,8 +19,8 @@ middleware     = require("./middleware")
 const indexRouter     = require("./routes/indexRouter"),
       userRouter      = require("./routes/userRouter"),
       watchlistRouter = require("./routes/watchlistRouter"),
-      likeMovielistRouter = require("./routes/likeMovielistRouter"),
-      dislikeMovielistRouter = require("./routes/dislikeMovielistRouter"),
+      likedMovielistRouter = require("./routes/likedMovielistRouter"),
+      dislikedMovielistRouter = require("./routes/dislikedMovielistRouter"),
       searchRouter    = require("./routes/searchRouter")
 // ================================================================================
 
@@ -70,8 +70,8 @@ app.use('/', indexRouter);
 app.use('/search', searchRouter);
 app.use('/user', userRouter);
 app.use('/user/mywatchlist', middleware.isLoggedIn, watchlistRouter);
-app.use('/user/likemovielist', middleware.isLoggedIn, likeMovielistRouter);
-app.use('/user/dislikemovielist', middleware.isLoggedIn, dislikeMovielistRouter);
+app.use('/user/likedmovielist', middleware.isLoggedIn, likedMovielistRouter);
+app.use('/user/dislikedmovielist', middleware.isLoggedIn, dislikedMovielistRouter);
 
 // =================================================================================
 
