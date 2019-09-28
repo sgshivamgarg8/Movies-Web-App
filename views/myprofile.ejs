@@ -1,0 +1,25 @@
+<% include partials/header %> 
+
+<!-- navbar -->
+<% include partials/navbar %> 
+<!-- /navbar -->
+
+<!-- flash -->
+<% include partials/flash %> 
+<!-- /flash -->
+
+<div class="container">
+    <div class="card my-profile-card" style="width: 24rem;">
+        <div class="card-body">
+            <h3 class="card-title"><%= currentUser.firstname %> <%= currentUser.lastname %><a style="float: right; color:cornflowerblue" href="/user/edit"><i class="far fa-edit"></i></a></h5>
+            <p class="card-text"><i class="fas fa-user"></i> <%= currentUser.username %></p>
+            <p class="card-text"><i class="fas fa-envelope"></i> <%= currentUser.email %></p>
+            <div>
+                <i class="fas fa-thumbs-up"></i> <%= currentUser.likedMovielist.length %> &nbsp;
+                <i class="fas fa-thumbs-down"></i> <%= currentUser.dislikedMovielist.length %>
+            </div>
+        </div>
+    </div>  
+</div>
+
+<% include partials/footer %> 

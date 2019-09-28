@@ -20,6 +20,8 @@ router.post("/register", (req, res) => {
       user.firstname = req.body.firstname;
     if(req.body.lastname)
       user.lastname = req.body.lastname;
+    if(req.body.email)
+      user.email = req.body.email;
     user.save((err, user) => {
       if(err) console.log(err);
       else {
@@ -72,6 +74,10 @@ router.get("/logout", middleware.isLoggedIn, (req, res) => {
   req.logout();
   req.flash("success", "Successfully Logged Out");
   res.redirect("/");
+});
+
+router.get("/myprofile", middleware.isLoggedIn, (req, res) => {
+  res.render("myprofile");
 });
 
 router.get('/allusers', middleware.isAdmin, (req, res) => {

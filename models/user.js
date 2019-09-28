@@ -28,16 +28,13 @@ var UserSchema = new mongoose.Schema({
 		type: String,
 		default: '',
 	},
-	username: {
-		type: String,
-	},
-	password: {
-		type: String,
-	},
 	admin: {
 		type: Boolean,
 		default: false
 	},
+	username: String,
+	password: String,
+	email: String,
 	watchlist: [watchlistSchema],
 	likedMovielist: [likedMovieListSchema],
 	dislikedMovielist: [dislikedMovieListSchema]

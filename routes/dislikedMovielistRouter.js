@@ -22,7 +22,7 @@ router.get("/", (req, res) => {
       
       rp(options)
       .then((data) => {
-        movies.push({imdbId: data.imdbID , title: data.Title, year: data.Year, poster: data.Poster, date: user.likedMovielist[i].createdAt});
+        movies.push({imdbId: data.imdbID , title: data.Title, year: data.Year, poster: data.Poster, date: user.dislikedMovielist[i].createdAt});
         if(movies.length === user.dislikedMovielist.length) {
           movies.sort((movie1, movie2) => {
             return (movie1.date > movie2.date ? -1 : 1);
