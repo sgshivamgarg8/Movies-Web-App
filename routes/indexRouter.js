@@ -1,6 +1,7 @@
 const express = require("express"),
       router  = express.Router(),
-      config  = require("../config")
+      config  = require("../config"),
+      request = require("request")
 
 const tmdbApiKey = config.tmdbApiKey,
       omdbApiKey = config.omdbApiKey;
@@ -10,9 +11,7 @@ var time = {}; //request optimization, will make new request after 1 hour (3600 
 router.get("/", (req, res) => {
   var t2 = new Date();
   let id = [];
-  // console.log("movie length: ", movie.length);
   var timeTaken = (t2 - time.timeT1) / 1000;
-  // console.log("timeTaken ", timeTaken);
   
   if(movie.length === 20 && timeTaken < 3600){
     res.render("home", {movie: movie}); // directly rendering movie data if data is requested recently
@@ -65,6 +64,24 @@ router.get("/", (req, res) => {
       .catch((err) => console.log(err));
     }
   }
+});
+
+router.get("/popular", (req, res) => {
+  let getPopularUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${tmdbApiKey}&with_genres=${req.query.genre}&region=${req.query.region}&sort_by=popularity.desc&include_adult=false&include_video=false&page=1`;
+  request(getPopularUrl, (err, resp, body) => {
+    data = JSON.parse(body);
+    res.render("popular", {movies: data.results});
+  })
+});
+
+router.get("/getImdbIdofClickedMovie/:tmdbId", (req, res) => {
+  let id = req.params.tmdbId;
+  let url = `https://api.themoviedb.org/3/movie/${id}?api_key=${tmdbApiKey}`;
+  request(url, (err, resp, body) => {
+    let data = JSON.parse(body);
+    let redirectUrl = `/search/moviedetails/${data.imdb_id}`;
+    res.redirect(redirectUrl);
+  });
 });
 
 router.get("/about", (req, res) => {

@@ -1,32 +1,36 @@
 <% include partials/header %> 
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
-    <div class="container">
-        <a class="navbar-brand" href="/"><i class="fas fa-film"></i> MovieSSS</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarColor01">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/contact">Contact Us</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/about">About Us</a>
-                </li>
-            </ul>
-            <!-- <form class="form-inline my-2 my-lg-0"action="/results" method="GET">
-                <input class="form-control mr-sm-2" type="text" name="searchquery" placeholder="Search">
-                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-            </form> -->
-
-            <% include partials/authheader %> 
-
-        </div>
+  <div class="container">
+    <a class="navbar-brand" href="/"><i class="fas fa-film"></i> MovieSSS</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarColor01">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/contact">Contact Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About Us</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Get
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/popular">Popular Movies</a>
+          </div>
+        </li>
+      </ul>
+      
+      <% include partials/authheader %> 
+      
     </div>
+  </div>
 </nav>
 
 <!-- flash -->
@@ -34,35 +38,34 @@
 <!-- /flash -->
 
 <div class="container">
-    <div class="jumbotron">
-        <div class="display-4">Movie Search Web App</div>
-        <p class="lead">This is a Simple Movie Search Web App</p>
-        <hr class="my-4">
-        <!--Form for searching movie with movie name -->
-        <% include partials/searchform %> 
-        
-    </div>
-    
-    <!--Trending-->
-    <div class="row"> 
-        <!-- loop -->   
-        <% for (var i = 0; i < movie.length; i++) { %>
-        <div class="col-lg-3 col-sm-6">
-            <div class="thumbnail moviecard">
-                <div style="text-align: center">
-                	<% var imdblink = "https://www.imdb.com/title/" + movie[i].imdbid %> 
-                    <a href="/search/moviedetails/<%= movie[i].imdbid %>">
-                    	<img width="100%" src = "<%= movie[i].poster %>" alt="Image Not Available" onerror="this.onerror=null;this.src='Images/notfound.jpg';">
-                    	<div>
-                            <span class="title"><%= movie[i].title %></span></a>
-                            <span class="year">(<%= movie[i].year %>)</span>
-                        </div>
-                </div>
+  <div class="jumbotron">
+    <div class="display-4">Movie Search Web App</div>
+    <p class="lead">This is a Simple Movie Search Web App</p>
+    <hr class="my-4">
+    <!--Form for searching movie with movie name -->
+    <% include partials/searchform %>     
+</div>
+  
+  <!--Trending-->
+  <div class="row"> 
+    <!-- loop -->   
+    <% for (var i = 0; i < movie.length; i++) { %>
+      <div class="col-lg-3 col-sm-6">
+        <div class="thumbnail moviecard">
+          <div style="text-align: center">
+            <% var imdblink = "https://www.imdb.com/title/" + movie[i].imdbid %> 
+            <a href="/search/moviedetails/<%= movie[i].imdbid %>">
+              <img width="100%" src = "<%= movie[i].poster %>" alt="Image Not Available" onerror="this.onerror=null;this.src='Images/notfound.jpg';">
+              <div>
+                <span class="title"><%= movie[i].title %></span></a>
+                <span class="year">(<%= movie[i].year %>)</span>
+              </div>
             </div>
+          </div>
         </div>
         <% } %>
+      </div>
+      <!-- /Trending -->
     </div>
-    <!-- /Trending -->
-</div>
-
+  
 <% include partials/footer %> 
