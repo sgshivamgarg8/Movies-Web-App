@@ -161,35 +161,10 @@ h2{
 		width: 300px;
 		height: 444px;
 	}
-	iframe{
-		margin-top: 5px;
-		width: 300px;
-		height: 168px;
-	}
 }
 
 /* Extra Large Devices */
 @media(min-width: 1201px){
-	iframe{
-		width: 720px;
-		height: 405px;
-		position: absolute;
-		right: 10;
-		top: 50%;
-		transform: translate(0%, -50%);
-	}
-}
-
-/* Laptops */
-@media(min-width: 992px) and (max-width:1200px){
-	iframe{
-		width: 610px;
-		height: 343px;
-		position: absolute;
-		right: 10;
-		top: 50%;
-		transform: translate(0%, -50%);
-	}
 }
 
 /* Laptops and Desktops */
@@ -212,14 +187,6 @@ h2{
 	.rating{
 		font-size: 1.8em;
 	}
-	iframe{
-		position: absolute;
-		right: 20px;
-		top: 50%;
-		transform: translate(0%, -50%);
-		width: 380px;
-		height: 225px;
-	}
 }
 
 /* Phones in Landscape mode */
@@ -230,11 +197,6 @@ h2{
 	}
 	.rating{
 		font-size: 1.5em;
-	}
-	iframe{
-		margin-top: 10px;
-		width: 510px;
-		height: 287px;
 	}
 }
 
