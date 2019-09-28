@@ -63,6 +63,7 @@ router.get("/edit", middleware.isLoggedIn, (req, res) => {
   // console.log(req.user);
 });
 
+// FIXME add email to update profile router and view page
 router.post("/edit", middleware.isLoggedIn, (req, res) => {
   req.user.firstname = req.body.firstname || req.user.firstname;
   req.user.lastname = req.body.lastname || req.user.lastname;

@@ -1,10 +1,13 @@
 const express = require("express"),
       router  = express.Router(),
       config  = require("../config"),
-      request = require("request")
+      request = require("request");
 
 const tmdbApiKey = config.tmdbApiKey,
       omdbApiKey = config.omdbApiKey;
+
+// TODO Change this structure to just use response came from trending request 
+// and get imdbid of clickedmovi by going to that route
 
 var movie = [];
 var time = {}; //request optimization, will make new request after 1 hour (3600 seconds)
