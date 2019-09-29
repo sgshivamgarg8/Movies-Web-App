@@ -1,5 +1,6 @@
 <% include partials/header %> 
 
+<!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
   <div class="container">
     <a class="navbar-brand" href="/"><i class="fas fa-film"></i> MovieSSS</a>
@@ -26,12 +27,11 @@
           </div>
         </li>
       </ul>
-      
-      <% include partials/authheader %> 
-      
+      <% include partials/authheader %>  
     </div>
   </div>
 </nav>
+<!-- /Navbar -->
 
 <!-- flash -->
 <% include partials/flash %> 
@@ -45,27 +45,33 @@
     <!--Form for searching movie with movie name -->
     <% include partials/searchform %>     
 </div>
-  
-  <!--Trending-->
-  <div class="row"> 
-    <!-- loop -->   
-    <% for (var i = 0; i < movie.length; i++) { %>
-      <div class="col-lg-3 col-sm-6">
-        <div class="thumbnail moviecard">
-          <div style="text-align: center">
-            <% var imdblink = "https://www.imdb.com/title/" + movie[i].imdbid %> 
-            <a href="/search/moviedetails/<%= movie[i].imdbid %>">
-              <img width="100%" src = "<%= movie[i].poster %>" alt="Image Not Available" onerror="this.onerror=null;this.src='Images/notfound.jpg';">
-              <div>
-                <span class="title"><%= movie[i].title %></span></a>
-                <span class="year">(<%= movie[i].year %>)</span>
-              </div>
+ 
+<!-- Trending -->
+<div class="row"> 
+  <% for (var i = 0; i < movies.length; i++) { %>
+    <% var movie = movies[i]; %>
+    <% if(movie.poster_path != "N/A") { %> 
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="thumbnail moviecard" >
+          <div class="block" style="text-align: center">
+            <% url = `/getImdbIdofClickedMovie/${movie.id}` %>
+            <a href="<%=url%>">
+              <% imageUrl = 'https://image.tmdb.org/t/p/w300/' + movie.poster_path %>
+              <img src="<%= imageUrl %>" alt="Image Not Available" onerror="this.onerror=null;this.src='Images/notfound.jpg';">
+            </a>
+            <div>
+              <a href="/getImdbIdofClickedMovie">
+                <%= movie.title %>
+              </a>
+              <span class="year">(<%= movie.release_date.split("-")[0] %>)</span>
             </div>
           </div>
         </div>
-        <% } %>
       </div>
-      <!-- /Trending -->
-    </div>
+    <% } %> 
+  <% } %>
+<!-- /Trending -->
+
+</div>    
   
 <% include partials/footer %> 
