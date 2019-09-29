@@ -15,8 +15,8 @@
             <p class="card-text"><i class="fas fa-user"></i> <%= currentUser.username %></p>
             <p class="card-text"><i class="fas fa-envelope"></i> <%= currentUser.email %></p>
             <div>
-                <i class="fas fa-thumbs-up"></i> <%= currentUser.likedMovielist.length %> &nbsp;
-                <i class="fas fa-thumbs-down"></i> <%= currentUser.dislikedMovielist.length %>
+                <a href="/user/likedMovielist" style="color: green" data-toggle="tooltip" title="Show my Liked Movies"><i class="fas fa-thumbs-up"></i> <%= currentUser.likedMovielist.length %></a> &nbsp;
+                <a href="/user/dislikedMovielist" style="color: red" data-toggle="tooltip" title="Show my Disliked Movies"><i class="fas fa-thumbs-down"></i> <%= currentUser.dislikedMovielist.length %></a>
             </div>
         </div>
     </div>  
