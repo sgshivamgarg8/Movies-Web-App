@@ -20,14 +20,8 @@ var dislikedMovieListSchema = new mongoose.Schema({
 });
 
 var UserSchema = new mongoose.Schema({
-	firstname: {
-		type: String,
-		default: '',
-	},
-	lastname: {
-		type: String,
-		default: '',
-	},
+	firstname: String,
+	lastname: String,
 	admin: {
 		type: Boolean,
 		default: false
