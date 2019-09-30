@@ -1,7 +1,7 @@
 # Movies-Web-App
 ## The Ultimate Movie Search Engine to Search for Movies and TV Series
 
-* Install Node.js in your machine
+* Install Node.js and MongoDB in your machine.
 * Install all the npm packages required from dependencies in package.json using
   ```
   npm install
@@ -23,3 +23,10 @@
   ```
   npm start
   ```
+
+### Note: To make an user admin you will have to change 'admin' property from false to true, manually using mongo client in terminal/cmd using command
+```
+mongo
+use moviesapp
+db.users.update({username: user_name}, {$set: {admin: true}})
+```
