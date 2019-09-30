@@ -88,4 +88,16 @@ router.get('/allusers', middleware.isAdmin, (req, res) => {
   });
 });
 
+router.get('/finduser', (req, res) => {
+  User.find({$or: [
+    {username: req.query.searchuserquery}, 
+    {firstname: req.query.searchuserquery}, 
+    {lastname: req.query.searchuserquery}
+  ]})
+  .then((users) => {
+    res.render('findUser', {users: users});
+  })
+  .catch((err) => console.log(err));
+});
+
 module.exports = router;
