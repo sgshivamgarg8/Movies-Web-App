@@ -4,6 +4,7 @@ middleware = require('../middleware'),
 passport = require('passport'),
 User = require("../models/user")
 
+// Mounted at "/user"
 
 router.get("/register", (req, res) => {
   res.render("register");

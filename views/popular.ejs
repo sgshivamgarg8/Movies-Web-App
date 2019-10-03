@@ -11,7 +11,7 @@
 <div class="container">
   <div class="jumbotron">
     <div class="lead m-t-10 m-b-10">Search Popular Movies</div>
-    <form action="/popular" method="GET">
+    <form action="/popular/<%=page%>" method="GET">
       <div class="d-flex">
         <div>
           <select name="region" class="custom-select">
@@ -55,17 +55,17 @@
     </form>
   </div>
   
-  <div class="row"> 
+  <div class="row">
     <% for (var i = 0; i < movies.length; i++) { %>
       <% var movie = movies[i]; %>
-      <% if(movie.poster_path != "N/A") { %> 
+      <% if(movie.poster_path != "N/A") { %>
         <div class="col-lg-3 col-md-4 col-sm-6">
-          <div class="thumbnail moviecard" >
+          <div class="thumbnail moviecard">
             <div class="block" style="text-align: center">
               <% url = `/getImdbIdofClickedMovie/${movie.id}` %>
               <a href="<%=url%>">
                 <% imageUrl = 'https://image.tmdb.org/t/p/w300/' + movie.poster_path %>
-                <img src="<%= imageUrl %>" alt="Image Not Available" onerror="this.onerror=null;this.src='Images/notfound.jpg';">
+                <img src="<%= imageUrl %>" alt="Image Not Available" onerror="this.onerror=null;this.src='/Images/notfound.jpg';">
               </a>
               <div>
                 <a href="/getImdbIdofClickedMovie">
@@ -81,5 +81,27 @@
   </div>    
       
 </div>
-    
+
+<!-- Pagination -->
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <li class="page-item <%=page==1 && "active" %>">
+      <a class="page-link" href="/popular/1?region=<%=region%>&genre=<%=genre%>">First</a>
+    </li>
+    <li class="page-item <%= page==1 && "disabled" %>">
+      <a class="page-link" href="/popular/<%=page-1%>?region=<%=region%>&genre=<%=genre%>" tabindex="-1" aria-disabled="true">Previous</a>
+    </li>
+    <%if(page+1<=total_pages){%><li class="page-item"><a class="page-link" href="/popular/<%=page+1%>?region=<%=region%>&genre=<%=genre%>"><%=page+1%></a></li><%}%>
+    <%if(page+2<=total_pages){%><li class="page-item"><a class="page-link" href="/popular/<%=page+2%>?region=<%=region%>&genre=<%=genre%>"><%=page+2%></a></li><%}%>
+    <%if(page+3<=total_pages){%><li class="page-item"><a class="page-link" href="/popular/<%=page+3%>?region=<%=region%>&genre=<%=genre%>"><%=page+3%></a></li><%}%>
+    <li class="page-item <%= page==total_pages && "disabled" %>">
+      <a class="page-link" href="/popular/<%=page+1%>?region=<%=region%>&genre=<%=genre%>">Next</a>
+    </li>
+    <li class="page-item <%=page==total_pages && "active" %>">
+      <a class="page-link" href="/popular/<%=total_pages%>?region=<%=region%>&genre=<%=genre%>">Last</a>
+    </li>
+  </ul>
+</nav>
+<!-- /Pagination -->
+
 <% include partials/footer %>

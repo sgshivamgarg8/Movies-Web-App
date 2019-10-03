@@ -6,6 +6,8 @@ request       = require("request")
 tmdbApiKey = config.tmdbApiKey,
 omdbApiKey = config.omdbApiKey;
 
+// Mounted at "/search"
+
 router.get("/results", (req, res) => {
 	let searchquery = req.query.searchquery;
 	let type = req.query.type;

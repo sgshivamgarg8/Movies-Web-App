@@ -4,16 +4,16 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    
+    <%=console.log(currentUrl)%>
     <div class="collapse navbar-collapse" id="navbarColor01">
       <ul class="navbar-nav mr-auto">
-        <li>
+        <li class="nav-item <%= currentUrl=="/" && "active" %>">
           <a class="nav-link" href="/">Home</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item <%= currentUrl=="/contact" && "active" %>">
           <a class="nav-link" href="/contact">Contact Us</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item <%= currentUrl=="/about" && "active" %>">
           <a class="nav-link" href="/about">About Us</a>
         </li>
         <li class="nav-item dropdown">
@@ -21,7 +21,7 @@
             Search
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="/popular">Popular Movies</a>
+            <a class="dropdown-item" href="/popular/1">Popular Movies</a>
             <a class="dropdown-item" href="/user/finduser">Users</a>
           </div>
         </li>

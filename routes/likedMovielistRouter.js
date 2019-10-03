@@ -6,6 +6,8 @@ const express = require("express"),
 const tmdbApiKey = config.tmdbApiKey,
       omdbApiKey = config.omdbApiKey;
 
+// Mounted at "/user/likedmovielist"
+
 router.get("/", (req, res) => {
   let user = req.user;
   // console.log(user.likedMovielist);

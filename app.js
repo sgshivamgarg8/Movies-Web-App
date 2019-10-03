@@ -58,6 +58,7 @@ passport.deserializeUser(User.deserializeUser());
 
 // Global variables Setup =========================================================
 app.use((req, res, next) => {
+    res.locals.currentUrl = req.originalUrl;
     res.locals.currentUser = req.user;
     res.locals.error = req.flash("error");
     res.locals.success = req.flash("success");
