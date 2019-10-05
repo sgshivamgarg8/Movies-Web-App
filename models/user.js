@@ -19,6 +19,11 @@ var dislikedMovieListSchema = new mongoose.Schema({
 	timestamps: true
 });
 
+var ratingSchema = new mongoose.Schema({
+	imdbId: String,
+	rating: Number
+});
+
 var UserSchema = new mongoose.Schema({
 	firstname: String,
 	lastname: String,
@@ -29,6 +34,7 @@ var UserSchema = new mongoose.Schema({
 	username: String,
 	password: String,
 	email: String,
+	rating: [ratingSchema],
 	watchlist: [watchlistSchema],
 	likedMovielist: [likedMovieListSchema],
 	dislikedMovielist: [dislikedMovieListSchema]

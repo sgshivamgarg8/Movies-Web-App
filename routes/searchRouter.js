@@ -26,7 +26,6 @@ router.get("/moviedetails/:clickedmovieimdbid", (req, res) => {
 	if(req.user) {
 		let watchlist = req.user.watchlist;
 		var foundInWatchlist = false;
-		// console.log("watchlist", watchlist);
 		for (let i=0; i<watchlist.length; i++){
 			let imdbId = watchlist[i].imdbId;
 			if(imdbId === clickedmovieimdbid) {
@@ -34,10 +33,8 @@ router.get("/moviedetails/:clickedmovieimdbid", (req, res) => {
 				break;
 			}
 		}
-		// console.log(foundInWatchlist); 
 		let likedMovielist = req.user.likedMovielist;
 		var foundInLikedMovielist = false;
-		// console.log("likedMovielist", likedMovielist);
 		for (let i=0; i<likedMovielist.length; i++){
 			let imdbId = likedMovielist[i].imdbId;
 			if(imdbId === clickedmovieimdbid) {
@@ -45,10 +42,8 @@ router.get("/moviedetails/:clickedmovieimdbid", (req, res) => {
 				break;
 			}
 		}
-		// console.log(foundInLikedMovielist); 
 		let dislikedMovielist = req.user.dislikedMovielist;
 		var foundInDislikedMovielist = false;
-		// console.log("dislikedMovielist", dislikedMovielist);
 		for (let i=0; i<dislikedMovielist.length; i++){
 			let imdbId = dislikedMovielist[i].imdbId;
 			if(imdbId === clickedmovieimdbid) {
@@ -56,7 +51,17 @@ router.get("/moviedetails/:clickedmovieimdbid", (req, res) => {
 				break;
 			}
 		}
-		// console.log(foundInDislikedMovielist); 
+		var rating = "Rate";
+		let ratingList = req.user.rating;
+		var foundInRatingList = false;
+		for (let i=0; i<ratingList.length; i++){
+			let imdbId = ratingList[i].imdbId;
+			if(imdbId === clickedmovieimdbid) {
+				foundInRatingList = true;
+				rating = ratingList[i].rating;
+				break;
+			}
+		}
 	}
 	
 	// Function to Convert Runtime from Minutes to Hours:Minutes
@@ -160,6 +165,8 @@ router.get("/moviedetails/:clickedmovieimdbid", (req, res) => {
 					foundInWatchlist: foundInWatchlist,
 					foundInLikedMovielist: foundInLikedMovielist,
 					foundInDislikedMovielist: foundInDislikedMovielist,
+					foundInRatingList: foundInRatingList,
+					rating: rating,
 					flagMovie: flagMovie
 				});
 			});

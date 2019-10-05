@@ -21,7 +21,8 @@ const indexRouter     = require("./routes/indexRouter"),
       watchlistRouter = require("./routes/watchlistRouter"),
       likedMovielistRouter = require("./routes/likedMovielistRouter"),
       dislikedMovielistRouter = require("./routes/dislikedMovielistRouter"),
-      searchRouter    = require("./routes/searchRouter")
+      searchRouter    = require("./routes/searchRouter"),
+      ratingRouter    = require("./routes/ratingRouter")
 // ================================================================================
 
 app.set("view engine", "ejs");
@@ -70,6 +71,7 @@ app.use((req, res, next) => {
 app.use('/', indexRouter);
 app.use('/search', searchRouter);
 app.use('/user', userRouter);
+app.use('/user/myratings', middleware.isLoggedIn, ratingRouter);
 app.use('/user/mywatchlist', middleware.isLoggedIn, watchlistRouter);
 app.use('/user/likedmovielist', middleware.isLoggedIn, likedMovielistRouter);
 app.use('/user/dislikedmovielist', middleware.isLoggedIn, dislikedMovielistRouter);

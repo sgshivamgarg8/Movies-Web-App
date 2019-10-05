@@ -45,6 +45,7 @@
     <div class="jumbotron">
         <!-- Row 1 of Jumbotron -->
         <div class="d-flex flex-column justify-content-start flex-md-row align-items-md-center justify-content-md-around">
+            <!-- Title -->            
             <div class="movietitle">
                 <% if(currentUser) { %>
                     <% if(!foundInLikedMovielist && !foundInDislikedMovielist) { %> 
@@ -68,16 +69,64 @@
                 <span><%= movie.title %> </span>
                 <span class="year">(<%= movie.year %>)</span>
             </div>
-            <div class="rating d-flex align-items-center">
-                <div class="m-r-5">
-                    <i class="fas fa-star" style="font-size: 2rem"></i>
-                </div>
-                <div>
-                    <%= movie.imdbrating %><span class="max-rating">/10</span>
-                    <div class="m-0 votes"><%= movie.imdbvotes %></div>
-                </div>
-            </div>   
+            <div class="d-flex">
+                <!-- IMDb Rating -->
+                <div class="rating d-flex align-items-center">
+                    <div class="m-r-5">
+                        <i class="fas fa-star" style="font-size: 2rem"></i>
+                    </div>
+                    <div>
+                        <%= movie.imdbrating %><span class="max-rating">/10</span>
+                        <div class="m-0 votes"><%= movie.imdbvotes %></div>
+                    </div>
+                </div>  
+                <!-- My Rating --> 
+                <% if(currentUser) { %>
+                    <% let addUrl = `/user/myratings/addRating/${movie.imdbid}`; %>
+                    <% let updateUrl = `/user/myratings/updateRating/${movie.imdbid}`; %>
+                    <% let removeUrl = `/user/myratings/removeRating/${movie.imdbid}`; %>
+                    <% if(!foundInRatingList) { %>
+                        <% var thisformUrl = addUrl; %>
+                    <% } else { %>
+                        <% var thisformUrl = updateUrl; %>
+                    <% } %>
+                    <div class="d-flex align-items-center m-l-20">
+                        <div class="m-r-5">
+                            <% if(!foundInRatingList) { %>                
+                                <i style="font-size: 2rem; color: blue" class="far fa-star"></i>
+                            <% } else { %>     
+                                <i style="font-size: 2rem; color: blue" class="fas fa-star"></i>
+                            <% } %>
+                        </div>
+                        <div>
+                            <form action="<%=thisformUrl%>">
+                                <select class="btn-group dropleft myrating-select custom-select custom-select-sm" name="rating" onchange="this.form.submit()">
+                                    <option selected><%=rating%></option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>          
+                            </form>
+                        </div>
+                        <div class="myrating-delete">
+                            <% if(!foundInRatingList) { %>  
+                                <a href = "<%= removeUrl %>" datatoggle="tooltip" title="Remove Your Rating" class="btn-link disabled"><i class="fas fa-times-circle"></i></a>
+                            <% } else { %>     
+                                <a href = "<%= removeUrl %>" datatoggle="tooltip" title="Remove Your Rating"><i class="fas fa-times-circle"></i></a>
+                            <% } %>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
         </div>
+
         <!-- Row 2 of Jumbotron -->
         <div class="row2 d-flex flex-column flex-md-row justify-content-around">
             <div>
