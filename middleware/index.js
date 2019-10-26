@@ -1,12 +1,12 @@
 var middlewareObj = {
-  isLoggedIn: function(req, res, next) {
+  isLoggedIn: function (req, res, next) {
     if (req.isAuthenticated()) {
       return next();
     }
     req.flash("error", "Please Login First");
     res.redirect("/user/login");
   },
-  isAdmin: function(req, res, next) {
+  isAdmin: function (req, res, next) {
     if (req.user.admin) {
       return next();
     }

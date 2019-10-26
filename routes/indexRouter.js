@@ -12,7 +12,9 @@ router.get("/", (req, res) => {
   let getTrendingUrl = `https://api.themoviedb.org/3/trending/movie/day?api_key=${tmdbApiKey}`;
   request(getTrendingUrl, (err, resp, body) => {
     data = JSON.parse(body);
-    res.render("home", { movies: data.results });
+    res.render("home", {
+      movies: data.results
+    });
   });
 });
 

@@ -26,22 +26,12 @@
         <%= currentUser.email %>
       </p>
       <div>
-        <a
-          href="/user/likedMovielist"
-          style="color: green"
-          data-toggle="tooltip"
-          title="Show my Liked Movies"
-        >
+        <a href="/user/likedMovielist" style="color: green" data-toggle="tooltip" title="Show my Liked Movies">
           <i class="fas fa-thumbs-up"></i>
           <%= currentUser.likedMovielist.length %>
         </a>
         &nbsp;
-        <a
-          href="/user/dislikedMovielist"
-          style="color: red"
-          data-toggle="tooltip"
-          title="Show my Disliked Movies"
-        >
+        <a href="/user/dislikedMovielist" style="color: red" data-toggle="tooltip" title="Show my Disliked Movies">
           <i class="fas fa-thumbs-down"></i>
           <%= currentUser.dislikedMovielist.length %>
         </a>

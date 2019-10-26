@@ -80,7 +80,6 @@
     <% } %>
     <% } %>
   </div>
-
 </div>
 
 <!-- Pagination -->
@@ -94,12 +93,18 @@
       <a class="page-link" href="/popular/<%=page-1%>?region=<%=region%>&genre=<%=genre%>" tabindex="-1"
         aria-disabled="true" data-toggle="tooltip" title="Previous Page">&laquo;</a>
     </li>
-    <%if(page+1<=total_pages){%><li class="page-item"><a class="page-link"
-        href="/popular/<%=page+1%>?region=<%=region%>&genre=<%=genre%>"><%=page+1%></a></li><%}%>
-    <%if(page+2<=total_pages){%><li class="page-item"><a class="page-link"
-        href="/popular/<%=page+2%>?region=<%=region%>&genre=<%=genre%>"><%=page+2%></a></li><%}%>
-    <%if(page+3<=total_pages){%><li class="page-item"><a class="page-link"
-        href="/popular/<%=page+3%>?region=<%=region%>&genre=<%=genre%>"><%=page+3%></a></li><%}%>
+    <% if(page+1<=total_pages){ %>
+    <li class="page-item"><a class="page-link"
+        href="/popular/<%=page+1%>?region=<%=region%>&genre=<%=genre%>"><%=page+1%></a></li>
+    <%}%>
+    <% if(page+2<=total_pages){ %>
+    <li class="page-item"><a class="page-link"
+        href="/popular/<%=page+2%>?region=<%=region%>&genre=<%=genre%>"><%=page+2%></a></li>
+    <%}%>
+    <% if(page+3<=total_pages){ %>
+    <li class="page-item"><a class="page-link"
+        href="/popular/<%=page+3%>?region=<%=region%>&genre=<%=genre%>"><%=page+3%></a></li>
+    <%}%>
     <li class="page-item <%= page==total_pages && "disabled" %>">
     <a class="page-link" href="/popular/<%=page+1%>?region=<%=region%>&genre=<%=genre%>" data-toggle="tooltip"
       title="Next Page">&raquo;</a>

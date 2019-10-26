@@ -20,11 +20,8 @@
       <div class="thumbnail moviecard">
         <div class="block" style="text-align: center">
           <a href="/search/moviedetails/<%= movie.imdbId %>">
-            <img
-              src="<%= movie.poster %>"
-              alt="Image Not Available"
-              onerror="this.onerror=null;this.src='Images/notfound.jpg';"
-            />
+            <img src="<%= movie.poster %>" alt="Image Not Available"
+              onerror="this.onerror=null;this.src='Images/notfound.jpg';" />
           </a>
           <div>
             <a href="/search/moviedetails/<%= movie.imdbId %>">

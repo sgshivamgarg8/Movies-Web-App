@@ -21,7 +21,9 @@ router.get("/results", (req, res) => {
         let people = JSON.parse(body);
         people.results.forEach(result => peopleList.push(result));
         // console.log(peopleList);
-        res.render("resultsPeople", { people: people });
+        res.render("resultsPeople", {
+          people: people
+        });
       }
     });
   } else {
@@ -29,7 +31,9 @@ router.get("/results", (req, res) => {
     request(url, (error, response, body) => {
       if (!error && response.statusCode == 200) {
         let movies = JSON.parse(body);
-        res.render("results", { movies: movies });
+        res.render("results", {
+          movies: movies
+        });
       }
     });
   }
@@ -49,7 +53,9 @@ router.get("/persondetails/:personid", (req, res) => {
       person.imdbid = data.imdb_id;
       person.homepage = data.homepage;
       // console.log(person);
-      res.render("personDetails", { person: person });
+      res.render("personDetails", {
+        person: person
+      });
     }
   });
 });
@@ -185,9 +191,9 @@ router.get("/moviedetails/:clickedmovieimdbid", (req, res) => {
 
           if (flagMovie) {
             clickedmovie.boxoffice = full_data.revenue;
-            runtime = full_data.runtime
-              ? full_data.runtime.toString()
-              : full_data.runtime;
+            runtime = full_data.runtime ?
+              full_data.runtime.toString() :
+              full_data.runtime;
             clickedmovie.runtime = runtime;
           }
           clickedmovie.tagline = full_data.tagline;

@@ -31,13 +31,9 @@
       <div class="thumbnail moviecard">
         <div class="block" style="text-align: center">
           <a href="<%=`/search/persondetails/${person.id}`%>">
-            <img
-              src="<%= posterUrl %>"
-              alt="Image Not Available"
-              onerror="this.onerror=null;this.src='/Images/notfound.jpg';"
-              data-toggle="collapse"
-              data-target="#collapseExample"
-            />
+            <img src="<%= posterUrl %>" alt="Image Not Available"
+              onerror="this.onerror=null;this.src='/Images/notfound.jpg';" data-toggle="collapse"
+              data-target="#collapseExample" />
           </a>
           <div>
             <a href="<%=`/search/persondetails/${person.id}`%>">

@@ -35,19 +35,25 @@ router.get("/", (req, res) => {
           movies.sort((movie1, movie2) => {
             return movie1.date > movie2.date ? -1 : 1;
           });
-          res.render("list", { movies: movies });
+          res.render("list", {
+            movies: movies
+          });
         }
       });
     }
   } else {
-    res.render("list", { movies: movies });
+    res.render("list", {
+      movies: movies
+    });
   }
 });
 
 router.get("/addToWatchlist/:imdbId", (req, res) => {
   let user = req.user;
   let obtainedImdbId = req.params.imdbId;
-  user.watchlist.push({ imdbId: obtainedImdbId });
+  user.watchlist.push({
+    imdbId: obtainedImdbId
+  });
   user.save();
   res.redirect("/search/moviedetails/" + req.params.imdbId);
 });
@@ -56,9 +62,16 @@ router.get("/removeFromWatchlist/:imdbId", (req, res) => {
   let user = req.user;
   let obtainedImdbId = req.params.imdbId;
   User.findByIdAndUpdate(
-    user._id,
-    { $pull: { watchlist: { imdbId: obtainedImdbId } } },
-    { safe: true, upsert: true },
+    user._id, {
+      $pull: {
+        watchlist: {
+          imdbId: obtainedImdbId
+        }
+      }
+    }, {
+      safe: true,
+      upsert: true
+    },
     (err, doc) => {
       if (err) console.log(err);
     }

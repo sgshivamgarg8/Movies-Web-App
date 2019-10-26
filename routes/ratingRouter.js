@@ -8,7 +8,10 @@ const express = require("express"),
 router.get("/addRating/:imdbId", (req, res) => {
   let user = req.user;
   let obtainedImdbId = req.params.imdbId;
-  user.rating.push({ imdbId: obtainedImdbId, rating: req.query.rating });
+  user.rating.push({
+    imdbId: obtainedImdbId,
+    rating: req.query.rating
+  });
   user.save();
   res.redirect("/search/moviedetails/" + req.params.imdbId);
 });
@@ -26,9 +29,16 @@ router.get("/removeRating/:imdbId", (req, res) => {
   let user = req.user;
   let obtainedImdbId = req.params.imdbId;
   User.findByIdAndUpdate(
-    user._id,
-    { $pull: { rating: { imdbId: obtainedImdbId } } },
-    { safe: true, upsert: true },
+    user._id, {
+      $pull: {
+        rating: {
+          imdbId: obtainedImdbId
+        }
+      }
+    }, {
+      safe: true,
+      upsert: true
+    },
     (err, doc) => {
       if (err) console.log(err);
     }

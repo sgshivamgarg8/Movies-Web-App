@@ -28,11 +28,8 @@
           <a href="<%=url%>">
             <% imageUrl = 'https://image.tmdb.org/t/p/w300/' + movie.poster_path
             %>
-            <img
-              src="<%= imageUrl %>"
-              alt="Image Not Available"
-              onerror="this.onerror=null;this.src='Images/notfound.jpg';"
-            />
+            <img src="<%= imageUrl %>" alt="Image Not Available"
+              onerror="this.onerror=null;this.src='Images/notfound.jpg';" />
           </a>
           <div>
             <a href="/getImdbIdofClickedMovie">

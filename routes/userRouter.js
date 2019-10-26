@@ -17,7 +17,9 @@ router.post("/register", (req, res) => {
   });
 
   User.register(
-    new User({ username: req.body.username }),
+    new User({
+      username: req.body.username
+    }),
     req.body.password,
     (err, user) => {
       if (err) {
@@ -36,9 +38,9 @@ router.post("/register", (req, res) => {
             req.flash(
               "success",
               "Successfully Signed Up as " +
-                user.firstname +
-                " " +
-                user.lastname
+              user.firstname +
+              " " +
+              user.lastname
             );
             res.redirect("/");
           });
@@ -108,14 +110,21 @@ router.get("/allusers", middleware.isAdmin, (req, res) => {
 
 router.get("/finduser", (req, res) => {
   User.find({
-    $or: [
-      { username: req.query.searchuserquery },
-      { firstname: req.query.searchuserquery },
-      { lastname: req.query.searchuserquery }
-    ]
-  })
+      $or: [{
+          username: req.query.searchuserquery
+        },
+        {
+          firstname: req.query.searchuserquery
+        },
+        {
+          lastname: req.query.searchuserquery
+        }
+      ]
+    })
     .then(users => {
-      res.render("findUser", { users: users });
+      res.render("findUser", {
+        users: users
+      });
     })
     .catch(err => console.log(err));
 });
