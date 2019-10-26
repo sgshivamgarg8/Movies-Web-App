@@ -5,7 +5,9 @@ flash         = require("connect-flash");
 rp            = require("request-promise"),
 fs            = require("fs"),
 csv           = require("csv-parser"),
-config        = require("./config")
+config        = require("./config"),
+path          = require('path'),
+fileUpload    = require("express-fileupload")
 // ================================================================================
 const mongoose = require("mongoose"),
 passport       = require("passport"),
@@ -16,17 +18,18 @@ cookieParser   = require("cookie-parser");
 User           = require("./models/user"),
 middleware     = require("./middleware")
 // ================================================================================
-const indexRouter     = require("./routes/indexRouter"),
-      userRouter      = require("./routes/userRouter"),
-      watchlistRouter = require("./routes/watchlistRouter"),
-      likedMovielistRouter = require("./routes/likedMovielistRouter"),
+const indexRouter             = require("./routes/indexRouter"),
+      userRouter              = require("./routes/userRouter"),
+      watchlistRouter         = require("./routes/watchlistRouter"),
+      likedMovielistRouter    = require("./routes/likedMovielistRouter"),
       dislikedMovielistRouter = require("./routes/dislikedMovielistRouter"),
-      searchRouter    = require("./routes/searchRouter"),
-      ratingRouter    = require("./routes/ratingRouter")
+      searchRouter            = require("./routes/searchRouter"),
+      ratingRouter            = require("./routes/ratingRouter")
 // ================================================================================
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
+app.use(fileUpload());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser("Hello, This is my Secret Line"));
 

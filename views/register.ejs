@@ -45,7 +45,7 @@
                 <div class="card-heading"></div>
                 <div class="card-body">
                     <h2 class="title">Registration Info</h2>
-                    <form action="/user/register" method="POST">
+                    <form action="/user/register" method="POST" encType="multipart/form-data">
                         <div class="input-group">
                             <input class="input--style-3 p-10" type="text" required placeholder="First Name" name="firstname">
                         </div>
@@ -61,6 +61,10 @@
                         <div class="input-group">
                             <input class="input--style-3 p-10" required type="password" placeholder="Password" name="password">
                         </div>
+                        <div class="input-group">
+                            <input type="file" name="image" class="form-control-file">
+                        </div>
+                        
                         <div class="p-t-10">
                             <button class="btn btn--pill btn--green" type="submit">Register</button>
                         </div>
