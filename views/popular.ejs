@@ -1,11 +1,11 @@
-<% include partials/header %> 
+<% include partials/header %>
 
 <!-- navbar -->
-<% include partials/navbar %> 
+<% include partials/navbar %>
 <!-- /navbar -->
 
 <!-- flash -->
-<% include partials/flash %> 
+<% include partials/flash %>
 <!-- /flash -->
 
 <div class="container">
@@ -49,56 +49,64 @@
           </select>
         </div>
         <div>
-          <button type="submit" class="btn btn-primary m-0 m-l-20"> <i class="fas fa-search"></i> Search</button>   
-        </div> 
+          <button type="submit" class="btn btn-primary m-0 m-l-20"> <i class="fas fa-search"></i> Search</button>
+        </div>
       </div>
     </form>
   </div>
-  
+
   <div class="row">
     <% for (var i = 0; i < movies.length; i++) { %>
-      <% var movie = movies[i]; %>
-      <% if(movie.poster_path != "N/A") { %>
-        <div class="col-lg-3 col-md-4 col-sm-6">
-          <div class="thumbnail moviecard">
-            <div class="block" style="text-align: center">
-              <% url = `/getImdbIdofClickedMovie/${movie.id}` %>
-              <a href="<%=url%>">
-                <% imageUrl = 'https://image.tmdb.org/t/p/w300/' + movie.poster_path %>
-                <img src="<%= imageUrl %>" alt="Image Not Available" onerror="this.onerror=null;this.src='/Images/notfound.jpg';">
-              </a>
-              <div>
-                <a href="/getImdbIdofClickedMovie">
-                  <%= movie.title %>
-                </a>
-                <span class="year">(<%= movie.release_date.split("-")[0] %>)</span>
-              </div>
-            </div>
+    <% var movie = movies[i]; %>
+    <% if(movie.poster_path != "N/A") { %>
+    <div class="col-lg-3 col-md-4 col-sm-6">
+      <div class="thumbnail moviecard">
+        <div class="block" style="text-align: center">
+          <% url = `/getImdbIdofClickedMovie/${movie.id}` %>
+          <a href="<%=url%>">
+            <% imageUrl = 'https://image.tmdb.org/t/p/w300/' + movie.poster_path %>
+            <img src="<%= imageUrl %>" alt="Image Not Available"
+              onerror="this.onerror=null;this.src='/Images/notfound.jpg';">
+          </a>
+          <div>
+            <a href="/getImdbIdofClickedMovie">
+              <%= movie.title %>
+            </a>
+            <span class="year">(<%= movie.release_date.split("-")[0] %>)</span>
           </div>
         </div>
-      <% } %> 
+      </div>
+    </div>
     <% } %>
-  </div>    
-      
+    <% } %>
+  </div>
+
 </div>
 
 <!-- Pagination -->
 <nav>
   <ul class="pagination justify-content-center">
     <li class="page-item <%=page==1 && "active" %>">
-      <a class="page-link" href="/popular/1?region=<%=region%>&genre=<%=genre%>" data-toggle="tooltip" title="First Page">&laquo;&laquo;</a>
+      <a class="page-link" href="/popular/1?region=<%=region%>&genre=<%=genre%>" data-toggle="tooltip"
+        title="First Page">&laquo;&laquo;</a>
     </li>
     <li class="page-item <%= page==1 && "disabled" %>">
-      <a class="page-link" href="/popular/<%=page-1%>?region=<%=region%>&genre=<%=genre%>" tabindex="-1" aria-disabled="true" data-toggle="tooltip" title="Previous Page">&laquo;</a>
+      <a class="page-link" href="/popular/<%=page-1%>?region=<%=region%>&genre=<%=genre%>" tabindex="-1"
+        aria-disabled="true" data-toggle="tooltip" title="Previous Page">&laquo;</a>
     </li>
-    <%if(page+1<=total_pages){%><li class="page-item"><a class="page-link" href="/popular/<%=page+1%>?region=<%=region%>&genre=<%=genre%>"><%=page+1%></a></li><%}%>
-    <%if(page+2<=total_pages){%><li class="page-item"><a class="page-link" href="/popular/<%=page+2%>?region=<%=region%>&genre=<%=genre%>"><%=page+2%></a></li><%}%>
-    <%if(page+3<=total_pages){%><li class="page-item"><a class="page-link" href="/popular/<%=page+3%>?region=<%=region%>&genre=<%=genre%>"><%=page+3%></a></li><%}%>
+    <%if(page+1<=total_pages){%><li class="page-item"><a class="page-link"
+        href="/popular/<%=page+1%>?region=<%=region%>&genre=<%=genre%>"><%=page+1%></a></li><%}%>
+    <%if(page+2<=total_pages){%><li class="page-item"><a class="page-link"
+        href="/popular/<%=page+2%>?region=<%=region%>&genre=<%=genre%>"><%=page+2%></a></li><%}%>
+    <%if(page+3<=total_pages){%><li class="page-item"><a class="page-link"
+        href="/popular/<%=page+3%>?region=<%=region%>&genre=<%=genre%>"><%=page+3%></a></li><%}%>
     <li class="page-item <%= page==total_pages && "disabled" %>">
-      <a class="page-link" href="/popular/<%=page+1%>?region=<%=region%>&genre=<%=genre%>" data-toggle="tooltip" title="Next Page">&raquo;</a>
+    <a class="page-link" href="/popular/<%=page+1%>?region=<%=region%>&genre=<%=genre%>" data-toggle="tooltip"
+      title="Next Page">&raquo;</a>
     </li>
     <li class="page-item <%=page==total_pages && "active" %>">
-      <a class="page-link" href="/popular/<%=total_pages%>?region=<%=region%>&genre=<%=genre%>" data-toggle="tooltip" title="Last Page">&raquo;&raquo;</a>
+      <a class="page-link" href="/popular/<%=total_pages%>?region=<%=region%>&genre=<%=genre%>" data-toggle="tooltip"
+        title="Last Page">&raquo;&raquo;</a>
     </li>
   </ul>
 </nav>

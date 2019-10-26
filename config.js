@@ -7,4 +7,4 @@ module.exports = {
   tmdbApiKey: tmdbApiKey,
   omdbApiKey: omdbApiKey,
   dbUrl: dbUrl
-}
+};

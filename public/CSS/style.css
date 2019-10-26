@@ -1,272 +1,326 @@
-body{
+body {
 	margin-top: 100px;
 }
 
-input{
+input {
 	width: 300px;
 	height: 43px;
 }
 
-hr{
+hr {
 	background: white;
 	opacity: .1;
 }
 
-h2{
+h2 {
 	color: rgb(223, 210, 210);
 }
 
 /* Custom Margins */
-.m-30{
+.m-30 {
 	margin: 30px !important;
 }
-.m-20{
+
+.m-20 {
 	margin: 20px !important;
 }
-.m-15{
+
+.m-15 {
 	margin: 15px !important;
 }
-.m-10{
+
+.m-10 {
 	margin: 10px !important;
 }
-.m-5{
+
+.m-5 {
 	margin: 5px !important;
 }
-.m-0{
+
+.m-0 {
 	margin: 0px !important;
 }
-.m-l-30{
+
+.m-l-30 {
 	margin-left: 30px !important;
 }
-.m-l-20{
+
+.m-l-20 {
 	margin-left: 20px !important;
 }
-.m-l-10{
+
+.m-l-10 {
 	margin-left: 10px !important;
 }
-.m-l-5{
+
+.m-l-5 {
 	margin-left: 5px !important;
 }
-.m-l-0{
+
+.m-l-0 {
 	margin-left: 0px !important;
 }
-.m-t-30{
+
+.m-t-30 {
 	margin-top: 30px !important;
 }
-.m-t-20{
+
+.m-t-20 {
 	margin-top: 20px !important;
 }
-.m-t-10{
+
+.m-t-10 {
 	margin-top: 10px !important;
 }
-.m-t-5{
+
+.m-t-5 {
 	margin-top: 5px !important;
 }
-.m-t-0{
+
+.m-t-0 {
 	margin-top: 0px !important;
 }
-.m-r-30{
+
+.m-r-30 {
 	margin-right: 30px !important;
 }
-.m-r-20{
+
+.m-r-20 {
 	margin-right: 20px !important;
 }
-.m-r-10{
+
+.m-r-10 {
 	margin-right: 10px !important;
 }
-.m-r-5{
+
+.m-r-5 {
 	margin-right: 5px !important;
 }
-.m-r-0{
+
+.m-r-0 {
 	margin-right: 0px !important;
 }
-.m-b-30{
+
+.m-b-30 {
 	margin-bottom: 30px !important;
 }
-.m-b-20{
+
+.m-b-20 {
 	margin-bottom: 20px !important;
 }
-.m-b-10{
+
+.m-b-10 {
 	margin-bottom: 10px !important;
 }
-.m-b-5{
+
+.m-b-5 {
 	margin-bottom: 5px !important;
 }
-.m-b-0{
+
+.m-b-0 {
 	margin-bottom: 0px !important;
 }
+
 /* ====================== */
 
 /* Custom Paddings */
-.p-30{
+.p-30 {
 	padding: 30px !important;
 }
-.p-20{
+
+.p-20 {
 	padding: 20px !important;
 }
-.p-10{
+
+.p-10 {
 	padding: 10px !important;
 }
-.p-0{
+
+.p-0 {
 	padding: 0px !important;
 }
-.p-t-30{
+
+.p-t-30 {
 	padding-top: 30px !important;
 }
-.p-t-20{
+
+.p-t-20 {
 	padding-top: 20px !important;
 }
-.p-t-10{
+
+.p-t-10 {
 	padding-top: 10px !important;
 }
-.p-t-5{
+
+.p-t-5 {
 	padding-top: 5px !important;
 }
-.p-t-0{
+
+.p-t-0 {
 	padding-top: 0px !important;
 }
-.p-l-30{
+
+.p-l-30 {
 	padding-left: 30px !important;
 }
-.p-l-20{
+
+.p-l-20 {
 	padding-left: 20px !important;
 }
-.p-l-10{
+
+.p-l-10 {
 	padding-left: 10px !important;
 }
-.p-l-5{
+
+.p-l-5 {
 	padding-left: 5px !important;
 }
-.p-l-0{
+
+.p-l-0 {
 	padding-left: 0px !important;
 }
-.p-r-30{
+
+.p-r-30 {
 	padding-right: 30px !important;
 }
-.p-r-20{
+
+.p-r-20 {
 	padding-right: 20px !important;
 }
-.p-r-10{
+
+.p-r-10 {
 	padding-right: 10px !important;
 }
-.p-r-5{
+
+.p-r-5 {
 	padding-right: 5px !important;
 }
-.p-r-0{
+
+.p-r-0 {
 	padding-right: 0px !important;
 }
-.p-b-30{
+
+.p-b-30 {
 	padding-bottom: 30px !important;
 }
-.p-b-20{
+
+.p-b-20 {
 	padding-bottom: 20px !important;
 }
-.p-b-10{
+
+.p-b-10 {
 	padding-bottom: 10px !important;
 }
-.p-b-5{
+
+.p-b-5 {
 	padding-bottom: 5px !important;
 }
-.p-b-0{
+
+.p-b-0 {
 	padding-bottom: 0px !important;
 }
+
 /* ====================== */
 
-.btn{
+.btn {
 	margin: 5px 0;
 }
 
-.fixed-top{
-	background:rgb(55,90,127);
+.fixed-top {
+	background: rgb(55, 90, 127);
 	margin-bottom: 40px;
 }
 
-.navbar-dark .navbar-brand{
+.navbar-dark .navbar-brand {
 	color: black;
 }
 
 /* Movie title year */
-.year{
-	opacity: .7; 
+.year {
+	opacity: .7;
 }
 
-.card{
-	margin-left:auto;
-	margin-right:auto;
-	margin-top: 100px ;
+.card {
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 100px;
 }
 
-.fa-facebook-square{
+.fa-facebook-square {
 	color: #3C5A99;
 }
 
-.fa-instagram{
+.fa-instagram {
 	color: #C13584;
 }
 
 /* Phones in Lanscape mode */
-@media(min-width: 576px){
-	.block img{
+@media(min-width: 576px) {
+	.block img {
 		width: 100%;
 		height: 360px;
 	}
 }
 
 /* Phones in Portrait mode */
-@media(max-width: 575px){
-	.block img{
+@media(max-width: 575px) {
+	.block img {
 		width: 300px;
 		height: 444px;
 	}
 }
 
 /* Extra Large Devices */
-@media(min-width: 1201px){
-}
+@media(min-width: 1201px) {}
 
 /* Laptops and Desktops */
-@media(min-width: 992px){
-	.movietitle{
+@media(min-width: 992px) {
+	.movietitle {
 		font-weight: 600;
 		font-size: 36px;
 	}
-	.rating{
+
+	.rating {
 		font-size: 2em;
 	}
 }
 
 /* Tablets */
-@media(min-width: 768px) and (max-width:991px){
-	.movietitle{
+@media(min-width: 768px) and (max-width:991px) {
+	.movietitle {
 		font-weight: 600;
 		font-size: 32px;
 	}
-	.rating{
+
+	.rating {
 		font-size: 1.8em;
 	}
 }
 
 /* Phones in Landscape mode */
-@media(min-width: 576px) and (max-width:767px){
-	.movietitle{
+@media(min-width: 576px) and (max-width:767px) {
+	.movietitle {
 		font-weight: 600;
 		font-size: 26px;
 	}
-	.rating{
+
+	.rating {
 		font-size: 1.5em;
 	}
 }
 
 /* Phones */
-@media(max-width:575px){
-	.movietitle{
+@media(max-width:575px) {
+	.movietitle {
 		font-weight: 600;
 		font-size: 26px;
 	}
-	.rating{
+
+	.rating {
 		font-size: 1.5em;
 	}
-	.externalratings{
+
+	.externalratings {
 		font-size: .8rem;
 	}
 }
@@ -284,77 +338,81 @@ h2{
 } */
 
 /* IMDb Rating Styling */
-.votes{
+.votes {
 	color: rgb(192, 192, 192);
 	font-size: 0.5em;
 }
 
-.fa-star{
+.fa-star {
 	color: rgb(228, 187, 36);
 }
 
-.max-rating{
+.max-rating {
 	font-size: .5em;
 	color: rgb(192, 192, 192);
 }
+
 /* ================================ */
 
 /* Row 2 of Jumbotron */
-@media(min-width:768px){
-	.row2{
+@media(min-width:768px) {
+	.row2 {
 		margin-top: 30px;
 	}
 }
 
-.row2{
+.row2 {
 	color: rgb(192, 192, 192);
 }
 
-.metacritic{
+.metacritic {
 	position: relative;
 }
 
-.castinfo, .plot{
+.castinfo,
+.plot {
 	font-size: 1rem;
 }
 
 /* MetaScore Style */
-.universalacclaim{
+.universalacclaim {
 	background: rgb(102, 204, 51);
 }
 
-.mixed{
+.mixed {
 	background: rgb(255, 204, 51);
 }
 
-.overwhelmingdisliked{
+.overwhelmingdisliked {
 	background: rgb(255, 0, 0);
 }
+
 /* ====================================== */
 
 /* MovieCard */
 .moviecard {
 	margin-bottom: 20px;
-	box-shadow: 7px 12px 20px -5px rgba(0,0,0,0.56);
+	box-shadow: 7px 12px 20px -5px rgba(0, 0, 0, 0.56);
 	transition: all ease 500ms;
 }
 
-.moviecard:hover{
+.moviecard:hover {
 	transform: scale(1.1);
 	opacity: .8;
 	cursor: pointer;
 }
+
 /* ====================================================== */
 
 /* Vertical HR */
-.vhr{ 
-	border:         none;
-	border-left:    1px solid hsla(200, 10%, 50%,100);
-	width:          1px;       
+.vhr {
+	border: none;
+	border-left: 1px solid hsla(200, 10%, 50%, 100);
+	width: 1px;
 	opacity: .5;
 }
 
-.my-profile-card{
+.my-profile-card {
 	font-size: 1.5em;
 }
 
@@ -369,8 +427,9 @@ h2{
 	outline: none;
 	min-width: 45px;
 }
+
 .myrating-delete i {
-	color: red; 
+	color: red;
 	margin: 5px;
 	margin-top: 9px;
 }

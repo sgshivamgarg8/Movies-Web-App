@@ -1,53 +1,52 @@
-<% include partials/header %> 
+<% include partials/header %>
 
 <!-- navbar -->
-<% include partials/navbar %> 
+<% include partials/navbar %>
 <!-- /navbar -->
 
 <!-- flash -->
-<% include partials/flash %> 
+<% include partials/flash %>
 <!-- /flash -->
 
 <div class="container">
-    <!-- search form -->
-    <% include partials/searchform %> 
-    <!-- /search form -->
+  <!-- search form -->
+  <% include partials/searchform %>
+  <!-- /search form -->
 
-    <% if(movies.Response == "False") { %>
-        <div class="card text-white bg-warning mb-3" style="max-width: 20rem;">
-          <div class="card-header">ERROR!!</div>
-          <div class="card-body">
-            <h4 class="card-title">SORRY!!</h4>
-            <p class="card-text"><%= movies.Error %></p>
+  <% if(movies.Response == "False") { %>
+  <div class="card text-white bg-warning mb-3" style="max-width: 20rem;">
+    <div class="card-header">ERROR!!</div>
+    <div class="card-body">
+      <h4 class="card-title">SORRY!!</h4>
+      <p class="card-text"><%= movies.Error %></p>
+    </div>
+  </div>
+  <% } else { %>
+  <div class="row">
+    <% for (var i = 0; i < movies.Search.length; i++) { %> <% var imdbid =
+    movies.Search[i].imdbID %> <% if(movies.Search[i].Poster != "N/A") { %>
+    <div class="col-lg-3 col-md-4 col-sm-6">
+      <div class="thumbnail moviecard">
+        <div class="block" style="text-align: center">
+          <a href="/search/moviedetails/<%= imdbid %>">
+            <img
+              src="<%= movies.Search[i].Poster %>"
+              alt="Image Not Available"
+              onerror="this.onerror=null;this.src='/Images/notfound.jpg';"
+            />
+          </a>
+          <div>
+            <a href="/search/moviedetails/<%= imdbid %>">
+              <%= movies.Search[i].Title %>
+            </a>
+            <span class="year">(<%= movies.Search[i].Year %>)</span>
           </div>
         </div>
-    <% } else { %>
-        <div class="row">
-
-           <% for (var i = 0; i < movies.Search.length; i++) { %>
-                <% var imdbid = movies.Search[i].imdbID %> 
-
-                <% if(movies.Search[i].Poster != "N/A") { %> 
-                    <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="thumbnail moviecard" >
-                            <div class="block" style="text-align: center">
-                                <a href="/search/moviedetails/<%= imdbid %>">
-                                    <img src="<%= movies.Search[i].Poster %>" alt="Image Not Available" onerror="this.onerror=null;this.src='/Images/notfound.jpg';">
-                                </a>
-                                <div>
-                                    <a href="/search/moviedetails/<%= imdbid %>">
-                                        <%= movies.Search[i].Title %>
-                                    </a>
-                                    <span class="year">(<%= movies.Search[i].Year %>)</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                <% } %> 
-            <% } %>
-        </div>    
-    <% } %> 
-
+      </div>
+    </div>
+    <% } %> <% } %>
+  </div>
+  <% } %>
 </div>
 
 <% include partials/footer %>

@@ -1,4 +1,3 @@
-
 /* ==========================================================================
    #FONT
    ========================================================================== */
@@ -62,7 +61,9 @@ html {
   margin: 0;
 }
 
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   -webkit-box-sizing: inherit;
   -moz-box-sizing: inherit;
   box-sizing: inherit;
@@ -75,12 +76,23 @@ html {
  * A very simple reset that sits on top of Normalize.css.
  */
 body,
-h1, h2, h3, h4, h5, h6,
-blockquote, p, pre,
-dl, dd, ol, ul,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+blockquote,
+p,
+pre,
+dl,
+dd,
+ol,
+ul,
 figure,
 hr,
-fieldset, legend {
+fieldset,
+legend {
   margin: 0;
   padding: 0;
 }
@@ -88,8 +100,8 @@ fieldset, legend {
 /**
  * Remove trailing margins from nested lists.
  */
-li > ol,
-li > ul {
+li>ol,
+li>ul {
   margin-bottom: 0;
 }
 
@@ -130,7 +142,12 @@ body {
   font-size: 14px;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: 400;
 }
 
@@ -382,12 +399,14 @@ input {
   .card-3 {
     display: block;
   }
+
   .card-3 .card-heading {
     display: block;
     width: 100%;
     padding-top: 400px;
     background-position: center center;
   }
+
   .card-3 .card-body {
     display: block;
     width: 100%;
