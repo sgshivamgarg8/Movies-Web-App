@@ -32,9 +32,12 @@
                         <div class="thumbnail moviecard" >
                             <div class="block" style="text-align: center">
                                 <a href="/search/moviedetails/<%= imdbid %>">
-                                <img src="<%= movies.Search[i].Poster %>" alt="Image Not Available" onerror="this.onerror=null;this.src='Images/notfound.jpg';">
+                                    <img src="<%= movies.Search[i].Poster %>" alt="Image Not Available" onerror="this.onerror=null;this.src='/Images/notfound.jpg';">
+                                </a>
                                 <div>
-                                    <%= movies.Search[i].Title %></a>
+                                    <a href="/search/moviedetails/<%= imdbid %>">
+                                        <%= movies.Search[i].Title %>
+                                    </a>
                                     <span class="year">(<%= movies.Search[i].Year %>)</span>
                                 </div>
                             </div>

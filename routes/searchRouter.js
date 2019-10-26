@@ -8,16 +8,50 @@ omdbApiKey = config.omdbApiKey;
 
 // Mounted at "/search"
 
+peopleList = []
+
 router.get("/results", (req, res) => {
 	let searchquery = req.query.searchquery;
 	let type = req.query.type;
-	let url = `http://www.omdbapi.com/?apikey=${omdbApiKey}&s=${searchquery}&type=${type}`;
-	request(url, (error, response, body) => {
-		if(!error && response.statusCode == 200){
-			let movies = JSON.parse(body);
-			res.render("results", {movies: movies});
+	if(type == "people") {
+		let url = `https://api.themoviedb.org/3/search/person?api_key=${tmdbApiKey}&language=en-US&query=${searchquery}&page=1&include_adult=false`;
+		request(url, (error, response, body) => {
+			if(!error && response.statusCode == 200){
+				let people = JSON.parse(body);
+				people.results.forEach(result => peopleList.push(result));
+				// console.log(peopleList);
+				res.render("resultsPeople", {people: people});
+			}
+		});
+	} else {
+		let url = `http://www.omdbapi.com/?apikey=${omdbApiKey}&s=${searchquery}&type=${type}`;
+		request(url, (error, response, body) => {
+			if(!error && response.statusCode == 200){
+				let movies = JSON.parse(body);
+				res.render("results", {movies: movies});
+			}
+		});
+	}
+});
+
+
+router.get("/persondetails/:personid", (req, res) => {
+	let id = req.params.personid;
+	let person = peopleList.find(data => data.id == id);
+	let url = `https://api.themoviedb.org/3/person/${id}?api_key=${tmdbApiKey}&language=en-US`;
+	request(url, (error, resp, body) => {
+		if(!error && resp.statusCode == 200){
+			let data = JSON.parse(body);
+			person.birthday = data.birthday;
+			person.deathday = data.deathday;
+			person.biography = data.biography;
+			person.birthplace = data.place_of_birth;
+			person.imdbid = data.imdb_id;
+			person.homepage = data.homepage;
+			console.log(person);
+			res.render("personDetails", {person: person})
 		}
-	});
+	})
 });
 
 router.get("/moviedetails/:clickedmovieimdbid", (req, res) => {
