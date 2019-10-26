@@ -42,6 +42,7 @@
   <div class="m-t-20">
     <%= person.biography %>
   </div>
+
   <hr>
   <!-- Known For -->
   <h2 class="m-b-20">Known For</h2>
@@ -83,6 +84,13 @@
     </div>
     <% }) %>
   </div>
+
+  <hr>
+  <!-- Imdb Button -->
+  <a href="https://www.imdb.com/name/<%=person.imdbid%>" target="_blank">
+    <button type="button" class="btn btn-primary btn-lg">View On IMDb</button>
+  </a>
+  <hr>
 </div>
 
 <% include partials/footer %>
