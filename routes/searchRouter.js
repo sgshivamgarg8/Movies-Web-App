@@ -41,23 +41,28 @@ router.get("/results", (req, res) => {
 
 router.get("/persondetails/:personid", (req, res) => {
   let id = req.params.personid;
-  let person = peopleList.find(data => data.id == id);
-  let url = `https://api.themoviedb.org/3/person/${id}?api_key=${tmdbApiKey}&language=en-US`;
-  request(url, (error, resp, body) => {
-    if (!error && resp.statusCode == 200) {
-      let data = JSON.parse(body);
-      person.birthday = data.birthday;
-      person.deathday = data.deathday;
-      person.biography = data.biography;
-      person.birthplace = data.place_of_birth;
-      person.imdbid = data.imdb_id;
-      person.homepage = data.homepage;
-      // console.log(person);
-      res.render("personDetails", {
-        person: person
-      });
-    }
-  });
+  if (!peopleList.length) {
+    req.flash("error", "Please Search Again");
+    res.redirect('/');
+  } else {
+    let person = peopleList.find(data => data.id == id);
+    let url = `https://api.themoviedb.org/3/person/${id}?api_key=${tmdbApiKey}&language=en-US`;
+    request(url, (error, resp, body) => {
+      if (!error && resp.statusCode == 200) {
+        let data = JSON.parse(body);
+        person.birthday = data.birthday;
+        person.deathday = data.deathday;
+        person.biography = data.biography;
+        person.birthplace = data.place_of_birth;
+        person.imdbid = data.imdb_id;
+        person.homepage = data.homepage;
+        // console.log(person);
+        res.render("personDetails", {
+          person: person
+        });
+      }
+    });
+  }
 });
 
 router.get("/moviedetails/:clickedmovieimdbid", (req, res) => {

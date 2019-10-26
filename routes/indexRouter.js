@@ -33,12 +33,24 @@ router.get("/popular/:page", (req, res) => {
   });
 });
 
+// Get ImdbId of Clicked Movie
 router.get("/getImdbIdofClickedMovie/:tmdbId", (req, res) => {
   let id = req.params.tmdbId;
   let url = `https://api.themoviedb.org/3/movie/${id}?api_key=${tmdbApiKey}`;
   request(url, (err, resp, body) => {
     let data = JSON.parse(body);
     let redirectUrl = `/search/moviedetails/${data.imdb_id}`;
+    res.redirect(redirectUrl);
+  });
+});
+
+// Get ImdbId of Clicked TV
+router.get("/getImdbIdofClickedTv/:tmdbId", (req, res) => {
+  let id = req.params.tmdbId;
+  let url = `https://api.themoviedb.org/3/tv/${id}?api_key=${tmdbApiKey}&append_to_response=external_ids`;
+  request(url, (err, resp, body) => {
+    let data = JSON.parse(body);
+    let redirectUrl = `/search/moviedetails/${data.external_ids.imdb_id}`;
     res.redirect(redirectUrl);
   });
 });

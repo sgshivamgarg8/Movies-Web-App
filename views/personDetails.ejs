@@ -53,6 +53,7 @@
     <div class="col-lg-3 col-md-4 col-sm-6">
       <div class="thumbnail moviecard">
         <div class="" style="text-align: center">
+          <% if(item.media_type == 'movie') { %>
           <div>
             <a href="<%=`/getImdbIdofClickedMovie/${item.id}`%>">
               <img src="<%=posterUrl%>" alt="N/A">
@@ -62,10 +63,21 @@
             <a href="<%=`/getImdbIdofClickedMovie/${item.id}`%>">
               <%=item.title%>
             </a>
-            <% if(item.release_date) { %>
             <span>(<%= item.release_date.split('-')[0] %>)</span>
-            <% } %>
           </div>
+          <% } else { %>
+          <div>
+            <a href="<%=`/getImdbIdofClickedTv/${item.id}`%>">
+              <img src="<%=posterUrl%>" alt="N/A">
+            </a>
+          </div>
+          <div>
+            <a href="<%=`/getImdbIdofClickedTv/${item.id}`%>">
+              <%=item.original_name%>
+            </a>
+            <span>(<%= item.first_air_date.split('-')[0] %>)</span>
+          </div>
+          <% } %>
         </div>
       </div>
     </div>
