@@ -10,8 +10,7 @@
 
 <div class="container">
   <div class="card my-profile-card" style="width: 24rem;">
-    <img src="/Images/notfound.jp" style="width:100%" onerror="this.onerror=null;this.src='/Images/dp.png'"
-      alt="User Profile Pic">
+    <img src="<%=currentUser.image%>" style="width:100%" alt="User Profile Pic">
     <div class="card-body profile">
       <h3 class="card-title">
         <%= currentUser.firstname %> <%= currentUser.lastname %>
