@@ -11,10 +11,10 @@ router.get("/register", (req, res) => {
 });
 
 router.post("/register", (req, res) => {
-  const image = req.files.image;
-  image.mv(`public/photos/${image.name}`, err => {
-    if (err) console.log(err);
-  });
+  // const image = req.files.image;
+  // image.mv(`public/photos/${image.name}`, err => {
+  //   if (err) console.log(err);
+  // });
 
   User.register(
     new User({
@@ -30,7 +30,7 @@ router.post("/register", (req, res) => {
       if (req.body.firstname) user.firstname = req.body.firstname;
       if (req.body.lastname) user.lastname = req.body.lastname;
       if (req.body.email) user.email = req.body.email;
-      user.image = `/photos/${image.name}`;
+      // user.image = `/photos/${image.name}`;
       user.save((err, user) => {
         if (err) console.log(err);
         else {

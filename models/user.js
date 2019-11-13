@@ -27,7 +27,7 @@ var ratingSchema = new mongoose.Schema({
 var UserSchema = new mongoose.Schema({
   firstname: String,
   lastname: String,
-  image: String,
+  // image: String,
   admin: {
     type: Boolean,
     default: false

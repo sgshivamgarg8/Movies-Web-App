@@ -2,7 +2,7 @@ const express = require("express"),
   app = express(),
   bodyParser = require("body-parser"),
   config = require("./config"),
-  fileUpload = require("express-fileupload"),
+  // fileUpload = require("express-fileupload"),
   flash = require("connect-flash");
 
 rp = require("request-promise");
@@ -28,7 +28,7 @@ const indexRouter = require("./routes/indexRouter"),
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
-app.use(fileUpload());
+// app.use(fileUpload());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
