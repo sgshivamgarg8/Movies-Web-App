@@ -72,7 +72,9 @@
             <a href="/getImdbIdofClickedMovie">
               <%= movie.title %>
             </a>
+            <% if(movie.release_date) { %>
             <span class="year">(<%= movie.release_date.split("-")[0] %>)</span>
+            <% } %>
           </div>
         </div>
       </div>
