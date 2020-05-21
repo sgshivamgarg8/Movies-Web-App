@@ -41,7 +41,8 @@ app.use(flash()); //for flash messages
 mongoose
   .connect(config.dbUrl, {
     useNewUrlParser: true,
-    useFindAndModify: false
+    useFindAndModify: false,
+    useUnifiedTopology: true,
   })
   .then(() => {
     console.log("DB Connected Successfully");
