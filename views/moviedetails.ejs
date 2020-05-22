@@ -47,7 +47,8 @@
 
 		<div class="jumbotron">
 			<!-- Row 1 of Jumbotron -->
-			<div class="d-flex flex-column justify-content-start flex-md-row align-items-md-center justify-content-md-around">
+			<div
+				class="d-flex flex-column justify-content-start flex-md-row align-items-md-center justify-content-md-around">
 				<!-- Title -->
 				<div class="movietitle">
 					<% if(currentUser) { %>
@@ -63,7 +64,8 @@
 					<a style="color: red" href="<%="/user/dislikedmovielist/addToDislikedMovielist/" + movie.imdbid%>"
 						data-toggle="tooltip" title="Add To Disliked List"><i class="far fa-thumbs-down"></i></a>
 					<% } else if(foundInDislikedMovielist) { %>
-					<a style="color: red" href="<%="/user/dislikedmovielist/removeFromDislikedMovielist/" + movie.imdbid%>"
+					<a style="color: red"
+						href="<%="/user/dislikedmovielist/removeFromDislikedMovielist/" + movie.imdbid%>"
 						data-toggle="tooltip" title="Remove From Disliked List"><i class="fas fa-thumbs-down"></i></a>
 					<% } %>
 
@@ -109,8 +111,8 @@
 						</div>
 						<div>
 							<form action="<%=thisformUrl%>">
-								<select class="btn-group dropleft myrating-select custom-select custom-select-sm" name="rating"
-									onchange="this.form.submit()">
+								<select class="btn-group dropleft myrating-select custom-select custom-select-sm"
+									name="rating" onchange="this.form.submit()">
 									<option selected><%=rating%></option>
 									<option value="1">1</option>
 									<option value="2">2</option>
@@ -127,8 +129,8 @@
 						</div>
 						<div class="myrating-delete">
 							<% if(!foundInRatingList) { %>
-							<a href="<%= removeUrl %>" datatoggle="tooltip" title="Remove Your Rating" class="btn-link disabled"><i
-									class="fas fa-times-circle"></i></a>
+							<a href="<%= removeUrl %>" datatoggle="tooltip" title="Remove Your Rating"
+								class="btn-link disabled"><i class="fas fa-times-circle"></i></a>
 							<% } else { %>
 							<a href="<%= removeUrl %>" datatoggle="tooltip" title="Remove Your Rating"><i
 									class="fas fa-times-circle"></i></a>
@@ -222,14 +224,15 @@
 
 				<!-- Rotten Tomatoes -->
 				<% if(movie.ratings.length > 1) { %>
-				<% if( movie.ratings[1].Value.substring(0,2) >= 60 ){ %>
+				<% if( movie.ratings[1].Value.split("/")[0].replace("%", "") >= 60 ){ %>
 				<img src="/Images/tomato.png">
 				<% } else { %>
 				<img src="/Images/rotten-tomato.png">
 				<% } %>
 				<span> <%= movie.ratings[1].Value %> </span>
 				<% } %>
-				<span class="p-10"><a href="https://www.rottentomatoes.com/<%=movietype%>/<%=moviename%>" target="_blank">Rotten
+				<span class="p-10"><a href="https://www.rottentomatoes.com/<%=movietype%>/<%=moviename%>"
+						target="_blank">Rotten
 						Tomatoes</a> </span>
 			</div>
 		</div>

@@ -31,7 +31,7 @@ router.get("/results", (req, res) => {
     request(url, (error, response, body) => {
       if (!error && response.statusCode == 200) {
         let data = JSON.parse(body);
-        console.log(data.Search);
+        // console.log(data.Search);
         res.render("results", {
           movies: data.Search,
           response: data.Response,
