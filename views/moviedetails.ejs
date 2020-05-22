@@ -259,16 +259,31 @@
 		<div><strong>Release Date: &nbsp; </strong> <%= movie.released %></div>
 		<hr>
 
-		<!-- Get Recommendations -->
+		<!-- Get Recommendation & Similar Movies -->
 
-		<a href="/search/recommendations/<%=tmdbId%>">
-			<button type="button" class="btn btn-primary btn-lg">Get Recommendations</button>
-		</a>
+		<div>
+			<span class="get-button-span">
+				<!-- Get Recommendations -->
+
+				<a href="/search/get/recommendations/<%=tmdbId%>">
+					<button type="button" class="btn btn-primary btn-lg">Get Recommendations</button>
+				</a>
+
+				<!-- /Get Recommendations -->
+			</span>
+
+			<span class="get-button-span">
+				<!-- Get Similar -->
+
+				<a href="/search/get/similar/<%=tmdbId%>">
+					<button type="button" class="btn btn-primary btn-lg">Get Similar Movies</button>
+				</a>
+
+				<!-- /Get Similar -->
+			</span>
+		</div>
 
 		<hr>
-
-		<!-- /Get Recommendations -->
-
 
 		<!-- Tagline -->
 		<% if(movie.tagline){ %>

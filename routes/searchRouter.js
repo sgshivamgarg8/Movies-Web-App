@@ -42,32 +42,19 @@ router.get("/results", (req, res) => {
   }
 });
 
-router.get("/recommendations/:tmdbId", (req, res) => {
-  let tmdbId = req.params.tmdbId;
-  let recommendationUrl = `https://api.themoviedb.org/3/movie/${tmdbId}/recommendations?api_key=${tmdbApiKey}&language=en-US&page=1`;
-  request(recommendationUrl, (err, resp, body) => {
+router.get("/get/:type/:tmdbId", (req, res) => {
+  let { tmdbId, type } = req.params;
+  console.log(type);
+  let url = `https://api.themoviedb.org/3/movie/${tmdbId}/${type}?api_key=${tmdbApiKey}&language=en-US&page=1`;
+  console.log(url);
+  request(url, (err, resp, body) => {
     let data = JSON.parse(body);
     // console.log(data.results);
     let results = data.results;
 
-    /* moviesList = [
-      {
-        Title: "",
-        Year: "",
-        imdbId: "",
-        Poster: "",
-      }
-    ]
-    */
     let moviesList = [];
     let count = 0;
     results.map((result) => {
-      // moviesList.push({
-      //   "Title": result.title,
-      //   "Year": result.release_date.split("-")[0],
-      //   "Poster": "https://image.tmdb.org/t/p/w300" + result.poster_path,
-      //   "imdbID": "tt3281548",
-      // });
       let getImdbId = `https://api.themoviedb.org/3/movie/${result.id}?api_key=${tmdbApiKey}`;
       request(getImdbId, (err, resp, body) => {
         count++;
@@ -89,12 +76,6 @@ router.get("/recommendations/:tmdbId", (req, res) => {
         }
       });
     });
-
-    // res.render("results", {
-    //   movies: moviesList,
-    //   response: "True",
-    //   error: null,
-    // });
   });
 });
 
