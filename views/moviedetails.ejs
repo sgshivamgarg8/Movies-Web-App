@@ -261,6 +261,8 @@
 
 		<!-- Get Recommendation & Similar Movies -->
 
+		<% if(movie.type == "movie") { %>
+
 		<div>
 			<span class="get-button-span">
 				<!-- Get Recommendations -->
@@ -284,6 +286,7 @@
 		</div>
 
 		<hr>
+		<% } %>
 
 		<!-- Tagline -->
 		<% if(movie.tagline){ %>
