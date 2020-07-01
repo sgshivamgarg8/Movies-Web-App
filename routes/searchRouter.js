@@ -30,13 +30,53 @@ router.get("/results", (req, res) => {
     let url = `http://www.omdbapi.com/?apikey=${omdbApiKey}&s=${searchquery}&type=${type}`;
     request(url, (error, response, body) => {
       if (!error && response.statusCode == 200) {
-        let movies = JSON.parse(body);
+        let data = JSON.parse(body);
+        // console.log(data.Search);
         res.render("results", {
-          movies: movies
+          movies: data.Search,
+          response: data.Response,
+          error: data.Error,
         });
       }
     });
   }
+});
+
+router.get("/get/:type/:tmdbId", (req, res) => {
+  let { tmdbId, type } = req.params;
+  console.log(type);
+  let url = `https://api.themoviedb.org/3/movie/${tmdbId}/${type}?api_key=${tmdbApiKey}&language=en-US&page=1`;
+  console.log(url);
+  request(url, (err, resp, body) => {
+    let data = JSON.parse(body);
+    // console.log(data.results);
+    let results = data.results;
+
+    let moviesList = [];
+    let count = 0;
+    results.map((result) => {
+      let getImdbId = `https://api.themoviedb.org/3/movie/${result.id}?api_key=${tmdbApiKey}`;
+      request(getImdbId, (err, resp, body) => {
+        count++;
+        let imdbData = JSON.parse(body);
+        let imdbId = imdbData.imdb_id;
+        moviesList.push({
+          "Title": result.title,
+          "Year": result.release_date.split("-")[0],
+          "Poster": "https://image.tmdb.org/t/p/w300" + result.poster_path,
+          "imdbID": imdbId,
+        });
+        if (count === 20) {
+          // console.log(moviesList);
+          res.render('results', {
+            movies: moviesList,
+            response: "True",
+            error: null
+          });
+        }
+      });
+    });
+  });
 });
 
 router.get("/persondetails/:personid", (req, res) => {
@@ -174,6 +214,7 @@ router.get("/moviedetails/:clickedmovieimdbid", (req, res) => {
         }
         // console.log(tmdbId);
 
+        //  get trailer ===========================================================
         request(searchTrailerLinkUrl, (err, resp, body) => {
           full_data = JSON.parse(body);
           // console.log(full_data);
@@ -205,8 +246,20 @@ router.get("/moviedetails/:clickedmovieimdbid", (req, res) => {
           clickedmovie.production = full_data.production_companies;
           clickedmovie.status = full_data.status;
           // console.log(clickedmovie);
+
+          // // get recommendations =========================================================
+
+          // let recommendationUrl = `https://api.themoviedb.org/3/movie/${tmdbId}/recommendations?api_key=${tmdbApiKey}&language=en-US&page=1`;
+          // request(recommendationUrl, (err, resp, body) => {
+
+          //   let data = JSON.parse(body);
+          //   let recommendedMovies = data.results;
+
+          // });
+
           res.render("moviedetails", {
             movie: clickedmovie,
+            // recommendedMovies: recommendedMovies,
             trailerlink: youtubeId,
             display: convertRuntime,
             foundInWatchlist: foundInWatchlist,
@@ -214,8 +267,10 @@ router.get("/moviedetails/:clickedmovieimdbid", (req, res) => {
             foundInDislikedMovielist: foundInDislikedMovielist,
             foundInRatingList: foundInRatingList,
             rating: rating,
-            flagMovie: flagMovie
+            flagMovie: flagMovie,
+            tmdbId: tmdbId,
           });
+
         });
       });
     })

@@ -437,3 +437,8 @@ h2 {
 .profile {
 	text-align: center;
 }
+
+.get-button-span {
+	margin-right: 20px;
+	margin-left: 20px;
+}
