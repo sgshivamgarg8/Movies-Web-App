@@ -1,7 +1,7 @@
 # Movies-Web-App
 ## The Ultimate Search Engine for Movies and TV Series
 
-[MovieSSS](http://smovies.herokuapp.com)
+### [MovieSSS](http://smovies.herokuapp.com)
 
 * Install Node.js and MongoDB in your machine.
 * Install all the npm packages required from dependencies in package.json using
