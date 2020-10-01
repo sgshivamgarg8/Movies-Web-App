@@ -26,7 +26,7 @@
   npm start
   ```
 
-### Note: To make an user admin you will have to change 'admin' property from false to true, manually using mongo client in terminal/cmd using commands
+### Note: To make a user an admin you will have to change 'admin' property from false to true, manually using mongo client in terminal/cmd using commands
 ```sh
 mongo
 use moviesapp
