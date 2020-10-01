@@ -13,7 +13,7 @@
   set TMDBAPIKEY="Your tmdb api key without quotes"
   set OMDBAPIKEY="Your omdb api key without quotes"
   ```
-* Set Environemnt Variable for Database using (optional)
+* Set Environemnt Variable for Database using (optional!)
   ```sh
   set DATABASEURL="Your database url without quotes"
   ```
