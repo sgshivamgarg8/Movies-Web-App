@@ -25,7 +25,7 @@
     "csv-parser": "^2.2.0",
     "ejs": "^3.1.7",
     "express": "^4.17.3",
-    "express-fileupload": "^1.1.6",
+    "express-fileupload": "^1.4.0",
     "express-session": "^1.16.2",
     "fs": "0.0.1-security",
     "mongoose": "^8.0.3",
