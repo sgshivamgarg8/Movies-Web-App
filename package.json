@@ -28,7 +28,7 @@
     "express-fileupload": "^1.4.0",
     "express-session": "^1.16.2",
     "fs": "0.0.1-security",
-    "mongoose": "^8.0.3",
+    "mongoose": "^8.5.1",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^5.0.1",
